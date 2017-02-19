@@ -20,6 +20,7 @@ using Microsoft.Build.Evaluation;
 using Microsoft.Build.Execution;
 using Microsoft.Build.Logging;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace MySolutionExplorer
 {
@@ -50,16 +51,46 @@ namespace MySolutionExplorer
 			//x.Save(dir + "textxml.xml");
 
 
-			var p = new Project()
+			var p = new CppProject(dir + @"acmp 0001. A+B [cpp]")
 			{
 				Name = "A+B",
 				Site = "acmp",
 				Number = 1,
 				Lang = "cpp"
+			}; 
+			p.FindFiles();
+			p.FindProjectFiles();
+			
+			var p1 = new Project(dir + @"acmp 0156. Шахматы - 2 cs")
+			{
+				Name = "Шахматы - 2",
+				Site = "acmp",
+				Number = 156,
+				Lang = "cs"
 			};
-			p.VSLastProj = new XmlDocument();
-			p.VSLastProj.Load(dir + "textxml.xml");
 
+
+			var s = new Solution(dir.FullName);
+			s.Add(p);
+			s.Add(p1);
+
+			var serializer = new XmlSerializer(typeof(Solution));
+
+			using (var fs = new StreamWriter(dir + "ExperimentalSolution.mysln"))
+			{
+				serializer.Serialize(fs, s);
+				return;
+			}
+
+			//using (FileStream fs = new FileStream("people.xml", FileMode.OpenOrCreate))
+			//{
+			//	Person[] newpeople = (Person[])formatter.Deserialize(fs);
+
+			//	foreach (Person p in newpeople)
+			//	{
+			//		Console.WriteLine("Имя: {0} --- Возраст: {1}", p.Name, p.Age);
+			//	}
+			//}
 		}
 	}
 }
