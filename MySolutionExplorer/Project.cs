@@ -20,6 +20,8 @@ namespace MySolutionExplorer
 		public FileInfo InputFile { get; set; }
 		[XmlIgnore]
 		public FileInfo OutputFile { get; set; }
+		[XmlIgnore]
+		public Solution ParentSolution { get; set; }
 
 		public int Number { get; set; }
 		public string Site { get; set; }
@@ -47,7 +49,10 @@ namespace MySolutionExplorer
 			}
 			set
 			{
-				throw new NotImplementedException();
+				if (Number == 0 || Site == "" || Lang == "" || Name == "")
+				{
+					throw new NotImplementedException();
+				}
 			}
 		}
 		public string RootNamespace

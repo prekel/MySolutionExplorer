@@ -51,6 +51,8 @@ namespace MySolutionExplorer
 			//x.Save(dir + "textxml.xml");
 
 
+			Directory.SetCurrentDirectory(dir.FullName);
+
 			var p = new CppProject(dir + @"acmp 0001. A+B [cpp]")
 			{
 				Name = "A+B",
@@ -69,28 +71,22 @@ namespace MySolutionExplorer
 				Lang = "cs"
 			};
 
+			var s = new Solution(dir.FullName) { p };//, p1 };
 
-			var s = new Solution(dir.FullName);
-			s.Add(p);
-			s.Add(p1);
+			//s.FindProjects();
 
 			var serializer = new XmlSerializer(typeof(Solution));
 
-			using (var fs = new StreamWriter(dir + "ExperimentalSolution.mysln"))
+			using (var fs = new StreamWriter("ExperimentalSolution.mysln"))
 			{
 				serializer.Serialize(fs, s);
-				return;
 			}
 
-			//using (FileStream fs = new FileStream("people.xml", FileMode.OpenOrCreate))
-			//{
-			//	Person[] newpeople = (Person[])formatter.Deserialize(fs);
-
-			//	foreach (Person p in newpeople)
-			//	{
-			//		Console.WriteLine("Имя: {0} --- Возраст: {1}", p.Name, p.Age);
-			//	}
-			//}
+			using (var fs = new FileStream("ExperimentalSolution.mysln", FileMode.OpenOrCreate))
+			{
+				var s1 = (Solution)serializer.Deserialize(fs);
+				s1.Dir = dir;
+			}
 		}
 	}
 }

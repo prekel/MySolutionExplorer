@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<Solution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project xsi:type="CppProject">
     <Number>1</Number>
     <Site>acmp</Site>
@@ -7,11 +7,4 @@
     <Name>A+B</Name>
     <FullName>acmp 0001. A+B [cpp]</FullName>
   </Project>
-  <Project>
-    <Number>156</Number>
-    <Site>acmp</Site>
-    <Lang>cs</Lang>
-    <Name>Шахматы - 2</Name>
-    <FullName>acmp 0156. Шахматы - 2 [cs]</FullName>
-  </Project>
-</ArrayOfProject>
+</Solution>
