@@ -15,6 +15,8 @@ namespace MySolutionExplorer
 	public class Solution : List<Project>
 	{
 		[XmlIgnore]
+		public FileInfo DirSolution;
+		[XmlIgnore]
 		public DirectoryInfo Dir;
 
 		public Solution()
@@ -24,7 +26,8 @@ namespace MySolutionExplorer
 
 		public Solution(string path)
 		{
-			Dir = new DirectoryInfo(path);
+			DirSolution = new FileInfo(path);
+			Dir = DirSolution.Directory;
 		}
 
 		public void FindProjects()
@@ -42,6 +45,19 @@ namespace MySolutionExplorer
 		{
 			base.Add(item);
 			item.ParentSolution = this;
+		}
+
+		public void DeleteTrash()
+		{
+			try
+			{
+				Directory.Delete(Dir + MyEnum.Trash, true);
+			}
+			catch (Exception e)
+			{
+				//ignored
+			}
+			//Directory.CreateDirectory(Dir + MyEnum.Trash);
 		}
 	}
 }

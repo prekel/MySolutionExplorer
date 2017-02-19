@@ -23,6 +23,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public Solution ParentSolution { get; set; }
 
+		protected HashSet<string> AllowedFiles = new HashSet<string>();
+
 		public int Number { get; set; }
 		public string Site { get; set; }
 		public string Lang { get; set; }
@@ -77,17 +79,32 @@ namespace MySolutionExplorer
 		{
 			foreach (var i in Dir.GetFiles())
 			{
-				if (i.Name == "input.txt")
+				if (i.Name == MyEnum.Input)
 				{
 					InputFile = i;
+					AllowedFiles.Add(i.FullName);
 				}
-				if (i.Name == "output.txt")
+				if (i.Name == MyEnum.Output)
 				{
 					OutputFile = i;
+					AllowedFiles.Add(i.FullName);
 				}
-				if (i.Extension == ".cpp" || i.Extension == ".cs" || i.Extension == ".py")
+				if (i.Extension == MyEnum.Cpp || i.Extension == MyEnum.CSharp || i.Extension == MyEnum.Python)
 				{
 					CodeFile = i;
+					AllowedFiles.Add(i.FullName);
+				}
+			}
+		}
+		public void Clean()
+		{
+			
+			foreach (var i in Dir.GetFiles())
+			{
+				if (!AllowedFiles.Contains(i.FullName))
+				{
+					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + FullName);
+					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + FullName + MyEnum.Slash + i.Name);
 				}
 			}
 		}

@@ -51,7 +51,7 @@ namespace MySolutionExplorer
 			//x.Save(dir + "textxml.xml");
 
 
-			Directory.SetCurrentDirectory(dir.FullName);
+			//Directory.SetCurrentDirectory(dir.FullName);
 
 			var p = new CppProject(dir + @"acmp 0001. A+B [cpp]")
 			{
@@ -71,18 +71,22 @@ namespace MySolutionExplorer
 				Lang = "cs"
 			};
 
-			var s = new Solution(dir.FullName) { p };//, p1 };
+			var s = new Solution(dir + "ExperimentalSolution.mysln") { p };//, p1 };
+
+			s.DeleteTrash();
+			((CppProject)s[0]).FindProjectFiles();
+			s[0].Clean();
 
 			//s.FindProjects();
 
 			var serializer = new XmlSerializer(typeof(Solution));
 
-			using (var fs = new StreamWriter("ExperimentalSolution.mysln"))
+			using (var fs = new StreamWriter(dir + "ExperimentalSolution.mysln"))
 			{
 				serializer.Serialize(fs, s);
 			}
 
-			using (var fs = new FileStream("ExperimentalSolution.mysln", FileMode.OpenOrCreate))
+			using (var fs = new FileStream(dir + "ExperimentalSolution.mysln", FileMode.OpenOrCreate))
 			{
 				var s1 = (Solution)serializer.Deserialize(fs);
 				s1.Dir = dir;

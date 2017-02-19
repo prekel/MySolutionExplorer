@@ -13,7 +13,9 @@ namespace MySolutionExplorer
 	public class CppProject : Project
 	{
 		[XmlIgnore]
-		public XmlDocument VSLastProj;
+		public FileInfo VSLastProj { get; set; }
+		[XmlIgnore]
+		private XmlDocument VSLastProjXml = new XmlDocument();
 
 		public CppProject()
 		{
@@ -29,10 +31,11 @@ namespace MySolutionExplorer
 		{
 			foreach (var i in Dir.GetFiles())
 			{
-				if (i.Extension == ".vcxproj")
+				if (i.Extension == MyEnum.VCXProj)
 				{
-					VSLastProj = new XmlDocument();
-					VSLastProj.Load(Dir.FullName + @"\" + i);
+					VSLastProj = new FileInfo(Dir.FullName + MyEnum.Slash + i);
+					AllowedFiles.Add(VSLastProj.FullName);
+					VSLastProjXml.Load(VSLastProj.FullName);
 				}
 			}
 		}
