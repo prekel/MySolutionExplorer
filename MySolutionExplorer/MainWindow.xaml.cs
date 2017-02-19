@@ -12,6 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using Microsoft.Build.Construction;
+using Microsoft.Build;
+using Microsoft.Build.Exceptions;
+using Microsoft.Build.Evaluation;
+using Microsoft.Build.Execution;
+using Microsoft.Build.Logging;
+using System.Xml;
 
 namespace MySolutionExplorer
 {
@@ -23,6 +31,35 @@ namespace MySolutionExplorer
 		public MainWindow()
 		{
 			InitializeComponent();
+			var dir = new DirectoryInfo(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\");
+			//var s = SolutionFile.Parse(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\ExperimentalSolution.sln");
+			//s.ProjectsInOrder[0].Dependencies.
+			//var p2 = new MyProject(dir.FullName + @"acmp 0156. Шахматы - 2 cs\acmp 0156. Шахматы - 2 cs.csproj");
+			//var f = dir.GetFiles().
+			//var d = dir.GetDirectories();
+
+			//var p1 = new MyProject(dir.FullName + @"acmp 0114. Без двух нулей подряд\acmp 0114. Без двух нулей подряд.vcxproj");
+			//var p = new MyProject(dir.FullName + @"acmp 0001. A+B [cpp]\acmp 0001. A+B [cpp].vcxproj");
+			//p.VSLastProj.AddItem("txt", dir.FullName + @"acmp 0001. A+B [cpp]\input.txt");
+
+
+			//var x = XmlReader.Create(dir + "textxml.xml");
+			//var x = new XmlDocument();
+			//x.Load(dir + "textxml.xml");
+			//x.DocumentElement["PropertyGroup"]["RootNamespace"].InnerText = "acmp_0001";
+			//x.Save(dir + "textxml.xml");
+
+
+			var p = new Project()
+			{
+				Name = "A+B",
+				Site = "acmp",
+				Number = 1,
+				Lang = "cpp"
+			};
+			p.VSLastProj = new XmlDocument();
+			p.VSLastProj.Load(dir + "textxml.xml");
+
 		}
 	}
 }
