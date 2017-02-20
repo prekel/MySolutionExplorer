@@ -14,4 +14,18 @@
     <Name>Неглухой телефон</Name>
     <FullName>acmp 0108. Неглухой телефон [cpp]</FullName>
   </Project>
+  <Project xsi:type="CppProject">
+    <Number>25</Number>
+    <Site>acmp</Site>
+    <Lang>cpp</Lang>
+    <Name>Больше-меньше</Name>
+    <FullName>acmp 0025. Больше-меньше [cpp]</FullName>
+  </Project>
+  <Project xsi:type="CppProject">
+    <Number>195</Number>
+    <Site>acmp</Site>
+    <Lang>cpp</Lang>
+    <Name>Эния</Name>
+    <FullName>acmp 0195. Эния [cpp]</FullName>
+  </Project>
 </Solution>

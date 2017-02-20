@@ -30,10 +30,12 @@ namespace MySolutionExplorer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public Solution s;
+		DirectoryInfo dir = new DirectoryInfo(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\");
+
 		public MainWindow()
 		{
 			InitializeComponent();
-			var dir = new DirectoryInfo(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\");
 			//var s = SolutionFile.Parse(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\ExperimentalSolution.sln");
 			//s.ProjectsInOrder[0].Dependencies.
 			//var p2 = new MyProject(dir.FullName + @"acmp 0156. Шахматы - 2 cs\acmp 0156. Шахматы - 2 cs.csproj");
@@ -54,15 +56,15 @@ namespace MySolutionExplorer
 
 			//Directory.SetCurrentDirectory(dir.FullName);
 
-			var p = new CppProject(dir + @"acmp 0001. A+B [cpp]")
-			{
-				Name = "A+B",
-				Site = "acmp",
-				Number = 1,
-				Lang = "cpp"
-			};
-			p.FindFiles();
-			p.FindProjectFiles();
+			//var p = new CppProject(dir + @"acmp 0001. A+B [cpp]")
+			//{
+			//	Name = "A+B",
+			//	Site = "acmp",
+			//	Number = 1,
+			//	Lang = "cpp"
+			//};
+			//p.FindFiles();
+			//p.FindProjectFiles();
 
 			//var p1 = new Project(dir + @"acmp 0156. Шахматы - 2 cs")
 			//{
@@ -73,9 +75,7 @@ namespace MySolutionExplorer
 			//};
 
 			//var s = new Solution(dir + "ExperimentalSolution.mysln") { p };//, p1 };
-
-
-			var s = Solution.Load(dir + "ExperimentalSolution.mysln");
+			//s = Solution.Load(dir + "ExperimentalSolution.mysln");
 
 			//var p2 = new CppProject(dir + @"acmp 0108. Неглухой телефон [cpp]")
 			//{
@@ -107,12 +107,35 @@ namespace MySolutionExplorer
 			//	var s1 = (Solution)serializer.Deserialize(fs);
 			//}
 
-			mainTable.ItemsSource = s;
+			//mainTable.ItemsSource = s;
 			
 		}
 
 		private void loadButton_Click(object sender, RoutedEventArgs e)
 		{
+			s = Solution.Load(dir + "ExperimentalSolution.mysln");
+			mainTable.ItemsSource = s;
+		}
+
+		private void createButton_Click(object sender, RoutedEventArgs e)
+		{
+			var p = new CppProject()
+			{
+				Name = nameText.Text,
+				Site = siteText.Text,
+				Number = int.Parse(numberText.Text),
+				Lang = langText.Text
+			};
+			p.Path = dir + p.FullName;
+			p.CreateFiles();
+			s.Add(p);
+			mainTable.ItemsSource = null;
+			mainTable.ItemsSource = s;
+		}
+
+		private void saveButton_Click(object sender, RoutedEventArgs e)
+		{
+			s.Save();
 		}
 	}
 }
