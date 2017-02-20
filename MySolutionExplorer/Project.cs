@@ -79,7 +79,7 @@ namespace MySolutionExplorer
 				return String.Format("{0}_{1:D4}", Site, Number);
 			}
 		}
-		public string CodeFileName
+		protected string CodeFileName
 		{
 			get
 			{
@@ -120,7 +120,7 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public abstract void FindProjectFiles();
+		protected abstract void FindProjectFiles();
 
 		public void Clean()
 		{
@@ -143,7 +143,7 @@ namespace MySolutionExplorer
 			}
 			try
 			{
-				Solution.DirectoryCopy(@"Templates\" + MyEnum.TemplateVSLastProj, Dir.FullName, true);
+				Solution.DirectoryCopy(@"Templates\" + MyEnum.TemplateCppProj, Dir.FullName, true);
 			}
 			catch
 			{

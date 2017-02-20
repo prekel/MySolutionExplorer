@@ -128,7 +128,7 @@ namespace MySolutionExplorer
 			};
 			p.Path = dir + p.FullName;
 			p.CreateFiles();
-			s.Add(p);
+			s.Add(p);p.
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
 		}

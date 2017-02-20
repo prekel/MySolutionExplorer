@@ -95,15 +95,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Templates\acmp 0000. A+B [cpp]\acmp 0000. A+B [cpp].vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Templates\acmp 0000. A+B [cpp]\input.txt" />
-    <Resource Include="Templates\acmp 0000. A+B [cpp]\output.txt" />
-    <Content Include="Templates\acmp 0000. A+B [cpp]\Task_acmp0000.cpp" />
+    <Folder Include="Templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
