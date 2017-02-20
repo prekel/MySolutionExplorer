@@ -76,9 +76,19 @@ namespace MySolutionExplorer
 
 			var s = Solution.Load(dir + "ExperimentalSolution.mysln");
 
-			s.DeleteTrash();
-			((CppProject)s[0]).FindProjectFiles();
-			s[0].Clean();
+			var p2 = new CppProject(dir + @"acmp 0108. Неглухой телефон [cpp]")
+			{
+				Name = "Неглухой телефон",
+				Site = "acmp",
+				Number = 108,
+				Lang = "cpp"
+			};
+			s.Add(p2);
+			p2.CreateFiles();
+
+			//s.DeleteTrash();
+			//((CppProject)s[0]).FindProjectFiles();
+			//s[0].Clean();
 
 			//s.FindProjects();
 

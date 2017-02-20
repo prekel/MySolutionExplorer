@@ -48,5 +48,33 @@ namespace MySolutionExplorer
 			VSLastProjXml = new XmlDocument();
 			VSLastProjXml.Load(VSLastProj.FullName);
 		}
+
+		public new void CreateFiles()
+		{
+			base.CreateFiles();
+			VSLastProj = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateVSLastProj + MyEnum.VCXProj);
+			VSLastProj = Solution.RenameFile(VSLastProj, FullName + MyEnum.VCXProj);
+			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCpp);
+			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
+
+			LoadProjects();
+			ReformVSLastProjXml();
+
+			FindFiles();
+			FindProjectFiles();
+		}
+
+		public void ReformVSLastProjXml()
+		{
+			VSLastProjXml.DocumentElement["PropertyGroup"]["RootNamespace"].InnerText = RootNamespace;
+			foreach (XmlElement i in VSLastProjXml.DocumentElement)
+			{
+				if (i.Name == "ItemGroup" && i.FirstChild.Name == "ClCompile")
+				{
+					i.FirstChild.Attributes[0].Value = CodeFileName;
+				}
+			}
+			VSLastProjXml.Save(VSLastProj.FullName);
+		}
 	}
 }

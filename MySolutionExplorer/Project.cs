@@ -79,6 +79,13 @@ namespace MySolutionExplorer
 				return String.Format("{0}_{1:D4}", Site, Number);
 			}
 		}
+		public string CodeFileName
+		{
+			get
+			{
+				return String.Format("Task_{0}{1:D4}.{2}", Site, Number, Lang);
+			}
+		}
 
 		public Project()
 		{
@@ -113,7 +120,6 @@ namespace MySolutionExplorer
 		}
 		public void Clean()
 		{
-
 			foreach (var i in Dir.GetFiles())
 			{
 				if (!AllowedFiles.Contains(i.FullName))
@@ -121,6 +127,22 @@ namespace MySolutionExplorer
 					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + FullName);
 					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + FullName + MyEnum.Slash + i.Name);
 				}
+			}
+		}
+
+		public void CreateFiles()
+		{
+			if (Dir.Exists)
+			{
+				throw new Exception("Папка с проектом уже есть");
+			}
+			try
+			{
+				Solution.DirectoryCopy(@"Templates\" + MyEnum.TemplateVSLastProj, Dir.FullName, true);
+			}
+			catch
+			{
+
 			}
 		}
 	}

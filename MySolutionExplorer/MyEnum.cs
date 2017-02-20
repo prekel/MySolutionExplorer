@@ -12,5 +12,6 @@ namespace MySolutionExplorer
 		public const string VCXProj = ".vcxproj", CSProj = ".csproj", PyProj = ".pyproj";
 		public const string Input = "input.txt", Output = "output.txt";
 		public const string Trash = @"\Trash\", Slash = @"\";
+		public const string TemplateVSLastProj = "acmp 0000. A+B [cpp]", TemplateCpp = "Task_acmp0000.cpp";
 	}
 }
