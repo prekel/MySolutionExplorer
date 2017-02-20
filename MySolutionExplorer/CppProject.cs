@@ -15,14 +15,14 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public FileInfo VSLastProj { get; set; }
 		[XmlIgnore]
-		private XmlDocument VSLastProjXml = new XmlDocument();
+		private XmlDocument VSLastProjXml;
 
 		public CppProject()
 		{
 
 		}
 
-		public CppProject (string path) : base(path)
+		public CppProject(string path) : base(path)
 		{
 
 		}
@@ -35,9 +35,18 @@ namespace MySolutionExplorer
 				{
 					VSLastProj = new FileInfo(Dir.FullName + MyEnum.Slash + i);
 					AllowedFiles.Add(VSLastProj.FullName);
-					VSLastProjXml.Load(VSLastProj.FullName);
 				}
 			}
+		}
+
+		public void LoadProjects()
+		{
+			if (VSLastProj == null)
+			{
+				FindProjectFiles();
+			}
+			VSLastProjXml = new XmlDocument();
+			VSLastProjXml.Load(VSLastProj.FullName);
 		}
 	}
 }

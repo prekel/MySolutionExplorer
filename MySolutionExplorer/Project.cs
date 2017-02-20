@@ -12,8 +12,23 @@ namespace MySolutionExplorer
 	[Serializable]
 	public class Project
 	{
+		private DirectoryInfo _dir;
 		[XmlIgnore]
-		public DirectoryInfo Dir { get; set; }
+		public DirectoryInfo Dir
+		{
+			get
+			{
+				if (_dir != null)
+				{
+					return _dir;
+				}
+				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + FullName);
+			}
+			set
+			{
+				_dir = value;
+			}
+		}
 		[XmlIgnore]
 		public FileInfo CodeFile { get; set; }
 		[XmlIgnore]
@@ -98,7 +113,7 @@ namespace MySolutionExplorer
 		}
 		public void Clean()
 		{
-			
+
 			foreach (var i in Dir.GetFiles())
 			{
 				if (!AllowedFiles.Contains(i.FullName))

@@ -95,9 +95,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Templates\acmp 0001. A+B [cpp].vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>rd Templates /S /Q
+cd ..\
+cd ..\
+xcopy Templates $(OutDir)Templates\ /Y</PreBuildEvent>
+  </PropertyGroup>
 </Project>

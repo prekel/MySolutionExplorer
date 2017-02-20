@@ -59,10 +59,10 @@ namespace MySolutionExplorer
 				Site = "acmp",
 				Number = 1,
 				Lang = "cpp"
-			}; 
+			};
 			p.FindFiles();
 			p.FindProjectFiles();
-			
+
 			var p1 = new Project(dir + @"acmp 0156. Шахматы - 2 cs")
 			{
 				Name = "Шахматы - 2",
@@ -71,7 +71,10 @@ namespace MySolutionExplorer
 				Lang = "cs"
 			};
 
-			var s = new Solution(dir + "ExperimentalSolution.mysln") { p };//, p1 };
+			//var s = new Solution(dir + "ExperimentalSolution.mysln") { p };//, p1 };
+
+
+			var s = Solution.Load(dir + "ExperimentalSolution.mysln");
 
 			s.DeleteTrash();
 			((CppProject)s[0]).FindProjectFiles();
@@ -79,18 +82,17 @@ namespace MySolutionExplorer
 
 			//s.FindProjects();
 
-			var serializer = new XmlSerializer(typeof(Solution));
+			//var serializer = new XmlSerializer(typeof(Solution));
 
-			using (var fs = new StreamWriter(dir + "ExperimentalSolution.mysln"))
-			{
-				serializer.Serialize(fs, s);
-			}
+			//using (var fs = new StreamWriter(dir + "ExperimentalSolution.mysln"))
+			//{
+			//	serializer.Serialize(fs, s);
+			//}
 
-			using (var fs = new FileStream(dir + "ExperimentalSolution.mysln", FileMode.OpenOrCreate))
-			{
-				var s1 = (Solution)serializer.Deserialize(fs);
-				s1.Dir = dir;
-			}
+			//using (var fs = new FileStream(dir + "ExperimentalSolution.mysln", FileMode.OpenOrCreate))
+			//{
+			//	var s1 = (Solution)serializer.Deserialize(fs);
+			//}
 		}
 	}
 }
