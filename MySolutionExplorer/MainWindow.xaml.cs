@@ -119,6 +119,11 @@ namespace MySolutionExplorer
 
 		private void createButton_Click(object sender, RoutedEventArgs e)
 		{
+			if (s == null)
+			{
+				s = new Solution();
+				s.DirSolution = new FileInfo(dir + "ExperimentalSolution.mysln");
+			}
 			var p = new CppProject()
 			{
 				Name = nameText.Text,
@@ -128,7 +133,7 @@ namespace MySolutionExplorer
 			};
 			p.Path = dir + p.FullName;
 			p.CreateFiles();
-			s.Add(p);p.
+			s.Add(p);
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
 		}

@@ -31,7 +31,7 @@ namespace MySolutionExplorer
 
 		}
 
-		private override void FindProjectFiles()
+		protected override void FindProjectFiles()
 		{
 			foreach (var i in Dir.GetFiles())
 			{
