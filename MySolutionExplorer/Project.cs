@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace MySolutionExplorer
 {
 	[Serializable]
-	public class Project
+	public abstract class Project
 	{
 		private DirectoryInfo _dir;
 		[XmlIgnore]
@@ -99,6 +99,7 @@ namespace MySolutionExplorer
 
 		public void FindFiles()
 		{
+			FindProjectFiles();
 			foreach (var i in Dir.GetFiles())
 			{
 				if (i.Name == MyEnum.Input)
@@ -118,8 +119,12 @@ namespace MySolutionExplorer
 				}
 			}
 		}
+
+		public abstract void FindProjectFiles();
+
 		public void Clean()
 		{
+			FindFiles();
 			foreach (var i in Dir.GetFiles())
 			{
 				if (!AllowedFiles.Contains(i.FullName))

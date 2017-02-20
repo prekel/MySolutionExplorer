@@ -63,28 +63,30 @@ namespace MySolutionExplorer
 			p.FindFiles();
 			p.FindProjectFiles();
 
-			var p1 = new Project(dir + @"acmp 0156. Шахматы - 2 cs")
-			{
-				Name = "Шахматы - 2",
-				Site = "acmp",
-				Number = 156,
-				Lang = "cs"
-			};
+			//var p1 = new Project(dir + @"acmp 0156. Шахматы - 2 cs")
+			//{
+			//	Name = "Шахматы - 2",
+			//	Site = "acmp",
+			//	Number = 156,
+			//	Lang = "cs"
+			//};
 
 			//var s = new Solution(dir + "ExperimentalSolution.mysln") { p };//, p1 };
 
 
 			var s = Solution.Load(dir + "ExperimentalSolution.mysln");
 
-			var p2 = new CppProject(dir + @"acmp 0108. Неглухой телефон [cpp]")
-			{
-				Name = "Неглухой телефон",
-				Site = "acmp",
-				Number = 108,
-				Lang = "cpp"
-			};
-			s.Add(p2);
-			p2.CreateFiles();
+			//var p2 = new CppProject(dir + @"acmp 0108. Неглухой телефон [cpp]")
+			//{
+			//	Name = "Неглухой телефон",
+			//	Site = "acmp",
+			//	Number = 108,
+			//	Lang = "cpp"
+			//};
+			//s.Add(p2);
+			//p2.CreateFiles();
+
+			s.Save();
 
 			//s.DeleteTrash();
 			//((CppProject)s[0]).FindProjectFiles();
