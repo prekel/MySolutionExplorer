@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,7 +87,7 @@ namespace MySolutionExplorer
 			//s.Add(p2);
 			//p2.CreateFiles();
 
-			s.Save();
+			//s.Save();
 
 			//s.DeleteTrash();
 			//((CppProject)s[0]).FindProjectFiles();
@@ -105,6 +106,13 @@ namespace MySolutionExplorer
 			//{
 			//	var s1 = (Solution)serializer.Deserialize(fs);
 			//}
+
+			mainTable.ItemsSource = s;
+			
+		}
+
+		private void loadButton_Click(object sender, RoutedEventArgs e)
+		{
 		}
 	}
 }

@@ -6,7 +6,34 @@
         xmlns:local="clr-namespace:MySolutionExplorer"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+	<Grid>
+		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="409,230,0,0" VerticalAlignment="Top" Width="75" Click="loadButton_Click"/>
+		<Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="409,132,0,0" VerticalAlignment="Top" Width="75"/>
+		<TextBox x:Name="siteText" HorizontalAlignment="Left" Height="23" Margin="386,48,0,0" TextWrapping="Wrap" Text="acmp" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="numberText" HorizontalAlignment="Left" Height="23" Margin="386,20,0,0" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="nameText" HorizontalAlignment="Left" Height="23" Margin="386,76,0,0" TextWrapping="Wrap" Text="Больше-меньше" VerticalAlignment="Top" Width="120"/>
+		<TextBox x:Name="langText" HorizontalAlignment="Left" Height="23" Margin="386,104,0,0" TextWrapping="Wrap" Text="cpp" VerticalAlignment="Top" Width="120"/>
+
+		<ListView 
+			Name="mainTable"
+			Margin="10,20,136,10">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn 
+						DisplayMemberBinding="{Binding Path=Site}"
+						Width="70">Сайт</GridViewColumn>
+					<GridViewColumn 
+						DisplayMemberBinding="{Binding Path=Number}" 
+						Width="50">Номер</GridViewColumn>
+					<GridViewColumn 
+						DisplayMemberBinding="{Binding Path=Name}"  
+						Width="150">Название</GridViewColumn>
+					<GridViewColumn 
+						DisplayMemberBinding="{Binding Path=Lang}"  
+						Width="50">Язык</GridViewColumn>
+				</GridView>
+			</ListView.View>
+		</ListView>
+
+	</Grid>
 </Window>
