@@ -22,7 +22,7 @@ namespace MySolutionExplorer
 				{
 					return _dir;
 				}
-				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + FullName);
+				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name);
 			}
 			set
 			{
@@ -43,7 +43,7 @@ namespace MySolutionExplorer
 		public int Number { get; set; }
 		public string Site { get; set; }
 		public string Lang { get; set; }
-		public string Name { get; set; }
+		public string TaskName { get; set; }
 
 		[XmlIgnore]
 		public string Path
@@ -58,15 +58,15 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public string FullName
+		public string Name
 		{
 			get
 			{
-				return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, Name, Lang);
+				return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, TaskName, Lang);
 			}
 			set
 			{
-				if (Number == 0 || Site == "" || Lang == "" || Name == "")
+				if (Number == 0 || Site == "" || Lang == "" || TaskName == "")
 				{
 					throw new NotImplementedException();
 				}
@@ -129,8 +129,8 @@ namespace MySolutionExplorer
 			{
 				if (!AllowedFiles.Contains(i.FullName))
 				{
-					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + FullName);
-					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + FullName + MyEnum.Slash + i.Name);
+					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
+					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
 				}
 			}
 		}

@@ -141,12 +141,12 @@ namespace MySolutionExplorer
 			}
 			var p = new CppProject
 			{
-				Name = nameText.Text,
+				TaskName = nameText.Text,
 				Site = siteText.Text,
 				Number = int.Parse(numberText.Text),
 				Lang = ((TextBlock)langList.SelectedValue).Text
 			};
-			p.Path = dir + MyEnum.Slash + p.FullName;
+			p.Path = dir + MyEnum.Slash + p.Name;
 			p.CreateFiles();
 			s.Add(p);
 			mainTable.ItemsSource = null;
