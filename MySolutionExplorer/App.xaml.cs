@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2017 Vladislav Prekel
+
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,6 @@ namespace MySolutionExplorer
 	/// </summary>
 	public partial class App : Application
 	{
+
 	}
 }
