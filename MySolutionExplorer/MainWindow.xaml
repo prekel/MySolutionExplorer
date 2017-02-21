@@ -7,15 +7,19 @@
         mc:Ignorable="d"
         Title="MySolutionExlorer" Height="350" Width="525">
 	<Grid>
-		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="409,230,0,0" VerticalAlignment="Top" Width="75" Click="loadButton_Click"/>
-		<Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="409,132,0,0" VerticalAlignment="Top" Width="75" Click="createButton_Click"/>
-		<TextBox x:Name="siteText" HorizontalAlignment="Left" Height="23" Margin="386,48,0,0" TextWrapping="Wrap" Text="acmp" VerticalAlignment="Top" Width="120"/>
-		<TextBox x:Name="numberText" HorizontalAlignment="Left" Height="23" Margin="386,20,0,0" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="120"/>
-		<TextBox x:Name="nameText" HorizontalAlignment="Left" Height="23" Margin="386,76,0,0" TextWrapping="Wrap" Text="Больше-меньше" VerticalAlignment="Top" Width="120"/>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="375*"/>
+			<ColumnDefinition Width="150"/>
+		</Grid.ColumnDefinitions>
+		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="35,230,0,0" VerticalAlignment="Top" Width="80" Click="loadButton_Click" Grid.Column="1"/>
+		<Button x:Name="createButton" Content="Создать" Margin="35,135,35,0" VerticalAlignment="Top" Click="createButton_Click" Grid.Column="1"/>
+		<TextBox x:Name="siteText" Margin="11,48,11,0" TextWrapping="Wrap" Text="acmp" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+		<TextBox x:Name="numberText" Margin="11,20,11,0" TextWrapping="Wrap" Text="25" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
+		<TextBox x:Name="nameText" Margin="11,76,11,0" TextWrapping="Wrap" Text="Больше-меньше" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
 
 		<ListView 
 			Name="mainTable"
-			Margin="10,20,136,10">
+			Margin="20,20,0,10">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn 
@@ -33,10 +37,10 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
-		<Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="409,270,0,0" VerticalAlignment="Top" Width="75" Click="saveButton_Click"/>
-		<Button x:Name="showButton" Content="Обзор..." HorizontalAlignment="Left" Margin="409,176,0,0" VerticalAlignment="Top" Width="75" Click="showButton_Click"/>
+		<Button x:Name="saveButton" Content="Сохранить" Margin="35,270,35,0" VerticalAlignment="Top" Click="saveButton_Click" Grid.Column="1"/>
+		<Button x:Name="showButton" Content="Обзор..." HorizontalAlignment="Left" Margin="35,176,0,0" VerticalAlignment="Top" Width="80" Click="showButton_Click" Grid.Column="1"/>
 
-		<ComboBox Name="langList" Height="23" VerticalAlignment="Top" Margin="387,104,11,0">
+		<ComboBox Name="langList" Margin="12,104,11,0" Grid.Column="1" Height="23" VerticalAlignment="Top">
 			<TextBlock>cpp</TextBlock>
 		</ComboBox>
 
