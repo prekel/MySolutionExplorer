@@ -12,7 +12,6 @@
 		<TextBox x:Name="siteText" HorizontalAlignment="Left" Height="23" Margin="386,48,0,0" TextWrapping="Wrap" Text="acmp" VerticalAlignment="Top" Width="120"/>
 		<TextBox x:Name="numberText" HorizontalAlignment="Left" Height="23" Margin="386,20,0,0" TextWrapping="Wrap" Text="25" VerticalAlignment="Top" Width="120"/>
 		<TextBox x:Name="nameText" HorizontalAlignment="Left" Height="23" Margin="386,76,0,0" TextWrapping="Wrap" Text="Больше-меньше" VerticalAlignment="Top" Width="120"/>
-		<TextBox x:Name="langText" HorizontalAlignment="Left" Height="23" Margin="386,104,0,0" TextWrapping="Wrap" Text="cpp" VerticalAlignment="Top" Width="120"/>
 
 		<ListView 
 			Name="mainTable"
@@ -35,6 +34,11 @@
 			</ListView.View>
 		</ListView>
 		<Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="409,270,0,0" VerticalAlignment="Top" Width="75" Click="saveButton_Click"/>
+		<Button x:Name="showButton" Content="Обзор..." HorizontalAlignment="Left" Margin="409,176,0,0" VerticalAlignment="Top" Width="75" Click="showButton_Click"/>
+
+		<ComboBox Name="langList" Height="23" VerticalAlignment="Top" Margin="387,104,11,0">
+			<TextBlock>cpp</TextBlock>
+		</ComboBox>
 
 	</Grid>
 </Window>

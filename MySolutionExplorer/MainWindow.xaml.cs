@@ -31,7 +31,8 @@ namespace MySolutionExplorer
 	public partial class MainWindow : Window
 	{
 		public Solution s;
-		DirectoryInfo dir = new DirectoryInfo(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\");
+		DirectoryInfo dir;
+		FileInfo dirfile;
 
 		public MainWindow()
 		{
@@ -113,7 +114,8 @@ namespace MySolutionExplorer
 
 		private void loadButton_Click(object sender, RoutedEventArgs e)
 		{
-			s = Solution.Load(dir + "ExperimentalSolution.mysln");
+
+			s = Solution.Load(dirfile.FullName);
 			mainTable.ItemsSource = s;
 		}
 
@@ -122,16 +124,16 @@ namespace MySolutionExplorer
 			if (s == null)
 			{
 				s = new Solution();
-				s.DirSolution = new FileInfo(dir + "ExperimentalSolution.mysln");
+				s.DirSolution = new FileInfo(dirfile.FullName);
 			}
 			var p = new CppProject()
 			{
 				Name = nameText.Text,
 				Site = siteText.Text,
 				Number = int.Parse(numberText.Text),
-				Lang = langText.Text
+				Lang = ((TextBlock)langList.SelectedValue).Text
 			};
-			p.Path = dir + p.FullName;
+			p.Path = dir + MyEnum.Slash + p.FullName;
 			p.CreateFiles();
 			s.Add(p);
 			mainTable.ItemsSource = null;
@@ -141,6 +143,20 @@ namespace MySolutionExplorer
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.Save();
+		}
+
+		private void showButton_Click(object sender, RoutedEventArgs e)
+		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog();
+			//myDialog.Filter = "Картинки(*.JPG;*.GIF)|*.JPG;*.GIF" + "|Все файлы (*.*)|*.* ";
+			myDialog.Filter = "Муслн|*.mysln|XML|*.xml|Все файлы (*.*)|*.*";
+			myDialog.CheckFileExists = true;
+			//myDialog.Multiselect = true;
+			if (myDialog.ShowDialog() == true)
+			{
+				dirfile = new FileInfo(myDialog.FileName);
+				dir = dirfile.Directory;
+			}
 		}
 	}
 }
