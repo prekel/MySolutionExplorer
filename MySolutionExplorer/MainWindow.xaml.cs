@@ -34,9 +34,23 @@ namespace MySolutionExplorer
 		DirectoryInfo dir;
 		FileInfo dirfile;
 
+		private bool savef;
+		public bool SaveFlag
+		{
+			get
+			{
+				return savef;
+			}
+			set
+			{
+				savef = value;
+				Title = (dirfile == null ? "" : dirfile.Name) + (value ? "" : "*") + " - MySolutionExlorer";
+			}
+		}
+
 		public MainWindow()
 		{
-			InitializeComponent(); 
+			InitializeComponent();
 			//var s = SolutionFile.Parse(@"C:\Users\vladislav\OneDrive\Projects\MySolutionExplorer\ExperimentalSolution\ExperimentalSolution.sln");
 			//s.ProjectsInOrder[0].Dependencies.
 			//var p2 = new MyProject(dir.FullName + @"acmp 0156. Шахматы - 2 cs\acmp 0156. Шахматы - 2 cs.csproj");
@@ -109,13 +123,14 @@ namespace MySolutionExplorer
 			//}
 
 			//mainTable.ItemsSource = s;
-			
+
 		}
 
 		private void loadButton_Click(object sender, RoutedEventArgs e)
 		{
 			s = Solution.Load(dirfile.FullName);
 			mainTable.ItemsSource = s;
+			SaveFlag = true;
 		}
 
 		private void createButton_Click(object sender, RoutedEventArgs e)
@@ -136,11 +151,13 @@ namespace MySolutionExplorer
 			s.Add(p);
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
+			SaveFlag = false;
 		}
 
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.Save();
+			SaveFlag = true;
 		}
 
 		private void showButton_Click(object sender, RoutedEventArgs e)
