@@ -79,7 +79,7 @@ namespace MySolutionExplorer
 				return String.Format("{0}_{1:D4}", Site, Number);
 			}
 		}
-		protected string CodeFileName
+		public string CodeFileName
 		{
 			get
 			{
@@ -87,12 +87,12 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public Project()
+		protected Project()
 		{
 
 		}
 
-		public Project(string path)
+		protected Project(string path)
 		{
 			Path = path;
 		}

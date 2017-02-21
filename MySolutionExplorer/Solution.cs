@@ -11,6 +11,7 @@ namespace MySolutionExplorer
 	[Serializable]
 	[XmlRoot("Solution")]
 	[XmlInclude(typeof(Project))]
+	[XmlInclude(typeof(VSProject))]
 	[XmlInclude(typeof(CppProject))]
 	public class Solution : List<Project>
 	{

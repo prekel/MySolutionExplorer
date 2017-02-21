@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="MyEnum.cs" />
     <Compile Include="Solution.cs" />
+    <Compile Include="VSProject.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

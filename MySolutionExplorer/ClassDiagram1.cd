@@ -1,57 +1,64 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="MySolutionExplorer.App">
-    <Position X="11.5" Y="0.75" Width="1.5" />
+  <Class Name="MySolutionExplorer.App" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MySolutionExplorer.CppProject">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="MySolutionExplorer.CppProject" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAAAgACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAAAAIAAAAAAAACAAAAAAAgAAQAAAA=</HashCode>
       <FileName>CppProject.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MySolutionExplorer.MainWindow" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+  <Class Name="MySolutionExplorer.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CAAAAAAAACAAAAAAAAAAAAAAAAgIAAAQAIAAQAAIAAA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="MySolutionExplorer.Project">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="MySolutionExplorer.Project" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQAAAAAAAAAgIIgAGgAAAQAAAgAAAAABAAQAAAQQgA=</HashCode>
+      <HashCode>EAQAAAAAAAAAgAIgBGoAAAQAAAgCAAAABAAQAAAQQkA=</HashCode>
       <FileName>Project.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MySolutionExplorer.Solution">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="MySolutionExplorer.Solution" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAgIAAAAAAAAAgAAgAAAAAAAAgAAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAIAgIAAAAAAAAAgAAiAAAAAAAAgAAAAAAiAAAAACAA=</HashCode>
       <FileName>Solution.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MySolutionExplorer.Properties.Resources">
-    <Position X="10" Y="0.5" Width="1.5" />
+  <Class Name="MySolutionExplorer.VSProject" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAIAAggAAAAAAAQAAEAgAAGAAAA=</HashCode>
+      <FileName>VSProject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MySolutionExplorer.Properties.Resources" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="MySolutionExplorer.Properties.Settings">
-    <Position X="11.5" Y="2" Width="1.5" />
+  <Class Name="MySolutionExplorer.Properties.Settings" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Struct Name="MySolutionExplorer.MyEnum">
-    <Position X="6" Y="2.75" Width="1.5" />
+  <Struct Name="MySolutionExplorer.MyEnum" Collapsed="true">
+    <Position X="3" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAGAAAAAAAAEAAAAAIAACAEAAIIAAAAAAAAACAAAA=</HashCode>
+      <HashCode>QAAAGAQAAgAAAEAEAAAIAACAEAAIIAAABAAAACCAAAA=</HashCode>
       <FileName>MyEnum.cs</FileName>
     </TypeIdentifier>
   </Struct>
