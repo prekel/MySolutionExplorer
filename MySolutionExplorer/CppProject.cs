@@ -14,14 +14,14 @@ namespace MySolutionExplorer
 	[Serializable]
 	public class CppProject : VSProject
 	{
-		[XmlIgnore]
-		private FileInfo VS2017Proj { get { return VSProjFiles[0]; } set { VSProjFiles[0] = value; } }
-		[XmlIgnore]
-		private XmlDocument VS2017ProjXml;
-		[XmlIgnore]
-		private FileInfo VS2010Proj { get { return VSProjFiles[1]; } set { VSProjFiles[1] = value; } }
-		[XmlIgnore]
-		private XmlDocument VS2010ProjXml;
+		//[XmlIgnore]
+		//private FileInfo VS2017Proj { get { return VSProjFiles[0]; } set { VSProjFiles[0] = value; } }
+		//[XmlIgnore]
+		//private XmlDocument VS2017ProjXml;
+		//[XmlIgnore]
+		//private FileInfo VS2010Proj { get { return VSProjFiles[1]; } set { VSProjFiles[1] = value; } }
+		//[XmlIgnore]
+		//private XmlDocument VS2010ProjXml;
 
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile { get { return XmlProjectFiles[0]; } set { XmlProjectFiles[0] = value; } }
