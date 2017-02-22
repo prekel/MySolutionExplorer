@@ -55,9 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CSharpProject.cs" />
     <Compile Include="MyEnum.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="VSProject.cs" />
+    <Compile Include="XmlProjectFile.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,12 +98,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2010].vcxproj" />
+    <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2017].vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Templates\" />
+    <Resource Include="Templates\example 0000. Template [cpp]\input.txt" />
+    <Resource Include="Templates\example 0000. Template [cpp]\output.txt" />
+    <Content Include="Templates\example 0000. Template [cpp]\Task_example0000.cpp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

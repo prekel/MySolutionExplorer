@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Task_acmp0001.cpp" />
+  </ItemGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="File|x64">
       <Configuration>File</Configuration>
@@ -67,9 +70,6 @@
   <ItemGroup>
     <Text Include="input.txt" />
     <Text Include="output.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Task_acmp0001.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

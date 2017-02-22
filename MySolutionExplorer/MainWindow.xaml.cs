@@ -164,7 +164,7 @@ namespace MySolutionExplorer
 
 		private void showButton_Click(object sender, RoutedEventArgs e)
 		{
-			var myDialog = new Microsoft.Win32.OpenFileDialog()
+			var myDialog = new Microsoft.Win32.OpenFileDialog
 			{
 				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
 				CheckFileExists = true

@@ -15,13 +15,18 @@ namespace MySolutionExplorer
 	public class CppProject : VSProject
 	{
 		[XmlIgnore]
-		private FileInfo VS2017Proj { get { return base.VSProjFiles[0]; } set { base.VSProjFiles[0] = value; } }
+		private FileInfo VS2017Proj { get { return VSProjFiles[0]; } set { VSProjFiles[0] = value; } }
 		[XmlIgnore]
 		private XmlDocument VS2017ProjXml;
 		[XmlIgnore]
-		private FileInfo VS2010Proj { get { return base.VSProjFiles[1]; } set { base.VSProjFiles[1] = value; } }
+		private FileInfo VS2010Proj { get { return VSProjFiles[1]; } set { VSProjFiles[1] = value; } }
 		[XmlIgnore]
 		private XmlDocument VS2010ProjXml;
+
+		[XmlIgnore]
+		private XmlProjectFile VS2017ProjectFile { get { return XmlProjectFiles[0]; } set { XmlProjectFiles[0] = value; } }
+		[XmlIgnore]
+		private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
 
 		public CppProject() : base(2)
 		{
@@ -30,45 +35,62 @@ namespace MySolutionExplorer
 
 		public CppProject(string path) : base(path, 2)
 		{
-
-		}
-
-		protected override void FindProjectFiles()
-		{
-			foreach (var i in Dir.GetFiles())
+			VS2017ProjectFile = new XmlProjectFile
 			{
-				VS2017Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2017, i, VS2017Proj);
-				VS2010Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2010, i, VS2010Proj);
-			}
-		}
-		
-		private void LoadProjects()
-		{
-			if (VS2017Proj == null || VS2010Proj == null)
+				Suff = MyEnum.VS2017,
+				Parent = this
+			};
+			VS2010ProjectFile = new XmlProjectFile
 			{
-				FindProjectFiles();
-			}
-
-			VS2017ProjXml = LoadProject(VS2017Proj);
-			VS2010ProjXml = LoadProject(VS2010Proj); 
+				Suff = MyEnum.VS2010,
+				Parent = this
+			};
 		}
-		
+
+		//protected override void FindProjectFiles()
+		//{
+		//	foreach (var i in Dir.GetFiles())
+		//	{
+		//		VS2017Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2017, i, VS2017Proj);
+		//		VS2010Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2010, i, VS2010Proj);
+		//	}
+		//}
+
+		//private void LoadProjects()
+		//{
+		//	if (VS2017Proj == null || VS2010Proj == null)
+		//	{
+		//		FindProjectFiles();
+		//	}
+
+		//	LoadProjects();
+		//	VS2017ProjXml = LoadProject(VS2017Proj);
+		//	VS2010ProjXml = LoadProject(VS2010Proj);
+		//}
+
 		public new void CreateFiles()
 		{
 			base.CreateFiles();
 
-			CreateProj(MyEnum.VS2017, VS2017Proj);
-			CreateProj(MyEnum.VS2010, VS2010Proj);
+			CreateProjects();
+			//CreateProj(MyEnum.VS2017, VS2017Proj);
+			//CreateProj(MyEnum.VS2010, VS2010Proj);
 
 			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCpp);
 			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 
 			LoadProjects();
-			ReformVSProjXml(VS2017ProjXml, VS2017Proj);
-			ReformVSProjXml(VS2010ProjXml, VS2010Proj);
+			ReformVSProjects();
 
 			FindFiles();
 			FindProjectFiles();
+		}
+
+		protected override void ReformVSProjXml(XmlProjectFile proj)
+		{
+			ReformRootNamespace(proj.Xml);
+			ReformCodeFileName(proj.Xml);
+			proj.Xml.Save(proj.File.FullName);
 		}
 	}
 }

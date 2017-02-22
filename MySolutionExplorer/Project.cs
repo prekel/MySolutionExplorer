@@ -41,6 +41,7 @@ namespace MySolutionExplorer
 		public Solution ParentSolution { get; set; }
 
 		protected HashSet<string> AllowedFiles = new HashSet<string>();
+		protected HashSet<string> AllowedExtension = new HashSet<string>();
 
 		public int Number { get; set; }
 		public string Site { get; set; }
