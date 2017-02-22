@@ -15,6 +15,7 @@ namespace MySolutionExplorer
 	[XmlInclude(typeof(Project))]
 	[XmlInclude(typeof(VSProject))]
 	[XmlInclude(typeof(CppProject))]
+	[XmlInclude(typeof(CSharpProject))]
 	public class Solution : List<Project>
 	{
 		[XmlIgnore]

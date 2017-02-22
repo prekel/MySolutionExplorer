@@ -9,23 +9,45 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-//namespace MySolutionExplorer
-//{
-//	public class CSharpProject : VSProject
-//	{
-//		[XmlIgnore]
-//		private FileInfo VS2017Proj { get { return VSProjFiles[0]; } set { VSProjFiles[0] = value; } }
-//		[XmlIgnore]
-//		private XmlDocument VS2017ProjXml;
+namespace MySolutionExplorer
+{
+	[Serializable]
+	public class CSharpProject : VSProject
+	{
+		[XmlIgnore]
+		private XmlProjectFile VS2017ProjectFile { get { return XmlProjectFiles[0]; } set { XmlProjectFiles[0] = value; } }
+		//[XmlIgnore]
+		//private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
 
-//		public CSharpProject() : base(1)
-//		{
+		private void Init()
+		{
+			VS2017ProjectFile = new XmlProjectFile
+			{
+				Suff = MyEnum.VS2017,
+				Parent = this,
+				Extension = MyEnum.CSProj
+			};
+			//VS2010ProjectFile = new XmlProjectFile
+			//{
+			//	Suff = MyEnum.VS2010,
+			//	Parent = this,
+			//	Extension = MyEnum.VCXProj
+			//};
+		}
 
-//		}
+		public CSharpProject() : base(1)
+		{
 
-//		public CSharpProject(string path) : base(path, 1)
-//		{
+		}
 
-//		}
-//	}
-//}
+		public CSharpProject(string path) : base(path, 1)
+		{
+
+		}
+
+		protected override void ReformVSProjXml(XmlProjectFile proj)
+		{
+			throw new NotImplementedException();
+		}
+	}
+}
