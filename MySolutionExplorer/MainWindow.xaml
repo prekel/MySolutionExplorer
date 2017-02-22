@@ -29,7 +29,7 @@
 						DisplayMemberBinding="{Binding Path=Number}" 
 						Width="50">Номер</GridViewColumn>
 					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=Name}"  
+						DisplayMemberBinding="{Binding Path=TaskName}"  
 						Width="150">Название</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Lang}"  

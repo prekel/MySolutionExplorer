@@ -83,16 +83,16 @@ namespace MySolutionExplorer
 		}
 
 
-		protected FileInfo CheckProjectFile(string ex, string suff, FileInfo file, FileInfo proj)
-		{
-			if (file.Extension == ex && file.Name.Contains(suff))
-			{
-				var ret = new FileInfo(Dir.FullName + MyEnum.Slash + file);
-				AllowedFiles.Add(ret.FullName);
-				return ret;
-			}
-			return proj;
-		}
+		//protected FileInfo CheckProjectFile(string ex, string suff, FileInfo file, FileInfo proj)
+		//{
+		//	if (file.Extension == ex && file.Name.Contains(suff))
+		//	{
+		//		var ret = new FileInfo(Dir.FullName + MyEnum.Slash + file);
+		//		AllowedFiles.Add(ret.FullName);
+		//		return ret;
+		//	}
+		//	return proj;
+		//}
 
 		protected void LoadProjects()
 		{
@@ -130,7 +130,7 @@ namespace MySolutionExplorer
 
 		protected void ReformRootNamespace(XmlDocument xml)
 		{
-			xml.DocumentElement["PropertyGroup"]["RootNamespace"].Value = RootNamespace;
+			xml.DocumentElement["PropertyGroup"]["RootNamespace"].FirstChild.Value = RootNamespace;
 		}
 
 		protected void ReformCodeFileName(XmlDocument xml)

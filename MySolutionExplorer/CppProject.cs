@@ -28,23 +28,30 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
 
-		public CppProject() : base(2)
-		{
-
-		}
-
-		public CppProject(string path) : base(path, 2)
+		private void Init()
 		{
 			VS2017ProjectFile = new XmlProjectFile
 			{
 				Suff = MyEnum.VS2017,
-				Parent = this
+				Parent = this,
+				Extension = MyEnum.VCXProj
 			};
 			VS2010ProjectFile = new XmlProjectFile
 			{
 				Suff = MyEnum.VS2010,
-				Parent = this
+				Parent = this,
+				Extension = MyEnum.VCXProj
 			};
+		}
+
+		public CppProject() : base(2)
+		{
+			Init();
+		}
+
+		public CppProject(string path) : base(path, 2)
+		{
+			Init();
 		}
 
 		//protected override void FindProjectFiles()
