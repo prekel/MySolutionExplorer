@@ -42,6 +42,7 @@
 
 		<ComboBox Name="langList" Margin="12,104,11,0" Grid.Column="1" Height="23" VerticalAlignment="Top">
 			<TextBlock>cpp</TextBlock>
+			<TextBlock>cs</TextBlock>
 		</ComboBox>
 
 	</Grid>

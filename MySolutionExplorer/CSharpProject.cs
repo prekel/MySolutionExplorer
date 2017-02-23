@@ -23,6 +23,7 @@ namespace MySolutionExplorer
 		{
 			VS2017ProjectFile = new XmlProjectFile
 			{
+				//File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharpProj + MyEnum.VS2017 + MyEnum.CSProj),
 				Suff = MyEnum.VS2017,
 				Parent = this,
 				Extension = MyEnum.CSProj
@@ -37,17 +38,38 @@ namespace MySolutionExplorer
 
 		public CSharpProject() : base(1)
 		{
-
+			Init();
 		}
 
 		public CSharpProject(string path) : base(path, 1)
 		{
+			Init();
+		}
 
+		public override void CreateFiles()
+		{
+			CreateFiles(MyEnum.TemplateCSharpProj);
+
+			FindProjectFiles();
+
+			CreateProjects();
+
+			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharp);
+			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
+
+			LoadProjects();
+			ReformVSProjects();
+
+			FindFiles();
+			FindProjectFiles();
 		}
 
 		protected override void ReformVSProjXml(XmlProjectFile proj)
 		{
-			throw new NotImplementedException();
+			ReformRootNamespace(proj.Xml);
+			ReformAssemblyName(proj.Xml);
+			ReformCodeFileName(proj.Xml);
+			proj.Xml.Save(proj.File.FullName);
 		}
 	}
 }

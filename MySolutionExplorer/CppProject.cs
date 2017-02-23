@@ -32,12 +32,14 @@ namespace MySolutionExplorer
 		{
 			VS2017ProjectFile = new XmlProjectFile
 			{
+				File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCppProj + MyEnum.VS2017 + MyEnum.CSProj),
 				Suff = MyEnum.VS2017,
 				Parent = this,
 				Extension = MyEnum.VCXProj
 			};
 			VS2010ProjectFile = new XmlProjectFile
 			{
+				File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCppProj + MyEnum.VS2010 + MyEnum.CSProj),
 				Suff = MyEnum.VS2010,
 				Parent = this,
 				Extension = MyEnum.VCXProj
@@ -75,9 +77,9 @@ namespace MySolutionExplorer
 		//	VS2010ProjXml = LoadProject(VS2010Proj);
 		//}
 
-		public new void CreateFiles()
+		public override void CreateFiles()
 		{
-			base.CreateFiles();
+			CreateFiles(MyEnum.TemplateCppProj);
 
 			CreateProjects();
 			//CreateProj(MyEnum.VS2017, VS2017Proj);

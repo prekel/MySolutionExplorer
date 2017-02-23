@@ -141,16 +141,35 @@ namespace MySolutionExplorer
 			{
 				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
 			}
-			var p = new CppProject
+			var lang = ((TextBlock)langList.SelectedValue).Text;
+			if (lang == "cpp")
 			{
-				TaskName = nameText.Text,
-				Site = siteText.Text,
-				Number = int.Parse(numberText.Text),
-				Lang = ((TextBlock)langList.SelectedValue).Text
-			};
-			p.Path = dir + MyEnum.Slash + p.Name;
-			p.CreateFiles();
-			s.Add(p);
+				var p = new CSharpProject//(s.Dir + MyEnum.Slash + MyEnum.TemplateCppProj)
+				{
+					ParentSolution = s,
+					TaskName = nameText.Text,
+					Site = siteText.Text,
+					Number = int.Parse(numberText.Text),
+					Lang = lang
+				};
+				p.Path = dir + MyEnum.Slash + p.Name;
+				p.CreateFiles();
+				s.Add(p);
+			}
+			else if (lang == "cs")
+			{
+				var p = new CSharpProject//(s.Dir + MyEnum.Slash + MyEnum.TemplateCSharpProj)
+				{
+					ParentSolution = s,
+					TaskName = nameText.Text,
+					Site = siteText.Text,
+					Number = int.Parse(numberText.Text),
+					Lang = lang
+				};
+				p.Path = dir + MyEnum.Slash + p.Name;
+				p.CreateFiles();
+				s.Add(p);
+			}
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
 			SaveFlag = false;

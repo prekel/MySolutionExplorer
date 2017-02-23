@@ -138,7 +138,9 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public void CreateFiles()
+		public abstract void CreateFiles();
+
+		public void CreateFiles(string templatename)
 		{
 			if (Dir.Exists)
 			{
@@ -146,7 +148,7 @@ namespace MySolutionExplorer
 			}
 			try
 			{
-				Solution.DirectoryCopy(@"Templates\" + MyEnum.TemplateCppProj, Dir.FullName, true);
+				Solution.DirectoryCopy(@"Templates\" + templatename, Dir.FullName, true);
 			}
 			catch
 			{

@@ -120,8 +120,7 @@ namespace MySolutionExplorer
 
 		protected void CreateProj(XmlProjectFile proj)
 		{
-			proj.File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCppProj + proj.Suff + MyEnum.VCXProj);
-			proj.File = Solution.RenameFile(proj.File, Name + proj.Suff + MyEnum.VCXProj);
+			proj.File = Solution.RenameFile(proj.File, Name + proj.Suff + proj.Extension);
 		}
 
 		protected void CreateProj(string suff, FileInfo file)
@@ -131,6 +130,11 @@ namespace MySolutionExplorer
 		protected void ReformRootNamespace(XmlDocument xml)
 		{
 			xml.DocumentElement["PropertyGroup"]["RootNamespace"].FirstChild.Value = RootNamespace;
+		}
+
+		protected void ReformAssemblyName(XmlDocument xml)
+		{
+			xml.DocumentElement["PropertyGroup"]["AssemblyName"].FirstChild.Value = Name;
 		}
 
 		protected void ReformCodeFileName(XmlDocument xml)

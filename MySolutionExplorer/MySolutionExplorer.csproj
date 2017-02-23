@@ -58,6 +58,8 @@
     <Compile Include="CSharpProject.cs" />
     <Compile Include="MyEnum.cs" />
     <Compile Include="Solution.cs" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Templates\example 0000. Template [cs]\Task_example0000.cs" />
     <Compile Include="VSProject.cs" />
     <Compile Include="XmlProjectFile.cs" />
     <Page Include="MainWindow.xaml">
@@ -93,19 +95,22 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2010].vcxproj" />
     <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2017].vcxproj" />
+    <None Include="Templates\example 0000. Template [cs]\App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Templates\example 0000. Template [cs]\example 0000. Template [cs][vs2017].csproj" />
+    <Resource Include="Templates\example 0000. Template [cs]\input.txt" />
+    <Resource Include="Templates\example 0000. Template [cs]\output.txt" />
     <Resource Include="Templates\example 0000. Template [cpp]\input.txt" />
     <Resource Include="Templates\example 0000. Template [cpp]\output.txt" />
     <Content Include="Templates\example 0000. Template [cpp]\Task_example0000.cpp" />
