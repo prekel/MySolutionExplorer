@@ -46,7 +46,7 @@ namespace MySolutionExplorer
 			set
 			{
 				savef = value;
-				Title = (dirfile == null ? "" : dirfile.Name) + (value ? "" : "*") + " - MySolutionExlorer";
+				Title = (dirfile == null ? "" : dirfile.Name) + (value ? "" : "*") + " - " + MyEnum.AppName;
 			}
 		}
 

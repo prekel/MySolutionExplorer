@@ -18,5 +18,6 @@ namespace MySolutionExplorer
 		public const string VS2017 = "[vs2017]", VS2010 = "[vs2010]";
 		public const string Txt = ".txt", Config = ".config";
 		public const string TemplateCSharpProj = "example 0000. Template [cs]", TemplateCSharp = "Task_example0000.cs";
+		public const string AppName = "MySolutionExplorer";
 	}
 }
