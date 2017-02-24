@@ -144,7 +144,7 @@ namespace MySolutionExplorer
 			var lang = ((TextBlock)langList.SelectedValue).Text;
 			if (lang == "cpp")
 			{
-				var p = new CSharpProject//(s.Dir + MyEnum.Slash + MyEnum.TemplateCppProj)
+				var p = new CppProject//(s.Dir + MyEnum.Slash + MyEnum.TemplateCppProj)
 				{
 					ParentSolution = s,
 					TaskName = nameText.Text,
