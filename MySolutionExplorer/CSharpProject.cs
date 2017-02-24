@@ -20,24 +20,15 @@ namespace MySolutionExplorer
 			get { return XmlProjectFiles[0]; }
 			set { XmlProjectFiles[0] = value; }
 		}
-		//[XmlIgnore]
-		//private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
 
 		private void Init()
 		{
 			VS2017ProjectFile = new XmlProjectFile
 			{
-				//File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharpProj + MyEnum.VS2017 + MyEnum.CSProj),
 				Suff = MyEnum.VS2017,
 				Parent = this,
 				Extension = MyEnum.CSProj
 			};
-			//VS2010ProjectFile = new XmlProjectFile
-			//{
-			//	Suff = MyEnum.VS2010,
-			//	Parent = this,
-			//	Extension = MyEnum.VCXProj
-			//};
 		}
 
 		public CSharpProject() : base(1)

@@ -16,12 +16,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-using Microsoft.Build.Construction;
-using Microsoft.Build;
-using Microsoft.Build.Exceptions;
-using Microsoft.Build.Evaluation;
-using Microsoft.Build.Execution;
-using Microsoft.Build.Logging;
 using System.Xml;
 using System.Xml.Serialization;
 
