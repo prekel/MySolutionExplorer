@@ -15,6 +15,5 @@ namespace MySolutionExplorer
 	/// </summary>
 	public partial class App : Application
 	{
-
 	}
 }

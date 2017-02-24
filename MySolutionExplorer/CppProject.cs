@@ -14,32 +14,30 @@ namespace MySolutionExplorer
 	[Serializable]
 	public class CppProject : VSProject
 	{
-		//[XmlIgnore]
-		//private FileInfo VS2017Proj { get { return VSProjFiles[0]; } set { VSProjFiles[0] = value; } }
-		//[XmlIgnore]
-		//private XmlDocument VS2017ProjXml;
-		//[XmlIgnore]
-		//private FileInfo VS2010Proj { get { return VSProjFiles[1]; } set { VSProjFiles[1] = value; } }
-		//[XmlIgnore]
-		//private XmlDocument VS2010ProjXml;
+		[XmlIgnore]
+		private XmlProjectFile VS2017ProjectFile
+		{
+			get { return XmlProjectFiles[0]; }
+			set { XmlProjectFiles[0] = value; }
+		}
 
 		[XmlIgnore]
-		private XmlProjectFile VS2017ProjectFile { get { return XmlProjectFiles[0]; } set { XmlProjectFiles[0] = value; } }
-		[XmlIgnore]
-		private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
+		private XmlProjectFile VS2010ProjectFile
+		{
+			get { return XmlProjectFiles[1]; }
+			set { XmlProjectFiles[1] = value; }
+		}
 
 		private void Init()
 		{
 			VS2017ProjectFile = new XmlProjectFile
 			{
-				//File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCppProj + MyEnum.VS2017 + MyEnum.CSProj),
 				Suff = MyEnum.VS2017,
 				Parent = this,
 				Extension = MyEnum.VCXProj
 			};
 			VS2010ProjectFile = new XmlProjectFile
 			{
-				//File = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCppProj + MyEnum.VS2010 + MyEnum.CSProj),
 				Suff = MyEnum.VS2010,
 				Parent = this,
 				Extension = MyEnum.VCXProj
@@ -56,27 +54,6 @@ namespace MySolutionExplorer
 			Init();
 		}
 
-		//protected override void FindProjectFiles()
-		//{
-		//	foreach (var i in Dir.GetFiles())
-		//	{
-		//		VS2017Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2017, i, VS2017Proj);
-		//		VS2010Proj = CheckProjectFile(MyEnum.VCXProj, MyEnum.VS2010, i, VS2010Proj);
-		//	}
-		//}
-
-		//private void LoadProjects()
-		//{
-		//	if (VS2017Proj == null || VS2010Proj == null)
-		//	{
-		//		FindProjectFiles();
-		//	}
-
-		//	LoadProjects();
-		//	VS2017ProjXml = LoadProject(VS2017Proj);
-		//	VS2010ProjXml = LoadProject(VS2010Proj);
-		//}
-
 		public override void CreateFiles()
 		{
 			CreateFiles(MyEnum.TemplateCppProj);
@@ -84,8 +61,6 @@ namespace MySolutionExplorer
 			FindProjectFiles();
 
 			CreateProjects();
-			//CreateProj(MyEnum.VS2017, VS2017Proj);
-			//CreateProj(MyEnum.VS2010, VS2010Proj);
 
 			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCpp);
 			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);

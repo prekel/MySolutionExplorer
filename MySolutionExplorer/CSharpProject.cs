@@ -15,7 +15,11 @@ namespace MySolutionExplorer
 	public class CSharpProject : VSProject
 	{
 		[XmlIgnore]
-		private XmlProjectFile VS2017ProjectFile { get { return XmlProjectFiles[0]; } set { XmlProjectFiles[0] = value; } }
+		private XmlProjectFile VS2017ProjectFile
+		{
+			get { return XmlProjectFiles[0]; }
+			set { XmlProjectFiles[0] = value; }
+		}
 		//[XmlIgnore]
 		//private XmlProjectFile VS2010ProjectFile { get { return XmlProjectFiles[1]; } set { XmlProjectFiles[1] = value; } }
 

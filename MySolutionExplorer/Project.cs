@@ -15,6 +15,7 @@ namespace MySolutionExplorer
 	public abstract class Project
 	{
 		private DirectoryInfo _dir;
+
 		[XmlIgnore]
 		public DirectoryInfo Dir
 		{
@@ -26,17 +27,18 @@ namespace MySolutionExplorer
 				}
 				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name);
 			}
-			set
-			{
-				_dir = value;
-			}
+			set { _dir = value; }
 		}
+
 		[XmlIgnore]
 		public FileInfo CodeFile { get; set; }
+
 		[XmlIgnore]
 		public FileInfo InputFile { get; set; }
+
 		[XmlIgnore]
 		public FileInfo OutputFile { get; set; }
+
 		[XmlIgnore]
 		public Solution ParentSolution { get; set; }
 
@@ -51,22 +53,13 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public string Path
 		{
-			get
-			{
-				return Dir.FullName;
-			}
-			set
-			{
-				Dir = new DirectoryInfo(value);
-			}
+			get { return Dir.FullName; }
+			set { Dir = new DirectoryInfo(value); }
 		}
 
 		public string Name
 		{
-			get
-			{
-				return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, TaskName, Lang);
-			}
+			get { return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, TaskName, Lang); }
 			set
 			{
 				if (Number == 0 || Site == "" || Lang == "" || TaskName == "")
@@ -75,24 +68,19 @@ namespace MySolutionExplorer
 				}
 			}
 		}
+
 		public string RootNamespace
 		{
-			get
-			{
-				return String.Format("{0}_{1:D4}", Site, Number);
-			}
+			get { return String.Format("{0}_{1:D4}", Site, Number); }
 		}
+
 		public string CodeFileName
 		{
-			get
-			{
-				return String.Format("Task_{0}{1:D4}.{2}", Site, Number, Lang);
-			}
+			get { return String.Format("Task_{0}{1:D4}.{2}", Site, Number, Lang); }
 		}
 
 		protected Project()
 		{
-
 		}
 
 		protected Project(string path)
@@ -152,7 +140,7 @@ namespace MySolutionExplorer
 			}
 			catch
 			{
-
+				// ignored
 			}
 		}
 	}

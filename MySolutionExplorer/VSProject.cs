@@ -14,58 +14,45 @@ namespace MySolutionExplorer
 	[Serializable]
 	public abstract class VSProject : Project
 	{
-		//[XmlIgnore]
-		//protected List<FileInfo> VSProjFiles;
-		//[XmlIgnore]
-		//protected List<XmlDocument> VSProjXml;
-
 		protected List<XmlProjectFile> XmlProjectFiles;
 
 		protected VSProject()
 		{
-
 		}
 
 		protected VSProject(string path) : base(path)
 		{
+		}
 
+		private void Init(int n)
+		{
+			XmlProjectFiles = new List<XmlProjectFile>(n);
+			for (var i = 0; i < n; i++)
+			{
+				XmlProjectFiles.Add(null);
+			}
 		}
 
 		protected VSProject(int n)
 		{
-			//VSProjFiles = new List<FileInfo>(n);
-			//VSProjXml = new List<XmlDocument>(n);
-			XmlProjectFiles = new List<XmlProjectFile>(n);
-			for (var i = 0; i < n; i++)
-			{
-				//VSProjFiles.Add(null);
-				//VSProjXml.Add(null);
-				XmlProjectFiles.Add(null);
-			}
+			Init(n);
 		}
+
 
 		protected VSProject(string path, int n) : base(path)
 		{
-			//VSProjFiles = new List<FileInfo>(n);
-			//VSProjXml = new List<XmlDocument>(n);
-			XmlProjectFiles = new List<XmlProjectFile>(n);
-			for (var i = 0; i < n; i++)
-			{
-				//VSProjFiles.Add(null);
-				//VSProjXml.Add(null);
-				XmlProjectFiles.Add(null);
-			}
+			Init(n);
 		}
 
 		protected override void FindProjectFiles()
 		{
 			foreach (var i in Dir.GetFiles())
 			{
-				for (var j = 0; j < XmlProjectFiles.Count; j++)
+				foreach (XmlProjectFile j in XmlProjectFiles)
 				{
-					if (CheckProjectFile(i, XmlProjectFiles[j]))
+					if (CheckProjectFile(i, j))
 					{
-						XmlProjectFiles[j].File = i;
+						j.File = i;
 						AllowedFiles.Add(i.FullName);
 						break;
 					}
@@ -75,31 +62,15 @@ namespace MySolutionExplorer
 
 		protected bool CheckProjectFile(FileInfo file, XmlProjectFile proj)
 		{
-			if (file.Extension == proj.Extension && file.Name.Contains(proj.Suff))
-			{
-				return true;
-			}
-			return false;
+			return file.Extension == proj.Extension && file.Name.Contains(proj.Suff);
 		}
-
-
-		//protected FileInfo CheckProjectFile(string ex, string suff, FileInfo file, FileInfo proj)
-		//{
-		//	if (file.Extension == ex && file.Name.Contains(suff))
-		//	{
-		//		var ret = new FileInfo(Dir.FullName + MyEnum.Slash + file);
-		//		AllowedFiles.Add(ret.FullName);
-		//		return ret;
-		//	}
-		//	return proj;
-		//}
 
 		protected void LoadProjects()
 		{
-			for (var i = 0; i < XmlProjectFiles.Count; i++)
+			foreach (XmlProjectFile i in XmlProjectFiles)
 			{
-				XmlProjectFiles[i].Xml = new XmlDocument();
-				XmlProjectFiles[i].Xml.Load(XmlProjectFiles[i].File.FullName);
+				i.Xml = new XmlDocument();
+				i.Xml.Load(i.File.FullName);
 			}
 		}
 
@@ -112,9 +83,9 @@ namespace MySolutionExplorer
 
 		protected void CreateProjects()
 		{
-			for (var i = 0; i < XmlProjectFiles.Count; i++)
+			foreach (XmlProjectFile i in XmlProjectFiles)
 			{
-				CreateProj(XmlProjectFiles[i]);
+				CreateProj(i);
 			}
 		}
 
@@ -140,29 +111,17 @@ namespace MySolutionExplorer
 		protected void ReformCodeFileName(XmlDocument xml)
 		{
 			xml.DocumentElement["ItemGroup"].FirstChild.Attributes[0].Value = CodeFileName;
-			//foreach (XmlElement i in xml.DocumentElement)
-			//{
-			//	if (i.Name == "ItemGroup" && i.FirstChild.Name == "ClCompile")
-			//	{
-			//		i.FirstChild.Attributes[0].Value = CodeFileName;
-			//	}
-			//}
 		}
 
 		protected void ReformVSProjects()
 		{
-			for (var i = 0; i < XmlProjectFiles.Count; i++)
+			foreach (XmlProjectFile i in XmlProjectFiles)
 			{
-				ReformVSProjXml(XmlProjectFiles[i]);
+				ReformVSProjXml(i);
 			}
 		}
 
 		protected abstract void ReformVSProjXml(XmlProjectFile proj);
-		//{
-		//	ReformRootNamespace(proj.Xml);
-		//	ReformCodeFileName(proj.Xml);
-		//	proj.Xml.Save(proj.File.FullName);
-		//}
 
 		protected void ReformVSProjXml(XmlDocument xml, FileInfo file)
 		{
