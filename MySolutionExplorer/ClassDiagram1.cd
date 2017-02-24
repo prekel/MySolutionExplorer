@@ -46,7 +46,7 @@
   <Class Name="MySolutionExplorer.VSProject" Collapsed="true">
     <Position X="1.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAACAAACAAAAAKAAgAAAAAAADQAAEAgAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAACAAACAAAAAKAAgAAAAAAADQAAEAiAAEAAAA=</HashCode>
       <FileName>VSProject.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -72,7 +72,7 @@
   <Struct Name="MySolutionExplorer.MyEnum" Collapsed="true">
     <Position X="5.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QACAGAQAAgAAAEAEAAAIAACAEAAIIAAABAAAECCAAAA=</HashCode>
+      <HashCode>QCCAGAQAAgAAAEAEAAAIAACAEAAIIAAABAAAECCAAAA=</HashCode>
       <FileName>MyEnum.cs</FileName>
     </TypeIdentifier>
   </Struct>

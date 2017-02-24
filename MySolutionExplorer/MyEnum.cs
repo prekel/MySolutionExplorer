@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Перечисление со строковыми константами
+	/// </summary>
 	public struct MyEnum
 	{
 		public const string Cpp = ".cpp", CSharp = ".cs", Python = ".py";

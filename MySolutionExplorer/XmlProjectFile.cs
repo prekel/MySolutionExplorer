@@ -11,6 +11,9 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Xml-файл проекта
+	/// </summary>
 	public class XmlProjectFile
 	{
 		public FileInfo File { get; set; }

@@ -11,9 +11,15 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Проект C++
+	/// </summary>
 	[Serializable]
 	public class CppProject : VSProject
 	{
+		/// <summary>
+		/// Файл .vcxproj версии 2017
+		/// </summary>
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile
 		{
@@ -21,6 +27,9 @@ namespace MySolutionExplorer
 			set { XmlProjectFiles[0] = value; }
 		}
 
+		/// <summary>
+		/// Файл .vcxproj версии 2010
+		/// </summary>
 		[XmlIgnore]
 		private XmlProjectFile VS2010ProjectFile
 		{
@@ -28,6 +37,9 @@ namespace MySolutionExplorer
 			set { XmlProjectFiles[1] = value; }
 		}
 
+		/// <summary>
+		/// Инициализация
+		/// </summary>
 		private void Init()
 		{
 			VS2017ProjectFile = new XmlProjectFile
@@ -54,6 +66,9 @@ namespace MySolutionExplorer
 			Init();
 		}
 
+		/// <summary>
+		/// Создание файлов из шаблона, переименовывание, изменение имён внутри
+		/// </summary>
 		public override void CreateFiles()
 		{
 			CreateFiles(MyEnum.TemplateCppProj);
@@ -72,6 +87,10 @@ namespace MySolutionExplorer
 			FindProjectFiles();
 		}
 
+		/// <summary>
+		/// Действия при преобразовании шаблонного проекта
+		/// </summary>
+		/// <param name="proj">Xml-проект</param>
 		protected override void ReformVSProjXml(XmlProjectFile proj)
 		{
 			ReformRootNamespace(proj.Xml);

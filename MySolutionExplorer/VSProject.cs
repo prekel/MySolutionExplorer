@@ -11,6 +11,9 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Проект Visual Studio
+	/// </summary>
 	[Serializable]
 	public abstract class VSProject : Project
 	{

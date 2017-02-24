@@ -29,9 +29,11 @@ namespace MySolutionExplorer
 		Solution s;
 		DirectoryInfo dir;
 		FileInfo dirfile;
-
 		private bool savef;
 
+		/// <summary>
+		/// Флаг сохранения, при изменении меняет заголовок
+		/// </summary>
 		public bool SaveFlag
 		{
 			get { return savef; }
@@ -47,6 +49,9 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Нажатие на кнопку загрузки
+		/// </summary>
 		private void loadButton_Click(object sender, RoutedEventArgs e)
 		{
 			s = Solution.Load(dirfile.FullName);
@@ -54,13 +59,16 @@ namespace MySolutionExplorer
 			SaveFlag = true;
 		}
 
+		/// <summary>
+		/// Нажатие на кнопку создания проекта
+		/// </summary>
 		private void createButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (s == null)
 			{
 				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
 			}
-			var lang = ((TextBlock) langList.SelectedValue).Text;
+			var lang = ((TextBlock)langList.SelectedValue).Text;
 			if (lang == "cpp")
 			{
 				var p = new CppProject
@@ -94,12 +102,18 @@ namespace MySolutionExplorer
 			SaveFlag = false;
 		}
 
+		/// <summary>
+		/// Нажатие на кнопку сохранения решения
+		/// </summary>
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.Save();
 			SaveFlag = true;
 		}
 
+		/// <summary>
+		/// Нажатие на кнопку обзора
+		/// </summary>
 		private void showButton_Click(object sender, RoutedEventArgs e)
 		{
 			var myDialog = new Microsoft.Win32.OpenFileDialog

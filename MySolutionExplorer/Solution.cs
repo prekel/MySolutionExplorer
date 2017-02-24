@@ -10,6 +10,9 @@ using System.IO;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Решение (группа проектов)
+	/// </summary>
 	[Serializable]
 	[XmlRoot("Solution")]
 	[XmlInclude(typeof(Project))]
@@ -18,14 +21,20 @@ namespace MySolutionExplorer
 	[XmlInclude(typeof(CSharpProject))]
 	public class Solution : List<Project>
 	{
-		[XmlIgnore] public FileInfo DirSolution;
+		/// <summary>
+		/// Файл решения
+		/// </summary>
+		[XmlIgnore] public FileInfo DirSolution { get; set; }
 
+		/// <summary>
+		/// Директория решения
+		/// </summary>
 		[XmlIgnore]
 		public DirectoryInfo Dir
 		{
 			get { return DirSolution.Directory; }
 		}
-
+		
 		public Solution()
 		{
 		}
@@ -35,6 +44,9 @@ namespace MySolutionExplorer
 			DirSolution = new FileInfo(path);
 		}
 
+		/// <summary>
+		/// Кандидат к удалению
+		/// </summary>
 		public void FindProjects()
 		{
 			foreach (var i in Dir.GetDirectories())
@@ -46,12 +58,19 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Добавляет проект в решение
+		/// </summary>
+		/// <param name="item">Проект</param>
 		public new void Add(Project item)
 		{
 			base.Add(item);
 			item.ParentSolution = this;
 		}
 
+		/// <summary>
+		/// Удаляет папку с собраным мусором
+		/// </summary>
 		public void DeleteTrash()
 		{
 			try
@@ -64,6 +83,11 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Загружает решение
+		/// </summary>
+		/// <param name="path">Путь до файла</param>
+		/// <returns>Решение</returns>
 		public static Solution Load(string path)
 		{
 			var serializer = new XmlSerializer(typeof(Solution));
@@ -78,6 +102,9 @@ namespace MySolutionExplorer
 			return ret;
 		}
 
+		/// <summary>
+		/// Сохраняет решение 
+		/// </summary>
 		public void Save()
 		{
 			var serializer = new XmlSerializer(typeof(Solution));
@@ -88,11 +115,21 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Кандидат к удалению
+		/// </summary>
 		public void CreateProject(Project proj)
 		{
 			Add(proj);
 		}
 
+		/// <summary>
+		/// Копирует папку
+		/// </summary>
+		/// <param name="sourceDirName">Исходная папка</param>
+		/// <param name="destDirName">Папка назначения</param>
+		/// <param name="copySubDirs">Копировать ли подкаталоги</param>
+		/// <copyright>Microsoft Corporation msdn.microsoft.com/ru-ru/library/bb762914</copyright>
 		public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 		{
 			// Get the subdirectories for the specified directory.

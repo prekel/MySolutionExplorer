@@ -11,11 +11,17 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer
 {
+	/// <summary>
+	/// Проект
+	/// </summary>
 	[Serializable]
 	public abstract class Project
 	{
 		private DirectoryInfo _dir;
 
+		/// <summary>
+		/// Директория проекта
+		/// </summary>
 		[XmlIgnore]
 		public DirectoryInfo Dir
 		{
@@ -30,26 +36,61 @@ namespace MySolutionExplorer
 			set { _dir = value; }
 		}
 
+		/// <summary>
+		/// Файл с кодом
+		/// </summary>
 		[XmlIgnore]
 		public FileInfo CodeFile { get; set; }
 
+		/// <summary>
+		/// Файл ввода (input.txt)
+		/// </summary>
 		[XmlIgnore]
 		public FileInfo InputFile { get; set; }
 
+		/// <summary>
+		/// Файл вывода (output.txt)
+		/// </summary>
 		[XmlIgnore]
 		public FileInfo OutputFile { get; set; }
 
+		/// <summary>
+		/// Решение
+		/// </summary>
 		[XmlIgnore]
 		public Solution ParentSolution { get; set; }
 
+		/// <summary>
+		/// Разрешенные файлы
+		/// Кандидат к удалению
+		/// </summary>
 		protected HashSet<string> AllowedFiles = new HashSet<string>();
+
+		/// <summary>
+		/// Разрешенные расширения в проекте
+		/// </summary>
 		protected HashSet<string> AllowedExtension = new HashSet<string>();
 
+		/// <summary>
+		/// Номер (ID) задачи
+		/// </summary>
 		public int Number { get; set; }
+		/// <summary>
+		/// Сайт задачи
+		/// </summary>
 		public string Site { get; set; }
+		/// <summary>
+		/// Язык
+		/// </summary>
 		public string Lang { get; set; }
+		/// <summary>
+		/// Название задачи
+		/// </summary>
 		public string TaskName { get; set; }
 
+		/// <summary>
+		/// Директория решения
+		/// </summary>
 		[XmlIgnore]
 		public string Path
 		{
@@ -57,6 +98,9 @@ namespace MySolutionExplorer
 			set { Dir = new DirectoryInfo(value); }
 		}
 
+		/// <summary>
+		/// Имя проекта (Имя задачи вместе с сайтом, номером и языком)
+		/// </summary>
 		public string Name
 		{
 			get { return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, TaskName, Lang); }
@@ -69,11 +113,17 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Пространство имён по умолчанию (кандидат к переносу в другой класс)
+		/// </summary>
 		public string RootNamespace
 		{
 			get { return String.Format("{0}_{1:D4}", Site, Number); }
 		}
 
+		/// <summary>
+		/// Имя кодового файла (кандидат на изменение публичности)
+		/// </summary>
 		public string CodeFileName
 		{
 			get { return String.Format("Task_{0}{1:D4}.{2}", Site, Number, Lang); }
@@ -88,6 +138,9 @@ namespace MySolutionExplorer
 			Path = path;
 		}
 
+		/// <summary>
+		/// Поиск файлов ввода-вывода и кода
+		/// </summary>
 		public void FindFiles()
 		{
 			FindProjectFiles();
@@ -111,8 +164,14 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Поиск файлов проекта
+		/// </summary>
 		protected abstract void FindProjectFiles();
 
+		/// <summary>
+		/// Очистка
+		/// </summary>
 		public void Clean()
 		{
 			FindFiles();
@@ -126,8 +185,15 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Кандидат на перенос или удаление или переименование
+		/// </summary>
 		public abstract void CreateFiles();
 
+		/// <summary>
+		/// Копирование из Templates в папку с проектом
+		/// </summary>
+		/// <param name="templatename">Имя шаблонного проекта</param>
 		public void CreateFiles(string templatename)
 		{
 			if (Dir.Exists)
