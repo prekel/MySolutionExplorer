@@ -11,6 +11,10 @@
 		MinHeight="350"
 		MinWidth="250">
 	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="150*"/>
+			<RowDefinition Height="169*"/>
+		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="375*"/>
 			<ColumnDefinition Width="150"/>
@@ -18,7 +22,7 @@
 
 		<ListView 
 			Name="mainTable"
-			Margin="20,20,0,10">
+			Margin="20,20,0,10" Grid.RowSpan="2">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn 
@@ -44,11 +48,11 @@
 			<TextBlock>cpp</TextBlock>
 			<TextBlock>cs</TextBlock>
 		</ComboBox>
-		<Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="35,135,35,0" VerticalAlignment="Top" Width="80" Click="createButton_Click" Grid.Column="1"/>
-		<Button x:Name="showButton" Content="Обзор..." HorizontalAlignment="Left" Margin="35,180,0,0" VerticalAlignment="Top" Width="80" Click="showButton_Click" Grid.Column="1"/>
-		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="35,230,0,0" VerticalAlignment="Top" Width="80" Click="loadButton_Click" Grid.Column="1"/>
-		<Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="35,260,0,0" VerticalAlignment="Top" Width="80" Click="loadButton_Click" Grid.Column="1"/>
-		<Button x:Name="closeButton" Content="Закрыть" HorizontalAlignment="Left" Margin="35,290,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1"/>
+		<Button x:Name="createButton" Content="Создать" Margin="35,5,35,0" VerticalAlignment="Top" Click="createButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
+		<Button x:Name="showButton" Content="Обзор..." Margin="35,30,35,0" VerticalAlignment="Top" Click="showButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
+		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="35,55,0,0" VerticalAlignment="Top" Width="80" Click="loadButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
+		<Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="35,80,0,0" VerticalAlignment="Top" Width="80" Click="saveButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
+		<Button x:Name="closeButton" Content="Закрыть" HorizontalAlignment="Left" Margin="35,105,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" Click="closeButton_Click" Grid.Row="1" Height="20"/>
 
 	</Grid>
 </Window>

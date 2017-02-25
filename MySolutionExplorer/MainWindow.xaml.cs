@@ -67,6 +67,8 @@ namespace MySolutionExplorer
 			if (s == null)
 			{
 				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
+				SaveFlag = true;
+				return;
 			}
 			var lang = ((TextBlock)langList.SelectedValue).Text;
 			if (lang == "cpp")
@@ -119,13 +121,23 @@ namespace MySolutionExplorer
 			var myDialog = new Microsoft.Win32.OpenFileDialog
 			{
 				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
-				CheckFileExists = true
+				CheckFileExists = false,
 			};
 			if (myDialog.ShowDialog() == true)
 			{
 				dirfile = new FileInfo(myDialog.FileName);
 				dir = dirfile.Directory;
 			}
+		}
+
+		private void closeButton_Click(object sender, RoutedEventArgs e)
+		{
+			s = null;
+			SaveFlag = true;
+			Title = MyEnum.AppName;
+			dir = null;
+			dirfile = null;
+			mainTable.ItemsSource = null;
 		}
 	}
 }
