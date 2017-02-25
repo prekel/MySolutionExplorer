@@ -1,4 +1,6 @@
 # MySolutionExplorer
+
+[![Join the chat at https://gitter.im/MySolutionExplorer/Lobby](https://badges.gitter.im/MySolutionExplorer/Lobby.svg)](https://gitter.im/MySolutionExplorer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Надоело вручную создавать проекты с одним кодовым файлом для решения олимпиадных задач? Хочется чтобы все были в одном месте, чтобы их можно было открыть из многих сред разработки? Решение есть – этот проект!
 
 ![Основной экран, слева список проектов в решении, справа меню создания и загрузки](Screenshot.png)
