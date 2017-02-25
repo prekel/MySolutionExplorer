@@ -1,5 +1,5 @@
 # MySolutionExplorer
-[![Build status](https://ci.appveyor.com/api/projects/status/fobsqfk65g3d4c2o?svg=true/)](https://ci.appveyor.com/project/prekel/mysolutionexplorer/) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg/)](https://gitter.im/MySolutionExplorer/Lobby/)
+[![Build status](https://ci.appveyor.com/api/projects/status/fobsqfk65g3d4c2o?svg=true)](https://ci.appveyor.com/project/prekel/mysolutionexplorer/) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg)](https://gitter.im/MySolutionExplorer/Lobby)
 
 Надоело вручную создавать проекты с одним кодовым файлом для решения олимпиадных задач? Хочется чтобы все были в одном месте, чтобы их можно было открыть из многих сред разработки? Решение есть – этот проект!
 
