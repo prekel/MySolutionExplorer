@@ -1,5 +1,5 @@
 # MySolutionExplorer
-[![Build status](https://ci.appveyor.com/api/projects/status/fobsqfk65g3d4c2o?svg=true)](https://ci.appveyor.com/project/prekel/mysolutionexplorer) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg)](https://gitter.im/MySolutionExplorer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[![Build status](https://ci.appveyor.com/api/projects/status/fobsqfk65g3d4c2o?svg=true/)](https://ci.appveyor.com/project/prekel/mysolutionexplorer/) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg/)](https://gitter.im/MySolutionExplorer/Lobby/)
 
 Надоело вручную создавать проекты с одним кодовым файлом для решения олимпиадных задач? Хочется чтобы все были в одном месте, чтобы их можно было открыть из многих сред разработки? Решение есть – этот проект!
 
@@ -17,13 +17,14 @@
      - `Java`
 3. Больше сред разработки:
      - `SharpDevelop`
-     - `Rider`, `Clion`, `IDEA`, `PyCharm`
+     - `CLion`, `IDEA`, `PyCharm`
      - `MinGW Developer Studio`
      - `Code::Blocks`
 4. Сборка
  
-## Сборка и релиз
-Есть один рабочий релиз, сборка последнего коммита может быть с багами (см. build под заголовком)
+## Сборка, ветви
+Ветвь master по возможности стабильная, develop для разработки
+Сборка последнего коммита может быть нестабильной (см. build под заголовком)
 
-###Лицензия
+##Лицензия
 Вдруг это станет кому-то нужным кроме меня, а я без лицензии и копирайта, поэтому [MIT license](LICENSE).
