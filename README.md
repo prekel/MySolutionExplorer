@@ -1,5 +1,5 @@
 # MySolutionExplorer
-[![Build Status](https://travis-ci.org/prekel/MySolutionExplorer.svg?branch=master)](https://travis-ci.org/prekel/MySolutionExplorer) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg)](https://gitter.im/MySolutionExplorer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[![Build status](https://ci.appveyor.com/api/projects/status/fobsqfk65g3d4c2o?svg=true)](https://ci.appveyor.com/project/prekel/mysolutionexplorer) [![Gitter](https://badges.gitter.im/MySolutionExplorer/Lobby.svg)](https://gitter.im/MySolutionExplorer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
 Надоело вручную создавать проекты с одним кодовым файлом для решения олимпиадных задач? Хочется чтобы все были в одном месте, чтобы их можно было открыть из многих сред разработки? Решение есть – этот проект!
 
@@ -23,7 +23,7 @@
 4. Сборка
  
 ## Сборка и релиз
-Есть один рабочий релиз, сборка последнего коммита может быть с багами
+Есть один рабочий релиз, сборка последнего коммита может быть с багами (см. build под заголовком)
 
 ###Лицензия
 Вдруг это станет кому-то нужным кроме меня, а я без лицензии и копирайта, поэтому [MIT license](LICENSE).
