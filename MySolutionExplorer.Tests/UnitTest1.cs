@@ -5,18 +5,12 @@ using MySolutionExplorer;
 namespace MySolutionExplorer.Tests
 {
 	[TestClass]
-	public class UnitTest1
+	public class UnitTest
 	{
 		[TestMethod]
 		public void TestMethod1()
 		{
 			Assert.AreEqual(0, 0);
-		}
-
-		[TestMethod]
-		public void TestMethod2()
-		{
-			Assert.AreEqual(0, 1);
 		}
 	}
 }
