@@ -97,5 +97,17 @@ namespace MySolutionExplorer
 			ReformCodeFileName(proj.Xml);
 			proj.Xml.Save(proj.File.FullName);
 		}
+
+		public static bool IsExistCodeFile(DirectoryInfo dir)
+		{
+			foreach (var i in dir.GetFiles())
+			{
+				if (i.Extension == MyEnum.CSharp)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

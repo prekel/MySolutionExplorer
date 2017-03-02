@@ -34,7 +34,7 @@ namespace MySolutionExplorer
 		{
 			get { return DirSolution.Directory; }
 		}
-		
+
 		public Solution()
 		{
 		}
@@ -57,6 +57,28 @@ namespace MySolutionExplorer
 				}
 			}
 		}
+
+		//public void ImportProjects()
+		//{
+		//	foreach (var i in Dir.GetDirectories())
+		//	{
+		//		if (i.Name.Contains("cpp"))
+		//		{
+		//			var regex = new System.Text.RegularExpressions.Regex("{a-z}+ {0-9}[4]. {a-z}+");
+		//			var p = new CppProject
+		//			{
+		//				ParentSolution = this,
+		//				TaskName = nameText.Text,
+		//				Site = siteText.Text,
+		//				Number = int.Parse(numberText.Text),
+		//				Lang = lang
+		//			};
+		//			p.Path = dir + MyEnum.Slash + p.Name;
+		//			p.CreateFiles();
+		//			s.Add(p);
+		//		}
+		//	}
+		//}
 
 		/// <summary>
 		/// Добавляет проект в решение
@@ -95,7 +117,7 @@ namespace MySolutionExplorer
 
 			using (var r = new StreamReader(path))
 			{
-				ret = (Solution) serializer.Deserialize(r);
+				ret = (Solution)serializer.Deserialize(r);
 			}
 
 			ret.DirSolution = new FileInfo(path);
