@@ -109,5 +109,20 @@ namespace MySolutionExplorer
 			}
 			return false;
 		}
+		
+		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+		{
+			var p = new CSharpProject
+			{
+				ParentSolution = s,
+				TaskName = task,
+				Site = site,
+				Number = int.Parse(number),
+				Lang = "cs"
+			};
+			p.Path = dir + MyEnum.Slash + p.Name;
+			p.CreateFiles();
+			s.Add(p);
+		}
 	}
 }
