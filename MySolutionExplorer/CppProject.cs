@@ -97,5 +97,20 @@ namespace MySolutionExplorer
 			ReformCodeFileName(proj.Xml);
 			proj.Xml.Save(proj.File.FullName);
 		}
+
+		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+		{
+			var p = new CppProject
+			{
+				ParentSolution = s,
+				TaskName = task,
+				Site = site,
+				Number = int.Parse(number),
+				Lang = "cpp"
+			};
+			p.Path = dir + MyEnum.Slash + p.Name;
+			p.CreateFiles();
+			s.Add(p);
+		}
 	}
 }
