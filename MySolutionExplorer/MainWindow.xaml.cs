@@ -49,6 +49,28 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
+		public void CreateEmptySolution()
+		{
+			s = new Solution(dirfile.FullName);
+			SaveFlag = true;
+		}
+
+		public void CreateCppProject()
+		{
+			CppProject.Create(s, nameText.Text, siteText.Text, numberText.Text, dir);
+		}
+
+		public void CreateCSharpProject()
+		{
+			CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, dir);
+		}
+
+		public void ReloadTable()
+		{
+			mainTable.ItemsSource = null;
+			mainTable.ItemsSource = s;
+		}
+
 		/// <summary>
 		/// Нажатие на кнопку загрузки
 		/// </summary>
@@ -66,41 +88,19 @@ namespace MySolutionExplorer
 		{
 			if (s == null)
 			{
-				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
-				SaveFlag = true;
+				CreateEmptySolution();
 				return;
 			}
 			var lang = ((TextBlock)langList.SelectedValue).Text;
 			if (lang == "cpp")
 			{
-				var p = new CppProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
+				CreateCppProject();
 			}
 			else if (lang == "cs")
 			{
-				var p = new CSharpProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
+				CreateCSharpProject();
 			}
-			mainTable.ItemsSource = null;
-			mainTable.ItemsSource = s;
+			ReloadTable();
 			SaveFlag = false;
 		}
 
