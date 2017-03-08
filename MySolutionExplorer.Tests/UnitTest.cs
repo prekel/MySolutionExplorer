@@ -26,28 +26,21 @@ namespace MySolutionExplorer.Tests
 			Assert.AreEqual(1, 1);
 		}
 		
-		[TestMethod]
-		public void CreateSolutionTest()
-		{
-			var s = new Solution();
-		}
+		//[TestMethod]
+		//public void CreateSolutionTest()
+		//{
+		//	var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+		//	var s = new Solution(dir.FullName + MyEnum.Slash + "TestSolution.mysln");
+		//	//s.Save();
+		//}
 
-		[TestMethod]
-		public void CreateCppProjectTest()
-		{
-			var dir = Directory.GetCurrentDirectory();
-			var s = new Solution();
-			var p = new CppProject
-			{
-				ParentSolution = s,
-				TaskName = "Sample",
-				Site = "asd",
-				Number = 123,
-				Lang = "cpp"
-			};
-			p.Path = dir + MyEnum.Slash + p.Name;
-			p.CreateFiles();
-			s.Add(p);
-		}
+		//[TestMethod]
+		//public void CreateCppProjectTest()
+		//{
+		//	var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+		//	var s = new Solution(dir.FullName);
+		//	s.Save();
+		//	CppProject.Create(s, "TestTask", "TestSite", "1234", dir);
+		//}
 	}
 }
