@@ -143,6 +143,7 @@ namespace MySolutionExplorer
 		private void importButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.ImportProjects();
+			SaveFlag = false;
 			ReloadTable();
 		}
 	}

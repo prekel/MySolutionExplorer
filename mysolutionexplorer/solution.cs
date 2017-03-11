@@ -145,6 +145,43 @@ namespace MySolutionExplorer
 			Add(proj);
 		}
 
+		public void ImportProjects()
+		{
+			foreach (var i in Dir.GetDirectories())
+			{
+				foreach (var j in this)
+				{
+					if (j.Path == i.FullName)
+					{
+						goto cntn;
+					}
+				}
+				if (i.Name.Contains(MyEnum.CSharpSuff))
+				{
+					var p = new CSharpProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "cs",
+						Dir = i
+					};
+					Add(p);
+				}
+				if (i.Name.Contains(MyEnum.CppSuff))
+				{
+					var p = new CppProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "cpp",
+						Dir = i
+					};
+					Add(p);
+				}
+				cntn:;
+			}
+		}
+
 		/// <summary>
 		/// Копирует папку
 		/// </summary>

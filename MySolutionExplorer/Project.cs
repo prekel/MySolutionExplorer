@@ -113,6 +113,7 @@ namespace MySolutionExplorer
 					Site = m.Groups[1].Value;
 					Number = int.Parse(m.Groups[2].Value);
 					TaskName = m.Groups[3].Value;
+					TaskName = TaskName.Substring(0, TaskName.Length - 1);
 					//throw new NotImplementedException();
 				}
 			}
