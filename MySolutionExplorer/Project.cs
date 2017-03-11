@@ -108,7 +108,13 @@ namespace MySolutionExplorer
 			{
 				if (Number == 0 || Site == "" || Lang == "" || TaskName == "")
 				{
-					throw new NotImplementedException();
+					var r = new System.Text.RegularExpressions.Regex("([a-z]+) ([0-9a-zA-Z]{4}). ([0-9А-Яа-яЁёA-Za-z- ]+)");
+					var m = r.Match(value);
+					Site = m.Groups[1].Value;
+					Number = int.Parse(m.Groups[2].Value);
+					TaskName = m.Groups[3].Value;
+					TaskName = TaskName.Substring(0, TaskName.Length - 1);
+					//throw new NotImplementedException();
 				}
 			}
 		}

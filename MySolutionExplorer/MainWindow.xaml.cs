@@ -139,5 +139,12 @@ namespace MySolutionExplorer
 			dirfile = null;
 			mainTable.ItemsSource = null;
 		}
+
+		private void importButton_Click(object sender, RoutedEventArgs e)
+		{
+			s.ImportProjects();
+			SaveFlag = false;
+			ReloadTable();
+		}
 	}
 }
