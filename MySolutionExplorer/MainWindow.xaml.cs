@@ -49,26 +49,17 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
+		public void ReloadTable()
+		{
+			SaveFlag = false;
+			mainTable.ItemsSource = null;
+			mainTable.ItemsSource = s;
+		}
+		
 		public void CreateEmptySolution()
 		{
 			s = new Solution(dirfile.FullName);
 			SaveFlag = true;
-		}
-
-		public void CreateCppProject()
-		{
-			CppProject.Create(s, nameText.Text, siteText.Text, numberText.Text, dir);
-		}
-
-		public void CreateCSharpProject()
-		{
-			CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, dir);
-		}
-
-		public void ReloadTable()
-		{
-			mainTable.ItemsSource = null;
-			mainTable.ItemsSource = s;
 		}
 
 		/// <summary>
@@ -82,43 +73,12 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Нажатие на кнопку создания проекта
-		/// </summary>
-		private void createButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (s == null)
-			{
-				CreateEmptySolution();
-				return;
-			}
-			var lang = ((TextBlock)langList.SelectedValue).Text;
-			if (lang == "cpp")
-			{
-				CreateCppProject();
-			}
-			else if (lang == "cs")
-			{
-				CreateCSharpProject();
-			}
-			ReloadTable();
-			SaveFlag = false;
-		}
-
-		/// <summary>
 		/// Нажатие на кнопку сохранения решения
 		/// </summary>
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.Save();
 			SaveFlag = true;
-		}
-
-		/// <summary>
-		/// Нажатие на кнопку обзора
-		/// </summary>
-		private void showButton_Click(object sender, RoutedEventArgs e)
-		{
-			OpenSolutionDialog();
 		}
 
 		private void closeButton_Click(object sender, RoutedEventArgs e)
@@ -133,9 +93,8 @@ namespace MySolutionExplorer
 
 		private void importButton_Click(object sender, RoutedEventArgs e)
 		{
-			s.ImportProjects();
-			SaveFlag = false;
-			ReloadTable();
+			if (s.ImportProjects() > 0)
+				ReloadTable();
 		}
 
 		private void openbutton_Click(object sender, RoutedEventArgs e)
@@ -175,6 +134,18 @@ namespace MySolutionExplorer
 			{
 				CreateEmptySolution();
 			}
+		}
+
+		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var w = new CreateProjectWindow(s);
+			w.Show();
+			w.Create += W_Create;
+		}
+
+		private void W_Create(object sender, Project e)
+		{
+			ReloadTable();
 		}
 	}
 }

@@ -145,8 +145,9 @@ namespace MySolutionExplorer
 			Add(proj);
 		}
 
-		public void ImportProjects()
+		public int ImportProjects()
 		{
+			var c = Count;
 			foreach (var i in Dir.GetDirectories())
 			{
 				foreach (var j in this)
@@ -180,6 +181,7 @@ namespace MySolutionExplorer
 				}
 				cntn:;
 			}
+			return Count - c;
 		}
 
 		/// <summary>
