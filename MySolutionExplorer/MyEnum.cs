@@ -22,5 +22,6 @@ namespace MySolutionExplorer
 		public const string Txt = ".txt", Config = ".config";
 		public const string TemplateCSharpProj = "example 0000. Template [cs]", TemplateCSharp = "Task_example0000.cs";
 		public const string AppName = "MySolutionExplorer";
+		public const string CppSuff = "[cpp]", CSharpSuff = "[cs]";
 	}
 }

@@ -49,6 +49,19 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
+		public void ReloadTable()
+		{
+			SaveFlag = false;
+			mainTable.ItemsSource = null;
+			mainTable.ItemsSource = s;
+		}
+		
+		public void CreateEmptySolution()
+		{
+			s = new Solution(dirfile.FullName);
+			SaveFlag = true;
+		}
+
 		/// <summary>
 		/// Нажатие на кнопку загрузки
 		/// </summary>
@@ -60,74 +73,12 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Нажатие на кнопку создания проекта
-		/// </summary>
-		private void createButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (s == null)
-			{
-				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
-				SaveFlag = true;
-				return;
-			}
-			var lang = ((TextBlock)langList.SelectedValue).Text;
-			if (lang == "cpp")
-			{
-				var p = new CppProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
-			}
-			else if (lang == "cs")
-			{
-				var p = new CSharpProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
-			}
-			mainTable.ItemsSource = null;
-			mainTable.ItemsSource = s;
-			SaveFlag = false;
-		}
-
-		/// <summary>
 		/// Нажатие на кнопку сохранения решения
 		/// </summary>
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
 			s.Save();
 			SaveFlag = true;
-		}
-
-		/// <summary>
-		/// Нажатие на кнопку обзора
-		/// </summary>
-		private void showButton_Click(object sender, RoutedEventArgs e)
-		{
-			var myDialog = new Microsoft.Win32.OpenFileDialog
-			{
-				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
-				CheckFileExists = false,
-			};
-			if (myDialog.ShowDialog() == true)
-			{
-				dirfile = new FileInfo(myDialog.FileName);
-				dir = dirfile.Directory;
-			}
 		}
 
 		private void closeButton_Click(object sender, RoutedEventArgs e)
@@ -138,6 +89,63 @@ namespace MySolutionExplorer
 			dir = null;
 			dirfile = null;
 			mainTable.ItemsSource = null;
+		}
+
+		private void importButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (s.ImportProjects() > 0)
+				ReloadTable();
+		}
+
+		private void openbutton_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				s = Solution.Load(dirfile.FullName);
+				mainTable.ItemsSource = s;
+				SaveFlag = true; 
+			}
+		}
+
+		public bool OpenSolutionDialog()
+		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog
+			{
+				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+				CheckFileExists = false,
+			};
+			if (myDialog.ShowDialog() == true)
+			{
+				dirfile = new FileInfo(myDialog.FileName);
+				dir = dirfile.Directory;
+				return true;
+			}
+			return false;
+		}
+
+		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				CreateEmptySolution();
+			}
+		}
+
+		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var w = new CreateProjectWindow(s);
+			w.Show();
+			w.Create += W_Create;
+		}
+
+		private void W_Create(object sender, Project e)
+		{
+			ReloadTable();
 		}
 	}
 }
