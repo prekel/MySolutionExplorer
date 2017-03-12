@@ -26,6 +26,15 @@ namespace MySolutionExplorer
 			get { return XmlProjectFiles[0]; }
 			set { XmlProjectFiles[0] = value; }
 		}
+		/// <summary>
+		/// Файл .csproj для SharpDevelop
+		/// </summary>
+		[XmlIgnore]
+		private XmlProjectFile SharpDevelopProjectFile
+		{
+			get { return XmlProjectFiles[1]; }
+			set { XmlProjectFiles[1] = value; }
+		}
 
 		/// <summary>
 		/// Инициализация
@@ -38,14 +47,20 @@ namespace MySolutionExplorer
 				Parent = this,
 				Extension = MyEnum.CSProj
 			};
+			SharpDevelopProjectFile = new XmlProjectFile
+			{
+				Suff = MyEnum.SharpDevelop,
+				Parent = this,
+				Extension = MyEnum.CSProj
+			};
 		}
 
-		public CSharpProject() : base(1)
+		public CSharpProject() : base(2)
 		{
 			Init();
 		}
 
-		public CSharpProject(string path) : base(path, 1)
+		public CSharpProject(string path) : base(path, 2)
 		{
 			Init();
 		}
@@ -81,6 +96,33 @@ namespace MySolutionExplorer
 			ReformAssemblyName(proj.Xml);
 			ReformCodeFileName(proj.Xml);
 			proj.Xml.Save(proj.File.FullName);
+		}
+
+		public static bool IsExistCodeFile(DirectoryInfo dir)
+		{
+			foreach (var i in dir.GetFiles())
+			{
+				if (i.Extension == MyEnum.CSharp)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+		{
+			var p = new CSharpProject
+			{
+				ParentSolution = s,
+				TaskName = task,
+				Site = site,
+				Number = int.Parse(number),
+				Lang = "cs"
+			};
+			p.Path = dir + MyEnum.Slash + p.Name;
+			p.CreateFiles();
+			s.Add(p);
 		}
 	}
 }
