@@ -50,6 +50,25 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
+		/// Обновляет таблицу
+		/// </summary>
+		public void ReloadTable()
+		{
+			SaveFlag = false;
+			mainTable.ItemsSource = null;
+			mainTable.ItemsSource = s;
+		}
+		
+		/// <summary>
+		/// Создание пустого решения
+		/// </summary>
+		public void CreateEmptySolution()
+		{
+			s = new Solution(dirfile.FullName);
+			SaveFlag = true;
+		}
+
+		/// <summary>
 		/// Нажатие на кнопку загрузки
 		/// </summary>
 		private void loadButton_Click(object sender, RoutedEventArgs e)
@@ -57,51 +76,6 @@ namespace MySolutionExplorer
 			s = Solution.Load(dirfile.FullName);
 			mainTable.ItemsSource = s;
 			SaveFlag = true;
-		}
-
-		/// <summary>
-		/// Нажатие на кнопку создания проекта
-		/// </summary>
-		private void createButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (s == null)
-			{
-				s = new Solution { DirSolution = new FileInfo(dirfile.FullName) };
-				SaveFlag = true;
-				return;
-			}
-			var lang = ((TextBlock)langList.SelectedValue).Text;
-			if (lang == "cpp")
-			{
-				var p = new CppProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
-			}
-			else if (lang == "cs")
-			{
-				var p = new CSharpProject
-				{
-					ParentSolution = s,
-					TaskName = nameText.Text,
-					Site = siteText.Text,
-					Number = int.Parse(numberText.Text),
-					Lang = lang
-				};
-				p.Path = dir + MyEnum.Slash + p.Name;
-				p.CreateFiles();
-				s.Add(p);
-			}
-			mainTable.ItemsSource = null;
-			mainTable.ItemsSource = s;
-			SaveFlag = false;
 		}
 
 		/// <summary>
@@ -114,9 +88,45 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Нажатие на кнопку обзора
+		/// Закрытие решения
 		/// </summary>
-		private void showButton_Click(object sender, RoutedEventArgs e)
+		private void closeButton_Click(object sender, RoutedEventArgs e)
+		{
+			s = null;
+			SaveFlag = true;
+			Title = MyEnum.AppName;
+			dir = null;
+			dirfile = null;
+			mainTable.ItemsSource = null;
+		}
+
+		/// <summary>
+		/// Импорт
+		/// </summary>
+		private void importButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (s.ImportProjects() > 0)
+				ReloadTable();
+		}
+
+		/// <summary>
+		/// Открытие
+		/// </summary>
+		private void openbutton_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				s = Solution.Load(dirfile.FullName);
+				mainTable.ItemsSource = s;
+				SaveFlag = true; 
+			}
+		}
+
+		/// <summary>
+		/// Обзор
+		/// </summary>
+		/// <returns>Выбрал ли пользователь файл</returns>
+		public bool OpenSolutionDialog()
 		{
 			var myDialog = new Microsoft.Win32.OpenFileDialog
 			{
@@ -127,17 +137,46 @@ namespace MySolutionExplorer
 			{
 				dirfile = new FileInfo(myDialog.FileName);
 				dir = dirfile.Directory;
+				return true;
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Выход
+		/// </summary>
+		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		/// <summary>
+		/// Создание пустого решения (нажатие на кнопку)
+		/// </summary>
+		private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				CreateEmptySolution();
 			}
 		}
 
-		private void closeButton_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Открытие окна создания проекта
+		/// </summary>
+		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			s = null;
-			SaveFlag = true;
-			Title = MyEnum.AppName;
-			dir = null;
-			dirfile = null;
-			mainTable.ItemsSource = null;
+			var w = new CreateProjectWindow(s);
+			w.Show();
+			w.Create += W_Create;
+		}
+
+		/// <summary>
+		/// Действия при добавлении проекта
+		/// </summary>
+		private void W_Create(object sender, ProjectEventArgs e)
+		{
+			ReloadTable();
 		}
 	}
 }
