@@ -67,6 +67,7 @@ namespace MySolutionExplorer
 
 		public void ReloadTable()
 		{
+			SaveFlag = false;
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
 		}
@@ -175,6 +176,18 @@ namespace MySolutionExplorer
 			{
 				CreateEmptySolution();
 			}
+		}
+
+		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var w = new CreateProjectWindow(s);
+			w.Show();
+			w.Create += W_Create;
+		}
+
+		private void W_Create(object sender, Project e)
+		{
+			ReloadTable();
 		}
 	}
 }

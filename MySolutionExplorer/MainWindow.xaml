@@ -37,6 +37,10 @@
 				<MenuItem Header="Выход" 
 					Click="ExitMenuItem_Click"></MenuItem>
 			</MenuItem>
+			<MenuItem Header="Проект">
+				<MenuItem Header="Создать" 
+					Click="CreateProjMenuItem_Click"></MenuItem>
+			</MenuItem>
 		</Menu>
 
 		<ListView 
