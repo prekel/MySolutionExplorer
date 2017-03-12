@@ -8,8 +8,7 @@
         Title="Создать проект" 
 		Height="200" MinHeight="200"
 		Width="300" MinWidth="100">
-	<Grid>
-
+	<Grid Background="WhiteSmoke">
 		<TextBox x:Name="numberText" Margin="10,8,10,0" TextWrapping="Wrap" Text="25" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
 		<TextBox x:Name="siteText" Margin="10,36,10,0" TextWrapping="Wrap" Text="acmp" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
 		<TextBox x:Name="nameText" Margin="10,64,10,0" TextWrapping="Wrap" Text="Больше-меньше" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
@@ -17,7 +16,6 @@
 			<TextBlock>cpp</TextBlock>
 			<TextBlock>cs</TextBlock>
 		</ComboBox>
-		<Button x:Name="button" Content="Создать" Margin="110,135,110,0" VerticalAlignment="Top" Click="createbutton_Click"/>
-
+		<Button x:Name="createbutton" Content="Создать" Margin="110,135,110,0" VerticalAlignment="Top" Click="createbutton_Click"/>
 	</Grid>
 </Window>

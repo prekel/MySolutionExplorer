@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2017 Vladislav Prekel
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +29,8 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
-		public CreateProjectWindow(Solution s)
+		public CreateProjectWindow(Solution s) : this()
 		{
-			InitializeComponent();
 			this.s = s;
 		}
 
