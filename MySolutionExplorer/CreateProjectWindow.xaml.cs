@@ -53,6 +53,9 @@ namespace MySolutionExplorer
 			CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
 		}
 
+		/// <summary>
+		/// При нажатии на кнопку создания проекта
+		/// </summary>
 		private void createbutton_Click(object sender, RoutedEventArgs e)
 		{
 			var lang = ((TextBlock)langList.SelectedValue).Text;

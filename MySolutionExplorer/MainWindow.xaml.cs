@@ -49,6 +49,9 @@ namespace MySolutionExplorer
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Обновляет таблицу
+		/// </summary>
 		public void ReloadTable()
 		{
 			SaveFlag = false;
@@ -56,6 +59,9 @@ namespace MySolutionExplorer
 			mainTable.ItemsSource = s;
 		}
 		
+		/// <summary>
+		/// Создание пустого решения
+		/// </summary>
 		public void CreateEmptySolution()
 		{
 			s = new Solution(dirfile.FullName);
@@ -81,6 +87,9 @@ namespace MySolutionExplorer
 			SaveFlag = true;
 		}
 
+		/// <summary>
+		/// Закрытие решения
+		/// </summary>
 		private void closeButton_Click(object sender, RoutedEventArgs e)
 		{
 			s = null;
@@ -91,12 +100,18 @@ namespace MySolutionExplorer
 			mainTable.ItemsSource = null;
 		}
 
+		/// <summary>
+		/// Импорт
+		/// </summary>
 		private void importButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (s.ImportProjects() > 0)
 				ReloadTable();
 		}
 
+		/// <summary>
+		/// Открытие
+		/// </summary>
 		private void openbutton_Click(object sender, RoutedEventArgs e)
 		{
 			if (OpenSolutionDialog())
@@ -107,6 +122,10 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Обзор
+		/// </summary>
+		/// <returns>Выбрал ли пользователь файл</returns>
 		public bool OpenSolutionDialog()
 		{
 			var myDialog = new Microsoft.Win32.OpenFileDialog
@@ -123,11 +142,17 @@ namespace MySolutionExplorer
 			return false;
 		}
 
+		/// <summary>
+		/// Выход
+		/// </summary>
 		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 		}
 
+		/// <summary>
+		/// Создание пустого решения (нажатие на кнопку)
+		/// </summary>
 		private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			if (OpenSolutionDialog())
@@ -136,6 +161,9 @@ namespace MySolutionExplorer
 			}
 		}
 
+		/// <summary>
+		/// Открытие окна создания проекта
+		/// </summary>
 		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			var w = new CreateProjectWindow(s);
@@ -143,6 +171,9 @@ namespace MySolutionExplorer
 			w.Create += W_Create;
 		}
 
+		/// <summary>
+		/// Действия при добавлении проекта
+		/// </summary>
 		private void W_Create(object sender, ProjectEventArgs e)
 		{
 			ReloadTable();
