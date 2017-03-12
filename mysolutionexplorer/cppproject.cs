@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2017 Vladislav Prekel
+// Copyright (c) 2017 Vladislav Prekel
 
 using System;
 using System.Collections.Generic;

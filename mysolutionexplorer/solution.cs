@@ -11,7 +11,7 @@ using System.IO;
 namespace MySolutionExplorer
 {
 	/// <summary>
-	/// Решение (группа проектов)
+	/// Р РµС€РµРЅРёРµ (РіСЂСѓРїРїР° РїСЂРѕРµРєС‚РѕРІ)
 	/// </summary>
 	[Serializable]
 	[XmlRoot("Solution")]
@@ -22,12 +22,12 @@ namespace MySolutionExplorer
 	public class Solution : List<Project>
 	{
 		/// <summary>
-		/// Файл решения
+		/// Р¤Р°Р№Р» СЂРµС€РµРЅРёСЏ
 		/// </summary>
 		[XmlIgnore] public FileInfo DirSolution { get; set; }
 
 		/// <summary>
-		/// Директория решения
+		/// Р”РёСЂРµРєС‚РѕСЂРёСЏ СЂРµС€РµРЅРёСЏ
 		/// </summary>
 		[XmlIgnore]
 		public DirectoryInfo Dir
@@ -45,7 +45,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Кандидат к удалению
+		/// РљР°РЅРґРёРґР°С‚ Рє СѓРґР°Р»РµРЅРёСЋ
 		/// </summary>
 		public void FindProjects()
 		{
@@ -81,9 +81,9 @@ namespace MySolutionExplorer
 		//}
 
 		/// <summary>
-		/// Добавляет проект в решение
+		/// Р”РѕР±Р°РІР»СЏРµС‚ РїСЂРѕРµРєС‚ РІ СЂРµС€РµРЅРёРµ
 		/// </summary>
-		/// <param name="item">Проект</param>
+		/// <param name="item">РџСЂРѕРµРєС‚</param>
 		public new void Add(Project item)
 		{
 			base.Add(item);
@@ -91,7 +91,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Удаляет папку с собраным мусором
+		/// РЈРґР°Р»СЏРµС‚ РїР°РїРєСѓ СЃ СЃРѕР±СЂР°РЅС‹Рј РјСѓСЃРѕСЂРѕРј
 		/// </summary>
 		public void DeleteTrash()
 		{
@@ -106,10 +106,10 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Загружает решение
+		/// Р—Р°РіСЂСѓР¶Р°РµС‚ СЂРµС€РµРЅРёРµ
 		/// </summary>
-		/// <param name="path">Путь до файла</param>
-		/// <returns>Решение</returns>
+		/// <param name="path">РџСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°</param>
+		/// <returns>Р РµС€РµРЅРёРµ</returns>
 		public static Solution Load(string path)
 		{
 			var serializer = new XmlSerializer(typeof(Solution));
@@ -125,7 +125,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Сохраняет решение 
+		/// РЎРѕС…СЂР°РЅСЏРµС‚ СЂРµС€РµРЅРёРµ 
 		/// </summary>
 		public void Save()
 		{
@@ -138,7 +138,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Кандидат к удалению
+		/// РљР°РЅРґРёРґР°С‚ Рє СѓРґР°Р»РµРЅРёСЋ
 		/// </summary>
 		public void CreateProject(Project proj)
 		{
@@ -185,11 +185,11 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Копирует папку
+		/// РљРѕРїРёСЂСѓРµС‚ РїР°РїРєСѓ
 		/// </summary>
-		/// <param name="sourceDirName">Исходная папка</param>
-		/// <param name="destDirName">Папка назначения</param>
-		/// <param name="copySubDirs">Копировать ли подкаталоги</param>
+		/// <param name="sourceDirName">РСЃС…РѕРґРЅР°СЏ РїР°РїРєР°</param>
+		/// <param name="destDirName">РџР°РїРєР° РЅР°Р·РЅР°С‡РµРЅРёСЏ</param>
+		/// <param name="copySubDirs">РљРѕРїРёСЂРѕРІР°С‚СЊ Р»Рё РїРѕРґРєР°С‚Р°Р»РѕРіРё</param>
 		/// <copyright>Microsoft Corporation msdn.microsoft.com/ru-ru/library/bb762914</copyright>
 		public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 		{
