@@ -16,12 +16,21 @@ using System.Windows.Shapes;
 
 namespace MySolutionExplorer
 {
+	public class ProjectEventArgs : EventArgs
+	{
+		public Project p;
+		public ProjectEventArgs(Project p)
+		{
+			this.p = p;
+		}
+	}
+
 	/// <summary>
 	/// Логика взаимодействия для CreateProjectWindow.xaml
 	/// </summary>
 	public partial class CreateProjectWindow : Window
 	{
-		public event EventHandler<Project> Create;
+		public event EventHandler<ProjectEventArgs> Create;
 		Solution s;
 
 		public CreateProjectWindow()
@@ -55,7 +64,7 @@ namespace MySolutionExplorer
 			{
 				CreateCSharpProject();
 			}
-			Create(this, s[s.Count - 1]);
+			Create(this, new ProjectEventArgs(s[s.Count - 1]));
 		}
 	}
 }

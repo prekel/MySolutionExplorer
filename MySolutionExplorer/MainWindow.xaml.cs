@@ -143,7 +143,7 @@ namespace MySolutionExplorer
 			w.Create += W_Create;
 		}
 
-		private void W_Create(object sender, Project e)
+		private void W_Create(object sender, ProjectEventArgs e)
 		{
 			ReloadTable();
 		}
