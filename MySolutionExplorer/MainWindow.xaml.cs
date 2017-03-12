@@ -118,16 +118,7 @@ namespace MySolutionExplorer
 		/// </summary>
 		private void showButton_Click(object sender, RoutedEventArgs e)
 		{
-			var myDialog = new Microsoft.Win32.OpenFileDialog
-			{
-				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
-				CheckFileExists = false,
-			};
-			if (myDialog.ShowDialog() == true)
-			{
-				dirfile = new FileInfo(myDialog.FileName);
-				dir = dirfile.Directory;
-			}
+			OpenSolutionDialog();
 		}
 
 		private void closeButton_Click(object sender, RoutedEventArgs e)
@@ -145,6 +136,45 @@ namespace MySolutionExplorer
 			s.ImportProjects();
 			SaveFlag = false;
 			ReloadTable();
+		}
+
+		private void openbutton_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				s = Solution.Load(dirfile.FullName);
+				mainTable.ItemsSource = s;
+				SaveFlag = true; 
+			}
+		}
+
+		public bool OpenSolutionDialog()
+		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog
+			{
+				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+				CheckFileExists = false,
+			};
+			if (myDialog.ShowDialog() == true)
+			{
+				dirfile = new FileInfo(myDialog.FileName);
+				dir = dirfile.Directory;
+				return true;
+			}
+			return false;
+		}
+
+		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenSolutionDialog())
+			{
+				CreateEmptySolution();
+			}
 		}
 	}
 }

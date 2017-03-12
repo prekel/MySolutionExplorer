@@ -12,17 +12,36 @@
 		MinWidth="250">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="150*"/>
-			<RowDefinition Height="169*"/>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="10*"/>
+			<RowDefinition Height="13*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="375*"/>
 			<ColumnDefinition Width="150"/>
 		</Grid.ColumnDefinitions>
 
+		<Menu Grid.ColumnSpan="2" IsMainMenu="True">
+			<MenuItem Header="Файл">
+				<MenuItem Header="Создать" 
+					Click="CreateMenuItem_Click"></MenuItem>
+				<MenuItem Header="Открыть"
+					Click="openbutton_Click"></MenuItem>
+				<MenuItem Header="Сохранить"
+					Click="saveButton_Click"></MenuItem>
+				<MenuItem Header="Закрыть"
+					Click="closeButton_Click"></MenuItem>
+				<MenuItem Header="Импорт"
+					Click="importButton_Click"></MenuItem>
+				<Separator></Separator>
+				<MenuItem Header="Выход" 
+					Click="ExitMenuItem_Click"></MenuItem>
+			</MenuItem>
+		</Menu>
+
 		<ListView 
 			Name="mainTable"
-			Margin="20,20,0,10" Grid.RowSpan="2">
+			Margin="10,10,0,10" Grid.RowSpan="2" Grid.Row="1">
 			<ListView.View>
 				<GridView>
 					<GridViewColumn 
@@ -32,7 +51,7 @@
 						DisplayMemberBinding="{Binding Path=Number}" 
 						Width="50">Номер</GridViewColumn>
 					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=TaskName}"  
+						DisplayMemberBinding="{Binding Path=TaskName}" 
 						Width="150">Название</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Lang}"  
@@ -41,19 +60,20 @@
 			</ListView.View>
 		</ListView>
 
-		<TextBox x:Name="numberText" Margin="11,20,11,0" TextWrapping="Wrap" Text="25" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
-		<TextBox x:Name="siteText" Margin="11,48,11,0" TextWrapping="Wrap" Text="acmp" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
-		<TextBox x:Name="nameText" Margin="11,76,11,0" TextWrapping="Wrap" Text="Больше-меньше" Grid.Column="1" Height="23" VerticalAlignment="Top"/>
-		<ComboBox Name="langList" Margin="12,104,11,0" Grid.Column="1" Height="23" VerticalAlignment="Top">
+		<TextBox x:Name="numberText" Margin="10,8,10,0" TextWrapping="Wrap" Text="25" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
+		<TextBox x:Name="siteText" Margin="10,36,10,0" TextWrapping="Wrap" Text="acmp" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
+		<TextBox x:Name="nameText" Margin="10,64,10,0" TextWrapping="Wrap" Text="Больше-меньше" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
+		<ComboBox Name="langList" Margin="10,92,10,0" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1">
 			<TextBlock>cpp</TextBlock>
 			<TextBlock>cs</TextBlock>
 		</ComboBox>
-		<Button x:Name="createButton" Content="Создать" Margin="35,5,35,0" VerticalAlignment="Top" Click="createButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
-		<Button x:Name="showButton" Content="Обзор..." Margin="35,30,35,0" VerticalAlignment="Top" Click="showButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
-		<Button x:Name="loadButton" Content="Загрузить" HorizontalAlignment="Left" Margin="35,55,0,0" VerticalAlignment="Top" Width="80" Click="loadButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
-		<Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="35,80,0,0" VerticalAlignment="Top" Width="80" Click="saveButton_Click" Grid.Column="1" Grid.Row="1" Height="20"/>
-		<Button x:Name="closeButton" Content="Закрыть" HorizontalAlignment="Left" Margin="35,105,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" Click="closeButton_Click" Grid.Row="1" Height="20"/>
-		<Button x:Name="importButton" Content="Импорт" HorizontalAlignment="Left" Margin="35,130,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1"  Grid.Row="1" Height="20" Click="importButton_Click"/>
+
+		<Button x:Name="createButton" Content="Создать" Margin="35,5,35,0" VerticalAlignment="Top" Click="createButton_Click" Grid.Column="1" Grid.Row="2" Height="20"/>
+		<Button x:Name="showButton" Content="Обзор..." Margin="35,30,35,0" VerticalAlignment="Top" Click="showButton_Click" Grid.Column="1" Grid.Row="2" Height="20"/>
+		<Button x:Name="loadButton" Content="Загрузить" Margin="35,55,35,0" VerticalAlignment="Top" Click="loadButton_Click" Grid.Column="1" Grid.Row="2" Height="20"/>
+		<Button x:Name="saveButton" Content="Сохранить" Margin="35,80,35,0" VerticalAlignment="Top" Click="saveButton_Click" Grid.Column="1" Grid.Row="2" Height="20"/>
+		<Button x:Name="closeButton" Content="Закрыть" Margin="35,105,35,0" VerticalAlignment="Top" Grid.Column="1" Click="closeButton_Click" Grid.Row="2" Height="20"/>
+		<Button x:Name="importButton" Content="Импорт" Margin="35,130,35,0" VerticalAlignment="Top" Grid.Column="1"  Grid.Row="2" Height="20" Click="importButton_Click"/>
 
 	</Grid>
 </Window>
