@@ -177,6 +177,17 @@ namespace MySolutionExplorer
 					};
 					Add(p);
 				}
+				if (i.Name.Contains(MyEnum.PySuff))
+				{
+					var p = new PyProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "py",
+						Dir = i
+					};
+					Add(p);
+				}
 				cntn:;
 			}
 			return Count - c;
