@@ -19,6 +19,7 @@ namespace MySolutionExplorer
 	[XmlInclude(typeof(VSProject))]
 	[XmlInclude(typeof(CppProject))]
 	[XmlInclude(typeof(CSharpProject))]
+	[XmlInclude(typeof(PyProject))]
 	public class Solution : List<Project>
 	{
 		/// <summary>
