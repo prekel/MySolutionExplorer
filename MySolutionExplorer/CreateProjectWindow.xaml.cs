@@ -19,10 +19,7 @@ namespace MySolutionExplorer
 	public class ProjectEventArgs : EventArgs
 	{
 		public Project p;
-		public ProjectEventArgs(Project p)
-		{
-			this.p = p;
-		}
+		public ProjectEventArgs(Project p) => this.p = p;
 	}
 
 	/// <summary>
@@ -33,30 +30,15 @@ namespace MySolutionExplorer
 		public event EventHandler<ProjectEventArgs> Create;
 		Solution s;
 
-		public CreateProjectWindow()
-		{
-			InitializeComponent();
-		}
+		public CreateProjectWindow() => InitializeComponent();
 
-		public CreateProjectWindow(Solution s) : this()
-		{
-			this.s = s;
-		}
+		public CreateProjectWindow(Solution s) : this() => this.s = s;
 
-		public void CreateCppProject()
-		{
-			CppProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
-		}
+		public void CreateCppProject() => CppProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
 
-		public void CreateCSharpProject()
-		{
-			CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
-		}
+		public void CreateCSharpProject() => CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
 
-		public void CreatePyProject()
-		{
-			PyProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
-		}
+		public void CreatePyProject() => PyProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
 
 		/// <summary>
 		/// При нажатии на кнопку создания проекта
@@ -64,18 +46,9 @@ namespace MySolutionExplorer
 		private void createbutton_Click(object sender, RoutedEventArgs e)
 		{
 			var lang = ((TextBlock)langList.SelectedValue).Text;
-			if (lang == "cpp")
-			{
-				CreateCppProject();
-			}
-			else if (lang == "cs")
-			{
-				CreateCSharpProject();
-			}
-			else if (lang == "py")
-			{
-				CreatePyProject();
-			}
+			if (lang == "cpp") CreateCppProject(); 
+			else if (lang == "cs") CreateCSharpProject(); 
+			else if (lang == "py") CreatePyProject(); 
 			Create(this, new ProjectEventArgs(s[s.Count - 1]));
 		}
 	}

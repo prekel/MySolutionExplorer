@@ -123,10 +123,7 @@ namespace MySolutionExplorer
 		{
 		}
 
-		protected Project(string path)
-		{
-			Path = path;
-		}
+		protected Project(string path) => Path = path;
 
 		/// <summary>
 		/// Поиск файлов ввода-вывода и кода

@@ -56,15 +56,9 @@ namespace MySolutionExplorer
 			};
 		}
 
-		public CppProject() : base(2)
-		{
-			Init();
-		}
+		public CppProject() : base(2) => Init();
 
-		public CppProject(string path) : base(path, 2)
-		{
-			Init();
-		}
+		public CppProject(string path) : base(path, 2) => Init();
 
 		/// <summary>
 		/// Создание файлов из шаблона, переименовывание, изменение имён внутри

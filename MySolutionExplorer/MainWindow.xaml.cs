@@ -44,10 +44,7 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public MainWindow()
-		{
-			InitializeComponent();
-		}
+		public MainWindow() => InitializeComponent();
 
 		/// <summary>
 		/// Обновляет таблицу
@@ -58,7 +55,7 @@ namespace MySolutionExplorer
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
 		}
-		
+
 		/// <summary>
 		/// Создание пустого решения
 		/// </summary>
@@ -105,8 +102,7 @@ namespace MySolutionExplorer
 		/// </summary>
 		private void importButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (s.ImportProjects() > 0)
-				ReloadTable();
+			if (s.ImportProjects() > 0) ReloadTable();
 		}
 
 		/// <summary>
@@ -118,7 +114,7 @@ namespace MySolutionExplorer
 			{
 				s = Solution.Load(dirfile.FullName);
 				mainTable.ItemsSource = s;
-				SaveFlag = true; 
+				SaveFlag = true;
 			}
 		}
 
@@ -145,10 +141,7 @@ namespace MySolutionExplorer
 		/// <summary>
 		/// Выход
 		/// </summary>
-		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			Close();
-		}
+		private void ExitMenuItem_Click(object sender, RoutedEventArgs e) => Close();
 
 		/// <summary>
 		/// Создание пустого решения (нажатие на кнопку)
@@ -174,9 +167,6 @@ namespace MySolutionExplorer
 		/// <summary>
 		/// Действия при добавлении проекта
 		/// </summary>
-		private void W_Create(object sender, ProjectEventArgs e)
-		{
-			ReloadTable();
-		}
+		private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
 	}
 }
