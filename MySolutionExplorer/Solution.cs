@@ -30,10 +30,7 @@ namespace MySolutionExplorer
 		/// Директория решения
 		/// </summary>
 		[XmlIgnore]
-		public DirectoryInfo Dir
-		{
-			get { return DirSolution.Directory; }
-		}
+		public DirectoryInfo Dir => DirSolution.Directory;
 
 		public Solution()
 		{

@@ -23,8 +23,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile
 		{
-			get { return XmlProjectFiles[0]; }
-			set { XmlProjectFiles[0] = value; }
+			get => XmlProjectFiles[0];
+			set => XmlProjectFiles[0] = value;
 		}
 		/// <summary>
 		/// Файл .csproj для SharpDevelop
@@ -32,8 +32,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile SharpDevelopProjectFile
 		{
-			get { return XmlProjectFiles[1]; }
-			set { XmlProjectFiles[1] = value; }
+			get => XmlProjectFiles[1];
+			set => XmlProjectFiles[1] = value;
 		}
 
 		/// <summary>
@@ -100,14 +100,7 @@ namespace MySolutionExplorer
 
 		public static bool IsExistCodeFile(DirectoryInfo dir)
 		{
-			foreach (var i in dir.GetFiles())
-			{
-				if (i.Extension == MyEnum.CSharp)
-				{
-					return true;
-				}
-			}
-			return false;
+			return dir.GetFiles().Any(i => i.Extension == MyEnum.CSharp);
 		}
 		
 		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)

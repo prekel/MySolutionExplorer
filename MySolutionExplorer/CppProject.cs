@@ -23,8 +23,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile
 		{
-			get { return XmlProjectFiles[0]; }
-			set { XmlProjectFiles[0] = value; }
+			get => XmlProjectFiles[0];
+			set => XmlProjectFiles[0] = value;
 		}
 
 		/// <summary>
@@ -33,8 +33,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2010ProjectFile
 		{
-			get { return XmlProjectFiles[1]; }
-			set { XmlProjectFiles[1] = value; }
+			get => XmlProjectFiles[1];
+			set => XmlProjectFiles[1] = value;
 		}
 
 		/// <summary>
