@@ -44,5 +44,9 @@ namespace MySolutionExplorer
 
 		public const string CppSuff = "[cpp]";
 		public const string CSharpSuff = "[cs]";
+		public const string PySuff = "[py]";
+
+		public const string TemplatePyProj = "example 0000. Template [py]";
+		public const string TemplatePy = "Task_example0000.py";
 	}
 }

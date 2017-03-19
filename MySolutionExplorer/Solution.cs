@@ -19,6 +19,7 @@ namespace MySolutionExplorer
 	[XmlInclude(typeof(VSProject))]
 	[XmlInclude(typeof(CppProject))]
 	[XmlInclude(typeof(CSharpProject))]
+	[XmlInclude(typeof(PyProject))]
 	public class Solution : List<Project>
 	{
 		/// <summary>
@@ -172,6 +173,17 @@ namespace MySolutionExplorer
 						ParentSolution = this,
 						Name = i.Name,
 						Lang = "cpp",
+						Dir = i
+					};
+					Add(p);
+				}
+				if (i.Name.Contains(MyEnum.PySuff))
+				{
+					var p = new PyProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "py",
 						Dir = i
 					};
 					Add(p);
