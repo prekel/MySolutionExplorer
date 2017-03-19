@@ -36,11 +36,11 @@ namespace MySolutionExplorer
 		/// </summary>
 		public bool SaveFlag
 		{
-			get { return savef; }
+			get => savef;
 			set
 			{
 				savef = value;
-				Title = (dirfile == null ? "" : dirfile.Name) + (value ? "" : "*") + " - " + MyEnum.AppName;
+				Title = (dirfile?.Name ?? "") + (value ? "" : "*") + " - " + MyEnum.AppName;
 			}
 		}
 
