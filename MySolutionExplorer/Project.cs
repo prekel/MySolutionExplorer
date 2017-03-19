@@ -25,14 +25,7 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public DirectoryInfo Dir
 		{
-			get
-			{
-				if (_dir != null)
-				{
-					return _dir;
-				}
-				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name);
-			}
+			get => _dir ?? (_dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name));
 			set => _dir = value;
 		}
 

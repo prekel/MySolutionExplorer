@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="CSharpProject.cs" />
     <Compile Include="MyEnum.cs" />
+    <Compile Include="PyProject.cs" />
     <Compile Include="Solution.cs" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Templates\example 0000. Template [cs]\Task_example0000.cs" />

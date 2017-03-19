@@ -53,6 +53,11 @@ namespace MySolutionExplorer
 			CSharpProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
 		}
 
+		public void CreatePyProject()
+		{
+			PyProject.Create(s, nameText.Text, siteText.Text, numberText.Text, s.Dir);
+		}
+
 		/// <summary>
 		/// При нажатии на кнопку создания проекта
 		/// </summary>
@@ -66,6 +71,10 @@ namespace MySolutionExplorer
 			else if (lang == "cs")
 			{
 				CreateCSharpProject();
+			}
+			else if (lang == "py")
+			{
+				CreatePyProject();
 			}
 			Create(this, new ProjectEventArgs(s[s.Count - 1]));
 		}
