@@ -63,10 +63,8 @@ namespace MySolutionExplorer
 			}
 		}
 
-		protected bool CheckProjectFile(FileInfo file, XmlProjectFile proj)
-		{
-			return file.Extension == proj.Extension && file.Name.Contains(proj.Suff);
-		}
+		protected bool CheckProjectFile(FileInfo file, XmlProjectFile proj) =>
+			file.Extension == proj.Extension && file.Name.Contains(proj.Suff);
 
 		protected void LoadProjects()
 		{
@@ -92,29 +90,21 @@ namespace MySolutionExplorer
 			}
 		}
 
-		protected void CreateProj(XmlProjectFile proj)
-		{
+		protected void CreateProj(XmlProjectFile proj) =>
 			proj.File = Solution.RenameFile(proj.File, Name + proj.Suff + proj.Extension);
-		}
 
 		protected void CreateProj(string suff, FileInfo file)
 		{
 		}
 
-		protected void ReformRootNamespace(XmlDocument xml)
-		{
+		protected void ReformRootNamespace(XmlDocument xml) =>
 			xml.DocumentElement["PropertyGroup"]["RootNamespace"].FirstChild.Value = RootNamespace;
-		}
 
-		protected void ReformAssemblyName(XmlDocument xml)
-		{
+		protected void ReformAssemblyName(XmlDocument xml) =>
 			xml.DocumentElement["PropertyGroup"]["AssemblyName"].FirstChild.Value = Name;
-		}
 
-		protected void ReformCodeFileName(XmlDocument xml)
-		{
+		protected void ReformCodeFileName(XmlDocument xml) =>
 			xml.DocumentElement["ItemGroup"].FirstChild.Attributes[0].Value = CodeFileName;
-		}
 
 		protected void ReformVSProjects()
 		{
