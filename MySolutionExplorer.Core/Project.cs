@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
 	/// Проект
@@ -143,7 +143,7 @@ namespace MySolutionExplorer
 					OutputFile = i;
 					AllowedFiles.Add(i.FullName);
 				}
-				if (i.Extension == MyEnum.Cpp || i.Extension == MyEnum.CSharp || i.Extension == MyEnum.Python)
+				if (i.Extension == MyEnum.Cpp || i.Extension == MyEnum.CSharp || i.Extension == MyEnum.Python || i.Extension == MyEnum.Java)
 				{
 					CodeFile = i;
 					AllowedFiles.Add(i.FullName);
@@ -196,5 +196,5 @@ namespace MySolutionExplorer
 				// ignored
 			}
 		}
-	}
+    }
 }

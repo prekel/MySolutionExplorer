@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>MySolutionExplorer</RootNamespace>
     <AssemblyName>MySolutionExplorer</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -61,13 +61,6 @@
     <Compile Include="CreateProjectWindow.xaml.cs">
       <DependentUpon>CreateProjectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CSharpProject.cs" />
-    <Compile Include="MyEnum.cs" />
-    <Compile Include="PyProject.cs" />
-    <Compile Include="Solution.cs" />
-    <None Include="Templates\example 0000. Template [cs]\Task_example0000.cs" />
-    <Compile Include="VSProject.cs" />
-    <Compile Include="XmlProjectFile.cs" />
     <Page Include="CreateProjectWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,14 +73,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CppProject.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,21 +100,15 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2010].vcxproj" />
-    <None Include="Templates\example 0000. Template [cpp]\example 0000. Template [cpp][vs2017].vcxproj" />
-    <None Include="Templates\example 0000. Template [cs]\App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Templates\example 0000. Template [cs]\example 0000. Template [cs][vs2017].csproj" />
-    <None Include="Templates\example 0000. Template [cs]\input.txt" />
-    <None Include="Templates\example 0000. Template [cs]\output.txt" />
-    <None Include="Templates\example 0000. Template [cpp]\input.txt" />
-    <None Include="Templates\example 0000. Template [cpp]\output.txt" />
-    <None Include="Templates\example 0000. Template [cpp]\Task_example0000.cpp" />
+    <ProjectReference Include="..\MySolutionExplorer.Core\MySolutionExplorer.Core.csproj">
+      <Project>{a690fd95-157e-4ef0-b654-73e86e913312}</Project>
+      <Name>MySolutionExplorer.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

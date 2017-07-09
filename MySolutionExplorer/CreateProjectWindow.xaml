@@ -14,9 +14,10 @@
 		<TextBox x:Name="nameText" Margin="10,64,10,0" TextWrapping="Wrap" Text="Больше-меньше" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1"/>
 		<ComboBox Name="langList" Margin="10,92,10,0" Grid.Column="1" Height="23" VerticalAlignment="Top" Grid.Row="1">
 			<TextBlock>cpp</TextBlock>
-		    <TextBlock>cs</TextBlock>
-		    <TextBlock>py</TextBlock>
-		</ComboBox>
+            <TextBlock>cs</TextBlock>
+            <TextBlock>py</TextBlock>
+            <TextBlock>java</TextBlock>
+        </ComboBox>
 		<Button x:Name="createbutton" Content="Создать" Margin="110,135,110,0" VerticalAlignment="Top" Click="createbutton_Click"/>
 	</Grid>
 </Window>
