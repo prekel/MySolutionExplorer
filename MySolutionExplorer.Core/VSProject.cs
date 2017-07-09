@@ -9,42 +9,43 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
 	/// Проект Visual Studio
 	/// </summary>
 	[Serializable]
-	public abstract class VSProject : Project
+	public abstract class VSProject : XmlProject
 	{
-		protected List<XmlProjectFile> XmlProjectFiles;
+		//protected List<XmlProjectFile> XmlProjectFiles;
 
 		protected VSProject()
 		{
-		}
+            Init();
+        }
 
 		protected VSProject(string path) : base(path)
 		{
-		}
+            Init();
+        }
 
-		private void Init(int n)
+		private void Init()
 		{
-			XmlProjectFiles = new List<XmlProjectFile>(n);
-			for (var i = 0; i < n; i++)
-			{
-				XmlProjectFiles.Add(null);
-			}
+			//XmlProjectFiles = new List<XmlProjectFile>(n);
+			//for (var i = 0; i < n; i++)
+			//{
+			//	XmlProjectFiles.Add(null);
+			//}
 		}
 
-		protected VSProject(int n)
+		protected VSProject(int n) : base(n)
 		{
-			Init(n);
+			Init();
 		}
-
 
 		protected VSProject(string path, int n) : base(path)
 		{
-			Init(n);
+			Init();
 		}
 
 		protected override void FindProjectFiles()
@@ -63,39 +64,39 @@ namespace MySolutionExplorer
 			}
 		}
 
-		protected bool CheckProjectFile(FileInfo file, XmlProjectFile proj) =>
-			file.Extension == proj.Extension && file.Name.Contains(proj.Suff);
+		//protected bool CheckProjectFile(FileInfo file, XmlProjectFile proj) =>
+		//	file.Extension == proj.Extension && file.Name.Contains(proj.Suff);
 
-		protected void LoadProjects()
-		{
-			foreach (XmlProjectFile i in XmlProjectFiles)
-			{
-				i.Xml = new XmlDocument();
-				i.Xml.Load(i.File.FullName);
-			}
-		}
+		//protected void LoadProjects()
+		//{
+		//	foreach (XmlProjectFile i in XmlProjectFiles)
+		//	{
+		//		i.Xml = new XmlDocument();
+		//		i.Xml.Load(i.File.FullName);
+		//	}
+		//}
 
-		protected XmlDocument LoadProject(FileInfo file)
-		{
-			var xml = new XmlDocument();
-			xml.Load(file.FullName);
-			return xml;
-		}
+		//protected XmlDocument LoadProject(FileInfo file)
+		//{
+		//	var xml = new XmlDocument();
+		//	xml.Load(file.FullName);
+		//	return xml;
+		//}
 
-		protected void CreateProjects()
-		{
-			foreach (XmlProjectFile i in XmlProjectFiles)
-			{
-				CreateProj(i);
-			}
-		}
+		//protected void CreateProjects()
+		//{
+		//	foreach (XmlProjectFile i in XmlProjectFiles)
+		//	{
+		//		CreateProj(i);
+		//	}
+		//}
 
-		protected void CreateProj(XmlProjectFile proj) =>
-			proj.File = Solution.RenameFile(proj.File, Name + proj.Suff + proj.Extension);
+		//protected void CreateProj(XmlProjectFile proj) =>
+		//	proj.File = Solution.RenameFile(proj.File, Name + proj.Suff + proj.Extension);
 
-		protected void CreateProj(string suff, FileInfo file)
-		{
-		}
+		//protected void CreateProj(string suff, FileInfo file)
+		//{
+		//}
 
 		protected void ReformRootNamespace(XmlDocument xml) =>
 			xml.DocumentElement["PropertyGroup"]["RootNamespace"].FirstChild.Value = RootNamespace;

@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	public class PyProject : Project
 	{
@@ -36,6 +36,9 @@ namespace MySolutionExplorer
 			//FindProjectFiles();
 		}
 
+        /// <summary>
+        /// Кандидат к удалению
+        /// </summary>
 		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
 		{
 			var p = new PyProject
