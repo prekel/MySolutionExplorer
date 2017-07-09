@@ -89,7 +89,7 @@ namespace MySolutionExplorer.Core
 
         private void Replace(XmlProjectFile file)
         {
-            var s = "";
+            string s;
             using (var sr = new StreamReader(file.File.OpenRead()))
             {
                 s = sr.ReadToEnd();

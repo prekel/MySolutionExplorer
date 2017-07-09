@@ -164,11 +164,9 @@ namespace MySolutionExplorer.Core
 			FindFiles();
 			foreach (var i in Dir.GetFiles())
 			{
-				if (!AllowedFiles.Contains(i.FullName))
-				{
-					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
-					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
-				}
+				if (AllowedFiles.Contains(i.FullName)) continue;
+				Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
+				Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
 			}
 		}
 
