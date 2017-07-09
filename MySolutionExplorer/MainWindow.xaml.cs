@@ -19,6 +19,8 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
+using MySolutionExplorer.Core;
+
 namespace MySolutionExplorer
 {
 	/// <summary>
