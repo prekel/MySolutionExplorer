@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using RoboSharp;
 
 namespace MySolutionExplorer.Core
 {
@@ -211,6 +212,22 @@ namespace MySolutionExplorer.Core
             return Count - c;
         }
 
+		public static void Sync()
+		{
+
+		}
+
+		public void Sync(DirectoryInfo dir2)
+		{
+			var dir1 = Dir;
+			var sync = new RoboCommand();
+			sync.CopyOptions.Source = dir1.FullName;
+			sync.CopyOptions.Destination = dir2.FullName;
+			sync.CopyOptions.CopySubdirectories = true;
+			sync.CopyOptions.UseUnbufferedIo = true;
+			sync.Start();
+		}
+
         /// <summary>
         /// Копирует папку
         /// </summary>
@@ -243,7 +260,7 @@ namespace MySolutionExplorer.Core
             {
                 var temppath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(temppath, false);
-            }
+            
 
             // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
