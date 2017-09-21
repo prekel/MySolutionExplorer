@@ -56,6 +56,7 @@ namespace MySolutionExplorer
 			SaveFlag = false;
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
+			//mainTable.ContextMenu = new ContextMenu();
 		}
 
 		/// <summary>
@@ -183,6 +184,11 @@ namespace MySolutionExplorer
 				var dir = new FileInfo(myDialog.FileName).Directory;
 				s.Sync(dir);
 			}
+		}
+
+		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }

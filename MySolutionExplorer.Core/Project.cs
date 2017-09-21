@@ -194,5 +194,11 @@ namespace MySolutionExplorer.Core
 				// ignored
 			}
 		}
+
+		public void Delete()
+		{
+			ParentSolution.Remove(this);
+			Dir.Delete();
+		}
     }
 }
