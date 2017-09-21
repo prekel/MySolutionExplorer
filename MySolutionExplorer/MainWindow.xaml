@@ -29,6 +29,8 @@
 					Click="closeButton_Click"></MenuItem>
 				<MenuItem Header="Импорт"
 					Click="importButton_Click"></MenuItem>
+				<MenuItem Header="Синхронизация"
+					Click="syncButton_Click"></MenuItem>
 				<Separator></Separator>
 				<MenuItem Header="Выход" 
 					Click="ExitMenuItem_Click"></MenuItem>

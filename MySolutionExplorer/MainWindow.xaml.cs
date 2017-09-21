@@ -170,5 +170,19 @@ namespace MySolutionExplorer
 		/// Действия при добавлении проекта
 		/// </summary>
 		private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
+
+		private void syncButton_Click(object sender, RoutedEventArgs e)
+		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog
+			{
+				Filter = "Все файлы|*.*",
+				CheckFileExists = false,
+			};
+			if (myDialog.ShowDialog() == true)
+			{
+				var dir = new FileInfo(myDialog.FileName).Directory;
+				s.Sync(dir);
+			}
+		}
 	}
 }
