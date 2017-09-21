@@ -175,7 +175,7 @@ namespace MySolutionExplorer
 		{
 			var myDialog = new Microsoft.Win32.OpenFileDialog
 			{
-				Filter = "Все файлы|*.*",
+				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
 				CheckFileExists = false,
 			};
 			if (myDialog.ShowDialog() == true)
