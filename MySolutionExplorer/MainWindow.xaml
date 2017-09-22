@@ -56,16 +56,40 @@
 				<GridView>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Site}"
-						Width="70">Сайт</GridViewColumn>
+						Width="70">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Site" 
+								Click="GridViewColumnHeader_Click">Сайт</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Number}" 
-						Width="50">Номер</GridViewColumn>
+						Width="50">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Number" 
+								Click="GridViewColumnHeader_Click">Номер</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=TaskName}" 
-						Width="150">Название</GridViewColumn>
+						Width="150">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="TaskName" 
+								Click="GridViewColumnHeader_Click">Название</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Lang}"  
-						Width="50">Язык</GridViewColumn>
+						Width="50">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Lang" 
+								Click="GridViewColumnHeader_Click">Язык</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 				</GridView>
 			</ListView.View>
 		</ListView>
