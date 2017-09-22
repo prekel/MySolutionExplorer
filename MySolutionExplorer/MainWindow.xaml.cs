@@ -186,10 +186,17 @@ namespace MySolutionExplorer
 			}
 		}
 
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			var selproj = (Project)mainTable.SelectedItem;
 			selproj.Delete();
+			ReloadTable();
+		}
+
+		private void ExludeMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var selproj = (Project)mainTable.SelectedItem;
+			s.Remove(selproj);
 			ReloadTable();
 		}
 	}
