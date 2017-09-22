@@ -46,7 +46,16 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public MainWindow() => InitializeComponent();
+		public MainWindow()
+		{
+			InitializeComponent();
+			if (App.SolutionFile != null)
+			{
+				s = Solution.Load(App.SolutionFile);
+				ReloadTable();
+				SaveFlag = true;
+			}
+		}
 
 		/// <summary>
 		/// Обновляет таблицу
