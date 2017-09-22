@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MySolutionExplorer" 
 		Height="350" MinHeight="350"
-		Width="525" MinWidth="250">
+		Width="525" MinWidth="250"
+		Closing="Window_Closing"
+		>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>

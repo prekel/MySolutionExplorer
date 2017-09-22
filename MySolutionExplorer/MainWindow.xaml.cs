@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.ComponentModel;
 
 using MySolutionExplorer.Core;
 
@@ -208,6 +209,23 @@ namespace MySolutionExplorer
 			var selproj = (Project)mainTable.SelectedItem;
 			s.Remove(selproj);
 			ReloadTable();
+		}
+
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			if (SaveFlag == false)
+			{
+				var r = MessageBox.Show(this, "Сохранить?", MyEnum.AppName, MessageBoxButton.YesNoCancel);
+				if (r == MessageBoxResult.Yes)
+				{
+					SaveFlag = true;
+					s.Save();
+				}
+				if (r == MessageBoxResult.Cancel)
+				{
+					e.Cancel = true;
+				}
+			}
 		}
 	}
 }
