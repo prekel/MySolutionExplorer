@@ -51,7 +51,8 @@ namespace MySolutionExplorer
 			InitializeComponent();
 			if (App.SolutionFile != null)
 			{
-				s = Solution.Load(App.SolutionFile);
+				dirfile = new FileInfo(App.SolutionFile);
+				s = Solution.Load(dirfile.FullName);
 				ReloadTable();
 				SaveFlag = true;
 			}
