@@ -188,7 +188,9 @@ namespace MySolutionExplorer
 
 		private void MenuItem_Click(object sender, RoutedEventArgs e)
 		{
-
+			var selproj = (Project)mainTable.SelectedItem;
+			selproj.Delete();
+			ReloadTable();
 		}
 	}
 }

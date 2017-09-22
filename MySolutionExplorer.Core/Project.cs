@@ -198,7 +198,7 @@ namespace MySolutionExplorer.Core
 		public void Delete()
 		{
 			ParentSolution.Remove(this);
-			Dir.Delete();
+			Dir.Delete(true);
 		}
     }
 }
