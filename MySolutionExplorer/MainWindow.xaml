@@ -16,10 +16,12 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="375*"/>
+			<ColumnDefinition MinWidth="100"/>
+			<ColumnDefinition Width="auto"/>
+			<ColumnDefinition Width="0"/>
 		</Grid.ColumnDefinitions>
 
-		<Menu Grid.ColumnSpan="2" IsMainMenu="True">
+		<Menu Grid.ColumnSpan="3" IsMainMenu="True">
 			<MenuItem Header="Файл">
 				<MenuItem Header="Создать" 
 					Click="CreateMenuItem_Click"></MenuItem>
@@ -45,7 +47,7 @@
 
 		<ListView 
 			Name="mainTable"
-			Margin="10" Grid.RowSpan="2" Grid.Row="1">
+			Margin="10" Grid.Row="1">
 			<ListView.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>
@@ -93,5 +95,6 @@
 				</GridView>
 			</ListView.View>
 		</ListView>
+		<GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
 	</Grid>
 </Window>
