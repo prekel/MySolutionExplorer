@@ -47,7 +47,10 @@
 
 		<ListView 
 			Name="mainTable"
-			Margin="10" Grid.Row="1">
+			Margin="10" Grid.Row="1"
+			MouseLeftButtonUp="mainTable_MouseLeftButtonUp"
+			SelectionChanged="mainTable_SelectionChanged"
+			SelectionMode="Single">
 			<ListView.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>

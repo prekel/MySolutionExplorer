@@ -289,5 +289,14 @@ namespace MySolutionExplorer
 			}
 
 		}
+
+		private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+		}
+
+		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			
+		}
 	}
 }
