@@ -296,7 +296,10 @@ namespace MySolutionExplorer
 
 		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			
+			if (e.AddedItems.Count == 1)
+			{
+				infoTree.ItemsSource = e.AddedItems;
+			}
 		}
 	}
 }

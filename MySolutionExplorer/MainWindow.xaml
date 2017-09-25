@@ -18,7 +18,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="100"/>
 			<ColumnDefinition Width="auto"/>
-			<ColumnDefinition Width="0"/>
+			<ColumnDefinition Width="100"/>
 		</Grid.ColumnDefinitions>
 
 		<Menu Grid.ColumnSpan="3" IsMainMenu="True">
@@ -99,5 +99,6 @@
 			</ListView.View>
 		</ListView>
 		<GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
+		<TreeView x:Name="infoTree" Grid.Column="2" Grid.Row="1"/>
 	</Grid>
 </Window>
