@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2017 Vladislav Prekel
+// Copyright (c) 2017 Vladislav Prekel
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
 	/// Проект C++
@@ -23,8 +23,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile
 		{
-			get { return XmlProjectFiles[0]; }
-			set { XmlProjectFiles[0] = value; }
+			get => XmlProjectFiles[0];
+			set => XmlProjectFiles[0] = value;
 		}
 
 		/// <summary>
@@ -33,8 +33,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		private XmlProjectFile VS2010ProjectFile
 		{
-			get { return XmlProjectFiles[1]; }
-			set { XmlProjectFiles[1] = value; }
+			get => XmlProjectFiles[1];
+			set => XmlProjectFiles[1] = value;
 		}
 
 		/// <summary>
@@ -42,6 +42,7 @@ namespace MySolutionExplorer
 		/// </summary>
 		private void Init()
 		{
+            Lang = "cpp";
 			VS2017ProjectFile = new XmlProjectFile
 			{
 				Suff = MyEnum.VS2017,
@@ -56,15 +57,9 @@ namespace MySolutionExplorer
 			};
 		}
 
-		public CppProject() : base(2)
-		{
-			Init();
-		}
+		public CppProject() : base(2) => Init();
 
-		public CppProject(string path) : base(path, 2)
-		{
-			Init();
-		}
+		public CppProject(string path) : base(path, 2) => Init();
 
 		/// <summary>
 		/// Создание файлов из шаблона, переименовывание, изменение имён внутри
@@ -98,7 +93,10 @@ namespace MySolutionExplorer
 			proj.Xml.Save(proj.File.FullName);
 		}
 
-		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+        /// <summary>
+        /// Кандидат к удалению
+        /// </summary>
+        public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
 		{
 			var p = new CppProject
 			{

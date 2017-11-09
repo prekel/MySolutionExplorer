@@ -18,6 +18,9 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.ComponentModel;
+
+using MySolutionExplorer.Core;
 
 namespace MySolutionExplorer
 {
@@ -36,17 +39,24 @@ namespace MySolutionExplorer
 		/// </summary>
 		public bool SaveFlag
 		{
-			get { return savef; }
+			get => savef;
 			set
 			{
 				savef = value;
-				Title = (dirfile == null ? "" : dirfile.Name) + (value ? "" : "*") + " - " + MyEnum.AppName;
+				Title = (dirfile?.Name ?? "") + (value ? "" : "*") + " - " + MyEnum.AppName;
 			}
 		}
 
 		public MainWindow()
 		{
 			InitializeComponent();
+			if (App.SolutionFile != null)
+			{
+				dirfile = new FileInfo(App.SolutionFile);
+				s = Solution.Load(dirfile.FullName);
+				ReloadTable();
+				SaveFlag = true;
+			}
 		}
 
 		/// <summary>
@@ -57,8 +67,9 @@ namespace MySolutionExplorer
 			SaveFlag = false;
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
+			//mainTable.ContextMenu = new ContextMenu();
 		}
-		
+
 		/// <summary>
 		/// Создание пустого решения
 		/// </summary>
@@ -105,8 +116,7 @@ namespace MySolutionExplorer
 		/// </summary>
 		private void importButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (s.ImportProjects() > 0)
-				ReloadTable();
+			if (s.ImportProjects() > 0) ReloadTable();
 		}
 
 		/// <summary>
@@ -118,7 +128,7 @@ namespace MySolutionExplorer
 			{
 				s = Solution.Load(dirfile.FullName);
 				mainTable.ItemsSource = s;
-				SaveFlag = true; 
+				SaveFlag = true;
 			}
 		}
 
@@ -145,10 +155,7 @@ namespace MySolutionExplorer
 		/// <summary>
 		/// Выход
 		/// </summary>
-		private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			Close();
-		}
+		private void ExitMenuItem_Click(object sender, RoutedEventArgs e) => Close();
 
 		/// <summary>
 		/// Создание пустого решения (нажатие на кнопку)
@@ -174,9 +181,113 @@ namespace MySolutionExplorer
 		/// <summary>
 		/// Действия при добавлении проекта
 		/// </summary>
-		private void W_Create(object sender, ProjectEventArgs e)
+		private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
+
+		private void syncButton_Click(object sender, RoutedEventArgs e)
 		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog
+			{
+				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+				CheckFileExists = false,
+			};
+			if (myDialog.ShowDialog() == true)
+			{
+				var dir = new FileInfo(myDialog.FileName).Directory;
+				s.Sync(dir);
+			}
+		}
+
+		private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var selproj = (Project)mainTable.SelectedItem;
+			selproj.Delete();
 			ReloadTable();
+		}
+
+		private void ExludeMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var selproj = (Project)mainTable.SelectedItem;
+			s.Remove(selproj);
+			ReloadTable();
+		}
+
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			if (SaveFlag == false)
+			{
+				var r = MessageBox.Show(this, "Сохранить?", MyEnum.AppName, MessageBoxButton.YesNoCancel);
+				if (r == MessageBoxResult.Yes)
+				{
+					SaveFlag = true;
+					s.Save();
+				}
+				if (r == MessageBoxResult.Cancel)
+				{
+					e.Cancel = true;
+				}
+			}
+		}
+
+		private GridViewColumnHeader listViewSortCol = null;
+		private SortAdorner listViewSortAdorner = null;
+
+		private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+		{
+			GridViewColumnHeader column = (sender as GridViewColumnHeader);
+			string sortBy = column.Tag.ToString();
+			if (listViewSortCol != null)
+			{
+				AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
+				mainTable.Items.SortDescriptions.Clear();
+			}
+
+			ListSortDirection newDir = ListSortDirection.Ascending;
+			if (listViewSortCol == column && listViewSortAdorner.Direction == newDir)
+				newDir = ListSortDirection.Descending;
+
+			listViewSortCol = column;
+			listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
+			AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
+			mainTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+		}
+
+		public class SortAdorner : Adorner
+		{
+			private static Geometry ascGeometry =
+					Geometry.Parse("M 0 4 L 3.5 0 L 7 4 Z");
+
+			private static Geometry descGeometry =
+					Geometry.Parse("M 0 0 L 3.5 4 L 7 0 Z");
+
+			public ListSortDirection Direction { get; private set; }
+
+			public SortAdorner(UIElement element, ListSortDirection dir) : base(element)
+			{
+				Direction = dir;
+			}
+
+			protected override void OnRender(DrawingContext drawingContext)
+			{
+				base.OnRender(drawingContext);
+
+				if (AdornedElement.RenderSize.Width < 20)
+					return;
+
+				TranslateTransform transform = new TranslateTransform
+						(
+								AdornedElement.RenderSize.Width - 15,
+								(AdornedElement.RenderSize.Height - 5) / 2
+						);
+				drawingContext.PushTransform(transform);
+
+				Geometry geometry = ascGeometry;
+				if (Direction == ListSortDirection.Descending)
+					geometry = descGeometry;
+				drawingContext.DrawGeometry(Brushes.Black, null, geometry);
+
+				drawingContext.Pop();
+			}
+
 		}
 	}
 }

@@ -9,32 +9,31 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
-	/// Проект C++
+	/// Проект C#
 	/// </summary>
 	[Serializable]
-	public class CppProject : VSProject
+	public class CSharpProject : VSProject
 	{
 		/// <summary>
-		/// Файл .vcxproj версии 2017
+		/// Файл .csproj версии 2017
 		/// </summary>
 		[XmlIgnore]
 		private XmlProjectFile VS2017ProjectFile
 		{
-			get { return XmlProjectFiles[0]; }
-			set { XmlProjectFiles[0] = value; }
+			get => XmlProjectFiles[0];
+			set => XmlProjectFiles[0] = value;
 		}
-
 		/// <summary>
-		/// Файл .vcxproj версии 2010
+		/// Файл .csproj для SharpDevelop
 		/// </summary>
 		[XmlIgnore]
-		private XmlProjectFile VS2010ProjectFile
+		private XmlProjectFile SharpDevelopProjectFile
 		{
-			get { return XmlProjectFiles[1]; }
-			set { XmlProjectFiles[1] = value; }
+			get => XmlProjectFiles[1];
+			set => XmlProjectFiles[1] = value;
 		}
 
 		/// <summary>
@@ -42,26 +41,27 @@ namespace MySolutionExplorer
 		/// </summary>
 		private void Init()
 		{
+            Lang = "cs";
 			VS2017ProjectFile = new XmlProjectFile
 			{
 				Suff = MyEnum.VS2017,
 				Parent = this,
-				Extension = MyEnum.VCXProj
+				Extension = MyEnum.CSProj
 			};
-			VS2010ProjectFile = new XmlProjectFile
+			SharpDevelopProjectFile = new XmlProjectFile
 			{
-				Suff = MyEnum.VS2010,
+				Suff = MyEnum.SharpDevelop,
 				Parent = this,
-				Extension = MyEnum.VCXProj
+				Extension = MyEnum.CSProj
 			};
 		}
 
-		public CppProject() : base(2)
+		public CSharpProject() : base(2)
 		{
 			Init();
 		}
 
-		public CppProject(string path) : base(path, 2)
+		public CSharpProject(string path) : base(path, 2)
 		{
 			Init();
 		}
@@ -71,13 +71,13 @@ namespace MySolutionExplorer
 		/// </summary>
 		public override void CreateFiles()
 		{
-			CreateFiles(MyEnum.TemplateCppProj);
+			CreateFiles(MyEnum.TemplateCSharpProj);
 
 			FindProjectFiles();
 
 			CreateProjects();
 
-			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCpp);
+			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharp);
 			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 
 			LoadProjects();
@@ -94,19 +94,31 @@ namespace MySolutionExplorer
 		protected override void ReformVSProjXml(XmlProjectFile proj)
 		{
 			ReformRootNamespace(proj.Xml);
+			ReformAssemblyName(proj.Xml);
 			ReformCodeFileName(proj.Xml);
 			proj.Xml.Save(proj.File.FullName);
 		}
 
-		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+        /// <summary>
+        /// Кандидат на удаление
+        /// </summary>
+		public static bool IsExistCodeFile(DirectoryInfo dir)
 		{
-			var p = new CppProject
+			return dir.GetFiles().Any(i => i.Extension == MyEnum.CSharp);
+		}
+
+        /// <summary>
+        /// Кандидат к удалению
+        /// </summary>
+        public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+		{
+			var p = new CSharpProject
 			{
 				ParentSolution = s,
 				TaskName = task,
 				Site = site,
 				Number = int.Parse(number),
-				Lang = "cpp"
+				Lang = "cs"
 			};
 			p.Path = dir + MyEnum.Slash + p.Name;
 			p.CreateFiles();

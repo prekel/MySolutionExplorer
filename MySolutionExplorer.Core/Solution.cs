@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
+using RoboSharp;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
-	/// Решение (группа проектов)
+	/// Р РµС€РµРЅРёРµ (РіСЂСѓРїРїР° РїСЂРѕРµРєС‚РѕРІ)
 	/// </summary>
 	[Serializable]
 	[XmlRoot("Solution")]
@@ -19,33 +20,31 @@ namespace MySolutionExplorer
 	[XmlInclude(typeof(VSProject))]
 	[XmlInclude(typeof(CppProject))]
 	[XmlInclude(typeof(CSharpProject))]
+	[XmlInclude(typeof(PyProject))]
+	[XmlInclude(typeof(XmlProject))]
+	[XmlInclude(typeof(IprProject))]
+	[XmlInclude(typeof(JavaProject))]
 	public class Solution : List<Project>
 	{
 		/// <summary>
-		/// Файл решения
+		/// Р¤Р°Р№Р» СЂРµС€РµРЅРёСЏ
 		/// </summary>
 		[XmlIgnore] public FileInfo DirSolution { get; set; }
 
 		/// <summary>
-		/// Директория решения
+		/// Р”РёСЂРµРєС‚РѕСЂРёСЏ СЂРµС€РµРЅРёСЏ
 		/// </summary>
 		[XmlIgnore]
-		public DirectoryInfo Dir
-		{
-			get { return DirSolution.Directory; }
-		}
+		public DirectoryInfo Dir => DirSolution.Directory;
 
 		public Solution()
 		{
 		}
 
-		public Solution(string path)
-		{
-			DirSolution = new FileInfo(path);
-		}
+		public Solution(string path) => DirSolution = new FileInfo(path);
 
 		/// <summary>
-		/// Кандидат к удалению
+		/// РљР°РЅРґРёРґР°С‚ Рє СѓРґР°Р»РµРЅРёСЋ
 		/// </summary>
 		public void FindProjects()
 		{
@@ -58,32 +57,10 @@ namespace MySolutionExplorer
 			}
 		}
 
-		//public void ImportProjects()
-		//{
-		//	foreach (var i in Dir.GetDirectories())
-		//	{
-		//		if (i.Name.Contains("cpp"))
-		//		{
-		//			var regex = new System.Text.RegularExpressions.Regex("{a-z}+ {0-9}[4]. {a-z}+");
-		//			var p = new CppProject
-		//			{
-		//				ParentSolution = this,
-		//				TaskName = nameText.Text,
-		//				Site = siteText.Text,
-		//				Number = int.Parse(numberText.Text),
-		//				Lang = lang
-		//			};
-		//			p.Path = dir + MyEnum.Slash + p.Name;
-		//			p.CreateFiles();
-		//			s.Add(p);
-		//		}
-		//	}
-		//}
-
 		/// <summary>
-		/// Добавляет проект в решение
+		/// Р”РѕР±Р°РІР»СЏРµС‚ РїСЂРѕРµРєС‚ РІ СЂРµС€РµРЅРёРµ
 		/// </summary>
-		/// <param name="item">Проект</param>
+		/// <param name="item">РџСЂРѕРµРєС‚</param>
 		public new void Add(Project item)
 		{
 			base.Add(item);
@@ -91,7 +68,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Удаляет папку с собраным мусором
+		/// РЈРґР°Р»СЏРµС‚ РїР°РїРєСѓ СЃ СЃРѕР±СЂР°РЅС‹Рј РјСѓСЃРѕСЂРѕРј
 		/// </summary>
 		public void DeleteTrash()
 		{
@@ -106,10 +83,10 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Загружает решение
+		/// Р—Р°РіСЂСѓР¶Р°РµС‚ СЂРµС€РµРЅРёРµ
 		/// </summary>
-		/// <param name="path">Путь до файла</param>
-		/// <returns>Решение</returns>
+		/// <param name="path">РџСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°</param>
+		/// <returns>Р РµС€РµРЅРёРµ</returns>
 		public static Solution Load(string path)
 		{
 			var serializer = new XmlSerializer(typeof(Solution));
@@ -125,7 +102,7 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Сохраняет решение 
+		/// РЎРѕС…СЂР°РЅСЏРµС‚ СЂРµС€РµРЅРёРµ 
 		/// </summary>
 		public void Save()
 		{
@@ -138,11 +115,40 @@ namespace MySolutionExplorer
 		}
 
 		/// <summary>
-		/// Кандидат к удалению
+		/// РљР°РЅРґРёРґР°С‚ Рє СѓРґР°Р»РµРЅРёСЋ
 		/// </summary>
 		public void CreateProject(Project proj)
 		{
 			Add(proj);
+		}
+
+		public void CreateProject(Langs lang, string task, string site, string number, DirectoryInfo dir)
+		{
+			Project p;
+			switch (lang)
+			{
+				case Langs.Cpp:
+					p = new CppProject() { Lang = MyEnum.CppNoDot };
+					break;
+				case Langs.CSharp:
+					p = new CSharpProject() { Lang = MyEnum.CSharpNoDot };
+					break;
+				case Langs.Py:
+					p = new PyProject() { Lang = MyEnum.PythonNoDot };
+					break;
+				case Langs.Java:
+					p = new JavaProject() { Lang = MyEnum.JavaNoDot };
+					break;
+				default:
+					return;
+			}
+			p.ParentSolution = this;
+			p.TaskName = task;
+			p.Site = site;
+			p.Number = int.Parse(number);
+			p.Path = dir + MyEnum.Slash + p.Name;
+			p.CreateFiles();
+			Add(p);
 		}
 
 		public int ImportProjects()
@@ -179,17 +185,55 @@ namespace MySolutionExplorer
 					};
 					Add(p);
 				}
+				if (i.Name.Contains(MyEnum.PySuff))
+				{
+					var p = new PyProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "py",
+						Dir = i
+					};
+					Add(p);
+				}
+				if (i.Name.Contains(MyEnum.JavaSuff))
+				{
+					var p = new JavaProject
+					{
+						ParentSolution = this,
+						Name = i.Name,
+						Lang = "java",
+						Dir = i
+					};
+					Add(p);
+				}
 				cntn:;
 			}
 			return Count - c;
 		}
 
+		public static void Sync()
+		{
+
+		}
+
+		public void Sync(DirectoryInfo dir2)
+		{
+			var dir1 = Dir;
+			var sync = new RoboCommand();
+			sync.CopyOptions.Source = dir1.FullName;
+			sync.CopyOptions.Destination = dir2.FullName;
+			sync.CopyOptions.CopySubdirectories = true;
+			sync.CopyOptions.UseUnbufferedIo = true;
+			sync.Start();
+		}
+
 		/// <summary>
-		/// Копирует папку
+		/// РљРѕРїРёСЂСѓРµС‚ РїР°РїРєСѓ
 		/// </summary>
-		/// <param name="sourceDirName">Исходная папка</param>
-		/// <param name="destDirName">Папка назначения</param>
-		/// <param name="copySubDirs">Копировать ли подкаталоги</param>
+		/// <param name="sourceDirName">РСЃС…РѕРґРЅР°СЏ РїР°РїРєР°</param>
+		/// <param name="destDirName">РџР°РїРєР° РЅР°Р·РЅР°С‡РµРЅРёСЏ</param>
+		/// <param name="copySubDirs">РљРѕРїРёСЂРѕРІР°С‚СЊ Р»Рё РїРѕРґРєР°С‚Р°Р»РѕРіРё</param>
 		/// <copyright>Microsoft Corporation msdn.microsoft.com/ru-ru/library/bb762914</copyright>
 		public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
 		{

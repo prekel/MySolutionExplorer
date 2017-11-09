@@ -9,7 +9,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MySolutionExplorer
+namespace MySolutionExplorer.Core
 {
 	/// <summary>
 	/// Проект
@@ -25,15 +25,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public DirectoryInfo Dir
 		{
-			get
-			{
-				if (_dir != null)
-				{
-					return _dir;
-				}
-				return _dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name);
-			}
-			set { _dir = value; }
+			get => _dir ?? (_dir = new DirectoryInfo(ParentSolution.Dir + MyEnum.Slash + Name));
+			set => _dir = value;
 		}
 
 		/// <summary>
@@ -94,8 +87,8 @@ namespace MySolutionExplorer
 		[XmlIgnore]
 		public string Path
 		{
-			get { return Dir.FullName; }
-			set { Dir = new DirectoryInfo(value); }
+			get => Dir.FullName;
+			set => Dir = new DirectoryInfo(value);
 		}
 
 		/// <summary>
@@ -103,46 +96,34 @@ namespace MySolutionExplorer
 		/// </summary>
 		public string Name
 		{
-			get { return String.Format("{0} {1:D4}. {2} [{3}]", Site, Number, TaskName, Lang); }
+			get => $"{Site} {Number:D4}. {TaskName} [{Lang}]";
 			set
 			{
-				if (Number == 0 || Site == "" || Lang == "" || TaskName == "")
-				{
-					var r = new System.Text.RegularExpressions.Regex("([a-z]+) ([0-9a-zA-Z]{4}). ([0-9А-Яа-яЁёA-Za-z- ]+)");
-					var m = r.Match(value);
-					Site = m.Groups[1].Value;
-					Number = int.Parse(m.Groups[2].Value);
-					TaskName = m.Groups[3].Value;
-					TaskName = TaskName.Substring(0, TaskName.Length - 1);
-					//throw new NotImplementedException();
-				}
+				if (Number != 0 && Site != "" && Lang != "" && TaskName != "") return;
+				var r = new System.Text.RegularExpressions.Regex("([a-z]+) ([0-9a-zA-Z]{4}). ([0-9А-Яа-яЁёA-Za-z- ]+)");
+				var m = r.Match(value);
+				Site = m.Groups[1].Value;
+				Number = int.Parse(m.Groups[2].Value);
+				TaskName = m.Groups[3].Value;
+				TaskName = TaskName.Substring(0, TaskName.Length - 1);
 			}
 		}
 
 		/// <summary>
 		/// Пространство имён по умолчанию (кандидат к переносу в другой класс)
 		/// </summary>
-		public string RootNamespace
-		{
-			get { return String.Format("{0}_{1:D4}", Site, Number); }
-		}
+		public string RootNamespace => $"{Site}_{Number:D4}";
 
 		/// <summary>
 		/// Имя кодового файла (кандидат на изменение публичности)
 		/// </summary>
-		public string CodeFileName
-		{
-			get { return String.Format("Task_{0}{1:D4}.{2}", Site, Number, Lang); }
-		}
+		public string CodeFileName => $"Task_{Site}{Number:D4}.{Lang}";
 
 		protected Project()
 		{
 		}
 
-		protected Project(string path)
-		{
-			Path = path;
-		}
+		protected Project(string path) => Path = path;
 
 		/// <summary>
 		/// Поиск файлов ввода-вывода и кода
@@ -162,7 +143,7 @@ namespace MySolutionExplorer
 					OutputFile = i;
 					AllowedFiles.Add(i.FullName);
 				}
-				if (i.Extension == MyEnum.Cpp || i.Extension == MyEnum.CSharp || i.Extension == MyEnum.Python)
+				if (i.Extension == MyEnum.Cpp || i.Extension == MyEnum.CSharp || i.Extension == MyEnum.Python || i.Extension == MyEnum.Java)
 				{
 					CodeFile = i;
 					AllowedFiles.Add(i.FullName);
@@ -183,11 +164,9 @@ namespace MySolutionExplorer
 			FindFiles();
 			foreach (var i in Dir.GetFiles())
 			{
-				if (!AllowedFiles.Contains(i.FullName))
-				{
-					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
-					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
-				}
+				if (AllowedFiles.Contains(i.FullName)) continue;
+				Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
+				Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
 			}
 		}
 
@@ -215,5 +194,11 @@ namespace MySolutionExplorer
 				// ignored
 			}
 		}
-	}
+
+		public void Delete()
+		{
+			ParentSolution.Remove(this);
+			Dir.Delete(true);
+		}
+    }
 }

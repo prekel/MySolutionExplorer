@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MySolutionExplorer" 
 		Height="350" MinHeight="350"
-		Width="525" MinWidth="250">
+		Width="525" MinWidth="250"
+		Closing="Window_Closing"
+		>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>
@@ -29,6 +31,8 @@
 					Click="closeButton_Click"></MenuItem>
 				<MenuItem Header="Импорт"
 					Click="importButton_Click"></MenuItem>
+				<MenuItem Header="Синхронизация"
+					Click="syncButton_Click"></MenuItem>
 				<Separator></Separator>
 				<MenuItem Header="Выход" 
 					Click="ExitMenuItem_Click"></MenuItem>
@@ -42,20 +46,50 @@
 		<ListView 
 			Name="mainTable"
 			Margin="10" Grid.RowSpan="2" Grid.Row="1">
+			<ListView.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>
+					<MenuItem Header="Исключить" Click="ExludeMenuItem_Click"/>
+				</ContextMenu>
+			</ListView.ContextMenu>
 			<ListView.View>
 				<GridView>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Site}"
-						Width="70">Сайт</GridViewColumn>
+						Width="70">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Site" 
+								Click="GridViewColumnHeader_Click">Сайт</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Number}" 
-						Width="50">Номер</GridViewColumn>
+						Width="50">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Number" 
+								Click="GridViewColumnHeader_Click">Номер</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=TaskName}" 
-						Width="150">Название</GridViewColumn>
+						Width="150">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="TaskName" 
+								Click="GridViewColumnHeader_Click">Название</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 					<GridViewColumn 
 						DisplayMemberBinding="{Binding Path=Lang}"  
-						Width="50">Язык</GridViewColumn>
+						Width="50">
+						<GridViewColumn.Header>
+							<GridViewColumnHeader 
+								Tag="Lang" 
+								Click="GridViewColumnHeader_Click">Язык</GridViewColumnHeader>
+						</GridViewColumn.Header>
+					</GridViewColumn>
 				</GridView>
 			</ListView.View>
 		</ListView>
