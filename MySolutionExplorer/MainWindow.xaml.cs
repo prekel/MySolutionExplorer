@@ -298,7 +298,7 @@ namespace MySolutionExplorer
 		{
 			if (e.AddedItems.Count == 1)
 			{
-				infoTree.ItemsSource = e.AddedItems;
+				//infoTree.ItemsSource = e.AddedItems;
 			}
 		}
 	}
