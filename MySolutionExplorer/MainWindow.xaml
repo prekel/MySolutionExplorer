@@ -50,7 +50,8 @@
 			Margin="10" Grid.Row="1"
 			MouseLeftButtonUp="mainTable_MouseLeftButtonUp"
 			SelectionChanged="mainTable_SelectionChanged"
-			SelectionMode="Single">
+			SelectionMode="Single"
+			MouseDoubleClick="mainTable_MouseDoubleClick">
 			<ListView.ContextMenu>
 				<ContextMenu>
 					<MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>

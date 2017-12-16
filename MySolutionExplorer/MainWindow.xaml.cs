@@ -301,5 +301,11 @@ namespace MySolutionExplorer
 				//infoTree.ItemsSource = e.AddedItems;
 			}
 		}
+
+		private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			((ListView)e.Source).SelectedItem = null;
+			ReloadTable();
+		}
 	}
 }
