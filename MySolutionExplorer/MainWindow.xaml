@@ -18,7 +18,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="100"/>
 			<ColumnDefinition Width="auto"/>
-			<ColumnDefinition Width="150"/>
+			<ColumnDefinition Width="140"/>
 		</Grid.ColumnDefinitions>
 
 		<Menu Grid.ColumnSpan="3" IsMainMenu="True">
@@ -99,9 +99,19 @@
 			</ListView.View>
 		</ListView>
 		<GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
-		<StackPanel Grid.Row="1" Grid.Column="2">
-			<Label Content="Label"/>
-			<TextBox />
-		</StackPanel>
+		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Номер задачи:"/>
+		<TextBox Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="0,25,0,0" />
+		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top"  Content="Сайт:" Margin="0,48,0,0"/>
+		<TextBox Grid.Row="1" Grid.Column="2" Margin="0,73,0,0" Height="23" VerticalAlignment="Top"  />
+		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Название задачи:" Margin="0,96,0,0"/>
+		<TextBox Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="0,121,0,0" />
+		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Язык:" Margin="0,144,0,0"/>
+		<ComboBox Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top"  Name="langList" Margin="0,169,0,0">
+			<TextBlock>cpp</TextBlock>
+			<TextBlock>cs</TextBlock>
+			<TextBlock>py</TextBlock>
+			<TextBlock>java</TextBlock>
+		</ComboBox>
+		<Button Content="Button" Margin="10,50,10,0" VerticalAlignment="Top"/>
 	</Grid>
 </Window>
