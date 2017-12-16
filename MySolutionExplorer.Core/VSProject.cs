@@ -123,5 +123,10 @@ namespace MySolutionExplorer.Core
 			ReformCodeFileName(xml);
 			xml.Save(file.FullName);
 		}
+
+		public override void Rename()
+		{
+			ReformVSProjects();
+		}
 	}
 }

@@ -200,5 +200,7 @@ namespace MySolutionExplorer.Core
 			ParentSolution.Remove(this);
 			Dir.Delete(true);
 		}
+
+		public abstract void Rename();
     }
 }
