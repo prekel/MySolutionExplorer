@@ -48,7 +48,6 @@
 		<ListView 
 			Name="mainTable"
 			Margin="10" Grid.Row="1"
-			MouseLeftButtonUp="mainTable_MouseLeftButtonUp"
 			SelectionChanged="mainTable_SelectionChanged"
 			SelectionMode="Single"
 			MouseDoubleClick="mainTable_MouseDoubleClick">
@@ -106,13 +105,7 @@
 		<TextBox x:Name="taskSite" Grid.Row="1" Grid.Column="2" Margin="0,73,0,0" Height="23" VerticalAlignment="Top"  />
 		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Название задачи:" Margin="0,96,0,0"/>
 		<TextBox x:Name="taskName" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="0,121,0,0" />
-		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Язык:" Margin="0,144,0,0"/>
-		<ComboBox Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top"  x:Name="taskLang" Margin="0,169,0,0">
-			<TextBlock>cpp</TextBlock>
-			<TextBlock>cs</TextBlock>
-			<TextBlock>py</TextBlock>
-			<TextBlock>java</TextBlock>
-		</ComboBox>
+		<Label x:Name="taskLang" Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Язык:" Margin="0,144,0,0"/>
 		<Button Content="Button" Margin="10,50,10,0" VerticalAlignment="Top"/>
 	</Grid>
 </Window>

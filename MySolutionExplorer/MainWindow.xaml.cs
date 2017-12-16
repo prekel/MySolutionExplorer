@@ -293,21 +293,22 @@ namespace MySolutionExplorer
 
 		private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+
+		}
+
+		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
 			var si = (Project)((ListView)e.Source).SelectedItem;
 			if (si == null) return;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
 			taskNumber.Text = si.Number.ToString();
 			taskName.Text = si.TaskName;
 			taskSite.Text = si.Site;
-			//taskLang.s
-		}
-
-		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (e.AddedItems.Count == 1)
-			{
-				//infoTree.ItemsSource = e.AddedItems;
-			}
+			taskLang.Content = "Язык: " + si.Lang;
+			//if (e.AddedItems.Count == 1)
+			//{
+			//	//infoTree.ItemsSource = e.AddedItems;
+			//}
 		}
 
 		private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
