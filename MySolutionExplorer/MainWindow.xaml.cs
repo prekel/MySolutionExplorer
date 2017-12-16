@@ -50,6 +50,7 @@ namespace MySolutionExplorer
 		public MainWindow()
 		{
 			InitializeComponent();
+			mainGrid.ColumnDefinitions[2].MinWidth = 0;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
 			if (App.SolutionFile != null)
 			{
@@ -301,6 +302,7 @@ namespace MySolutionExplorer
 			var si = (Project)((ListView)e.Source).SelectedItem;
 			if (si == null) return;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
+			mainGrid.ColumnDefinitions[2].MinWidth = 135;
 			taskNumber.Text = si.Number.ToString();
 			taskName.Text = si.TaskName;
 			taskSite.Text = si.Site;
@@ -316,8 +318,14 @@ namespace MySolutionExplorer
 			var si = ((ListView)e.Source).SelectedItem;
 			if (si == null) return;
 			((ListView)e.Source).SelectedItem = null;
-			ReloadTable();
+			//ReloadTable();
+			mainGrid.ColumnDefinitions[2].MinWidth = 0;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
+		}
+
+		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
