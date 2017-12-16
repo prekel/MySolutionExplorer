@@ -50,6 +50,7 @@ namespace MySolutionExplorer
 		public MainWindow()
 		{
 			InitializeComponent();
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
 			if (App.SolutionFile != null)
 			{
 				dirfile = new FileInfo(App.SolutionFile);
@@ -292,6 +293,13 @@ namespace MySolutionExplorer
 
 		private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+			var si = (Project)((ListView)e.Source).SelectedItem;
+			if (si == null) return;
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
+			taskNumber.Text = si.Number.ToString();
+			taskName.Text = si.TaskName;
+			taskSite.Text = si.Site;
+			//taskLang.s
 		}
 
 		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -304,8 +312,11 @@ namespace MySolutionExplorer
 
 		private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 		{
+			var si = ((ListView)e.Source).SelectedItem;
+			if (si == null) return;
 			((ListView)e.Source).SelectedItem = null;
 			ReloadTable();
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
 		}
 	}
 }
