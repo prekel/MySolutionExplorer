@@ -84,7 +84,7 @@ namespace MySolutionExplorer.Core
 			ReformVSProjects();
 
 			FindFiles();
-			FindProjectFiles();
+			FindProjectFiles();	
 		}
 
 		/// <summary>

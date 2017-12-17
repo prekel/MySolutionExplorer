@@ -201,6 +201,10 @@ namespace MySolutionExplorer.Core
 			Dir.Delete(true);
 		}
 
-		public abstract void Rename();
+		public void Rename()
+		{
+			if (ParentSolution.Dir.GetDirectories().Any(u => u.Name == Name)) return;
+			Directory.CreateDirectory()	
+		}
     }
 }
