@@ -50,6 +50,14 @@ namespace MySolutionExplorer
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			//var b = new Binding
+			//{
+			//	ElementName = "MainWindow",
+			//	Path = new PropertyPath("RenameFlag")
+			//};
+			//applyButton.SetBinding(IsEnabledProperty, b);
+
 			mainGrid.ColumnDefinitions[2].MinWidth = 0;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
 			if (App.SolutionFile != null)
@@ -296,6 +304,8 @@ namespace MySolutionExplorer
 		{
 
 		}
+		
+		public bool TextChangeFlag { get; set; }
 
 		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -303,10 +313,13 @@ namespace MySolutionExplorer
 			if (si == null) return;
 			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
 			mainGrid.ColumnDefinitions[2].MinWidth = 135;
+			TextChangeFlag = false;
 			taskNumber.Text = si.Number.ToString();
 			taskName.Text = si.TaskName;
 			taskSite.Text = si.Site;
 			taskLang.Content = "Язык: " + si.Lang;
+			TextChangeFlag = true;
+			applyButton.IsEnabled = false;
 			//if (e.AddedItems.Count == 1)
 			//{
 			//	//infoTree.ItemsSource = e.AddedItems;
@@ -326,6 +339,13 @@ namespace MySolutionExplorer
 		private void MenuItem_Click(object sender, RoutedEventArgs e)
 		{
 
+		}
+
+
+		private void taskNumberNameSite_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (!TextChangeFlag) return;
+			applyButton.IsEnabled = true;
 		}
 	}
 }

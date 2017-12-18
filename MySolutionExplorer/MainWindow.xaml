@@ -100,13 +100,13 @@
 		</ListView>
 		<GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
 		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Номер задачи:"/>
-		<TextBox Name="taskNumber" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,25,5,0" />
+		<TextBox Name="taskNumber" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,25,5,0" TextChanged="taskNumberNameSite_TextChanged"/>
 		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top"  Content="Сайт:" Margin="0,48,0,0"/>
-		<TextBox x:Name="taskSite" Grid.Row="1" Grid.Column="2" Margin="5,73,5,0" Height="23" VerticalAlignment="Top"  />
+		<TextBox x:Name="taskSite" Grid.Row="1" Grid.Column="2" Margin="5,73,5,0" Height="23" VerticalAlignment="Top" TextChanged="taskNumberNameSite_TextChanged"/>
 		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Название задачи:" Margin="0,96,0,0"/>
-		<TextBox x:Name="taskName" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,121,5,0" />
+		<TextBox x:Name="taskName" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,121,5,0" TextChanged="taskNumberNameSite_TextChanged"/>
 		<Label x:Name="taskLang" Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Язык:" Margin="0,144,0,0"/>
 		<Button Content="Button" Margin="10,50,10,0" VerticalAlignment="Top"/>
-		<Button Content="Применить" Grid.Column="2" Margin="32,200,32,0" Width="71" Grid.Row="1" Height="25" VerticalAlignment="Top" IsEnabled="False"/>
+		<Button x:Name="applyButton" Content="Применить" Grid.Column="2" Margin="32,200,32,0" Width="71" Grid.Row="1" Height="25" VerticalAlignment="Top"  IsEnabled="False"/>
 	</Grid>
 </Window>

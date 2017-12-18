@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MySolutionExplorer.Core
 {
@@ -28,12 +31,9 @@ namespace MySolutionExplorer.Core
 
 		public void Rename()
 		{
-			NewProject.TaskName = "123";
 			if (OldProject.ParentSolution.Dir.GetDirectories().Any(u => u.Name == NewProject.Name)) return;
-			//var old =
-			//Directory.CreateDirectory(Dir.FullName);
-			//Directory.Move()
-			//var np = new Project();
+			Directory.CreateDirectory(NewProject.Dir.FullName);
+			Directory.Move(OldProject.Path, NewProject.Path);
 		}
 
 		public void Dispose()
