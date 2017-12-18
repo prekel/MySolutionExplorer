@@ -119,7 +119,7 @@ namespace MySolutionExplorer.Core
 		/// </summary>
 		public string CodeFileName => $"Task_{Site}{Number:D4}.{Lang}";
 
-		protected Project()
+		public Project()
 		{
 		}
 
@@ -201,10 +201,13 @@ namespace MySolutionExplorer.Core
 			Dir.Delete(true);
 		}
 
-		public void Rename()
+		public void Rename(int number, string site, string taskname, string lang)
 		{
 			if (ParentSolution.Dir.GetDirectories().Any(u => u.Name == Name)) return;
-			Directory.CreateDirectory()	
+			//var old =
+			//Directory.CreateDirectory(Dir.FullName);
+			//Directory.Move()
+			//var np = new Project();
 		}
-    }
+	}
 }

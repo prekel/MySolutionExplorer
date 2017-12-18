@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MySolutionExplorer.Core</RootNamespace>
-    <AssemblyName>MySolutionExplorer.Core</AssemblyName>
+    <AssemblyName>12</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -54,6 +54,7 @@
     <Compile Include="Langs.cs" />
     <Compile Include="MyEnum.cs" />
     <Compile Include="Project.cs" />
+    <Compile Include="ProjectRenamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PyProject.cs" />
     <Compile Include="Solution.cs" />
