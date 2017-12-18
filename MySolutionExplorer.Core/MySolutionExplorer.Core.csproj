@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="CppProject.cs" />
     <Compile Include="CSharpProject.cs" />
+    <Compile Include="IProjectRenamer.cs" />
     <Compile Include="IprProject.cs" />
     <Compile Include="JavaProject.cs" />
     <Compile Include="Langs.cs" />

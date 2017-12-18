@@ -11,27 +11,30 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer.Core
 {
-	public class ProjectRenamer<T> : IDisposable
-		where T : CSharpProject, new()
+	public class ProjectRenamer<T> : IDisposable, IProjectRenamer
+		where T : Project, new()
 	{
 		private T OldProject { get; set; }
-		public T NewProject { get; set; }
+		public Project NewProject { get; set; }
 		
 		public ProjectRenamer(T p)
 		{
 			OldProject = p;
-			NewProject = new T();
-			NewProject.Number = OldProject.Number;
-			NewProject.TaskName = OldProject.TaskName;
-			NewProject.Site = OldProject.Site;
-			NewProject.Lang = OldProject.Lang;
-			NewProject.ParentSolution = OldProject.ParentSolution;
-			NewProject.Path = OldProject.ParentSolution.Dir + MyEnum.Slash + OldProject.Name;
+			NewProject = new T
+			{
+				Number = OldProject.Number,
+				TaskName = OldProject.TaskName,
+				Site = OldProject.Site,
+				Lang = OldProject.Lang,
+				ParentSolution = OldProject.ParentSolution,
+				Path = OldProject.ParentSolution.Dir + MyEnum.Slash + OldProject.Name
+			};
 		}
 
 		public void Rename()
 		{
 			if (OldProject.ParentSolution.Dir.GetDirectories().Any(u => u.Name == NewProject.Name)) return;
+			NewProject.Dir = null;
 			Directory.CreateDirectory(NewProject.Dir.FullName);
 			Directory.Move(OldProject.Path, NewProject.Path);
 		}

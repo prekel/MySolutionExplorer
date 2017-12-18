@@ -304,7 +304,7 @@ namespace MySolutionExplorer
 		{
 
 		}
-		
+
 		public bool TextChangeFlag { get; set; }
 
 		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -346,6 +346,24 @@ namespace MySolutionExplorer
 		{
 			if (!TextChangeFlag) return;
 			applyButton.IsEnabled = true;
+		}
+
+		private void applyButton_Click(object sender, RoutedEventArgs e)
+		{
+			var si = (Project)mainTable.SelectedItem;
+			IProjectRenamer r;
+			if (si.Lang == MyEnum.CSharpNoDot)
+			{
+				r = new ProjectRenamer<CSharpProject>((CSharpProject)si);
+			}
+			else
+			{
+				return;
+			}
+			r.NewProject.Number = Int32.Parse(taskNumber.Text);
+			r.NewProject.TaskName = taskName.Text;
+			r.NewProject.Site = taskSite.Text;
+			r.Rename();
 		}
 	}
 }
