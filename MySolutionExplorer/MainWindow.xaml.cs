@@ -364,6 +364,7 @@ namespace MySolutionExplorer
 			r.NewProject.TaskName = taskName.Text;
 			r.NewProject.Site = taskSite.Text;
 			r.Rename();
+			ReloadTable();
 		}
 	}
 }

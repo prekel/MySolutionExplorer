@@ -16,26 +16,29 @@ namespace MySolutionExplorer.Core
 	{
 		private T OldProject { get; set; }
 		public Project NewProject { get; set; }
+		private Solution Solution { get; set; }
 		
 		public ProjectRenamer(T p)
 		{
 			OldProject = p;
+			Solution = p.ParentSolution;
 			NewProject = new T
 			{
 				Number = OldProject.Number,
 				TaskName = OldProject.TaskName,
 				Site = OldProject.Site,
 				Lang = OldProject.Lang,
-				ParentSolution = OldProject.ParentSolution,
-				Path = OldProject.ParentSolution.Dir + MyEnum.Slash + OldProject.Name
+				ParentSolution = Solution,
+				Path = Solution.Dir + MyEnum.Slash + OldProject.Name
 			};
+			Solution[Solution.IndexOf(OldProject)] = NewProject;
 		}
 
 		public void Rename()
 		{
 			if (OldProject.ParentSolution.Dir.GetDirectories().Any(u => u.Name == NewProject.Name)) return;
 			NewProject.Dir = null;
-			Directory.CreateDirectory(NewProject.Dir.FullName);
+			//Directory.CreateDirectory(NewProject.Dir.FullName);
 			Directory.Move(OldProject.Path, NewProject.Path);
 		}
 
