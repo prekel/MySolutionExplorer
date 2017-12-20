@@ -15,9 +15,13 @@ namespace MySolutionExplorer.Core
 		where T : Project, new()
 	{
 		private T OldProject { get; set; }
-		public Project NewProject { get; set; }
+		private Project NewProject { get; set; }
 		private Solution Solution { get; set; }
-		
+
+		public int Number { get => NewProject.Number; set => NewProject.Number = value; }
+		public string Site { get => NewProject.Site; set => NewProject.Site = value; }
+		public string TaskName { get => NewProject.TaskName; set => NewProject.TaskName = value; }
+
 		public ProjectRenamer(T p)
 		{
 			OldProject = p;
@@ -38,14 +42,13 @@ namespace MySolutionExplorer.Core
 		{
 			if (OldProject.ParentSolution.Dir.GetDirectories().Any(u => u.Name == NewProject.Name)) return;
 			NewProject.Dir = null;
-			//Directory.CreateDirectory(NewProject.Dir.FullName);
 			Directory.Move(OldProject.Path, NewProject.Path);
 			NewProject.ReformAll();
 		}
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
+			OldProject.Delete();
 		}
 	}
 }

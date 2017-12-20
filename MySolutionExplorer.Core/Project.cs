@@ -197,8 +197,20 @@ namespace MySolutionExplorer.Core
 
 		public void Delete()
 		{
-			ParentSolution.Remove(this);
-			Dir.Delete(true);
+			try
+			{
+				ParentSolution.Remove(this);
+			}
+			finally
+			{
+			}
+			try
+			{
+				Dir.Delete(true);
+			}
+			finally
+			{
+			}
 		}
 
 		public abstract void ReformAll();

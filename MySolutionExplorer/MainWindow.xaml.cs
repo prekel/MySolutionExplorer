@@ -352,17 +352,29 @@ namespace MySolutionExplorer
 		{
 			var si = (Project)mainTable.SelectedItem;
 			IProjectRenamer r;
+			if (si.Lang == MyEnum.CppNoDot)
+			{
+				r = new ProjectRenamer<CppProject>((CppProject)si);
+			}
 			if (si.Lang == MyEnum.CSharpNoDot)
 			{
 				r = new ProjectRenamer<CSharpProject>((CSharpProject)si);
+			}
+			if (si.Lang == MyEnum.JavaNoDot)
+			{
+				r = new ProjectRenamer<JavaProject>((JavaProject)si);
+			}
+			if (si.Lang == MyEnum.PythonNoDot)
+			{
+				r = new ProjectRenamer<PyProject>((PyProject)si);
 			}
 			else
 			{
 				return;
 			}
-			r.NewProject.Number = Int32.Parse(taskNumber.Text);
-			r.NewProject.TaskName = taskName.Text;
-			r.NewProject.Site = taskSite.Text;
+			r.Number = Int32.Parse(taskNumber.Text);
+			r.TaskName = taskName.Text;
+			r.Site = taskSite.Text;
 			r.Rename();
 			ReloadTable();
 		}
