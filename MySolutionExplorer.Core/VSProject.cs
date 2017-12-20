@@ -124,9 +124,9 @@ namespace MySolutionExplorer.Core
 			xml.Save(file.FullName);
 		}
 
-		//public override void Rename()
-		//{
-		//	ReformVSProjects();
-		//}
+		public override void ReformAll()
+		{
+			ReformVSProjects();
+		}
 	}
 }

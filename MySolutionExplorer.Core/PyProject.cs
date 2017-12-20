@@ -39,6 +39,7 @@ namespace MySolutionExplorer.Core
         /// <summary>
         /// Кандидат к удалению
         /// </summary>
+		[Obsolete]
 		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
 		{
 			var p = new PyProject
@@ -52,6 +53,11 @@ namespace MySolutionExplorer.Core
 			p.Path = dir + MyEnum.Slash + p.Name;
 			p.CreateFiles();
 			s.Add(p);
+		}
+
+		public override void ReformAll()
+		{
+			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 		}
 	}
 }

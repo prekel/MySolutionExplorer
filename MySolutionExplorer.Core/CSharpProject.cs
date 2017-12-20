@@ -81,7 +81,7 @@ namespace MySolutionExplorer.Core
 			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 
 			LoadProjects();
-			ReformVSProjects();
+			ReformAll();
 
 			FindFiles();
 			FindProjectFiles();	

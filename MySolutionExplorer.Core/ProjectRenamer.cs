@@ -40,6 +40,7 @@ namespace MySolutionExplorer.Core
 			NewProject.Dir = null;
 			//Directory.CreateDirectory(NewProject.Dir.FullName);
 			Directory.Move(OldProject.Path, NewProject.Path);
+			NewProject.ReformAll();
 		}
 
 		public void Dispose()

@@ -74,7 +74,7 @@ namespace MySolutionExplorer.Core
             Init();
         }
 
-        protected void ReformFiles()
+        public override void ReformAll()
         {
             ReformIpr();
             ReformIws();

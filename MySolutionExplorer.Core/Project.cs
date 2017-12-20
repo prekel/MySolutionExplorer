@@ -201,13 +201,6 @@ namespace MySolutionExplorer.Core
 			Dir.Delete(true);
 		}
 
-		public void Rename(int number, string site, string taskname, string lang)
-		{
-			if (ParentSolution.Dir.GetDirectories().Any(u => u.Name == Name)) return;
-			//var old =
-			//Directory.CreateDirectory(Dir.FullName);
-			//Directory.Move()
-			//var np = new Project();
-		}
+		public abstract void ReformAll();
 	}
 }
