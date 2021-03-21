@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 namespace MySolutionExplorer.Core
 {
     /// <summary>
-    /// Проект Visual Studio
+    /// Проект на основе Xml
     /// </summary>
     [Serializable]
     public abstract class XmlProject : Project

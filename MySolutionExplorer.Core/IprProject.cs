@@ -38,15 +38,9 @@ namespace MySolutionExplorer.Core
             set => XmlProjectFiles[2] = value;
         }
 
-        protected IprProject() : base(3)
-        {
-            Init();
-        }
+        protected IprProject() : base(3) => Init();
 
-        protected IprProject(string path) : base(path, 3)
-        {
-            Init();
-        }
+        protected IprProject(string path) : base(path, 3) => Init();
 
         private void Init()
         {
@@ -80,16 +74,16 @@ namespace MySolutionExplorer.Core
             Init();
         }
 
-        protected void ReformFiles()
+        public override void ReformAll()
         {
             ReformIpr();
             ReformIws();
             ReformIml();
         }
 
-        private void Replace(XmlProjectFile file)
+        protected void Replace(XmlProjectFile file)
         {
-            var s = "";
+            string s;
             using (var sr = new StreamReader(file.File.OpenRead()))
             {
                 s = sr.ReadToEnd();

@@ -11,6 +11,24 @@ namespace MySolutionExplorer.Core
 {
     public enum Langs
     {
-        Cpp, CSharp, Py, Java
+        /// <summary>
+        /// C++
+        /// </summary>
+        Cpp, 
+        
+        /// <summary>
+        /// C#
+        /// </summary>
+        CSharp,
+        
+        /// <summary>
+        /// Python
+        /// </summary>
+        Py, 
+        
+        /// <summary>
+        /// Java
+        /// </summary>
+        Java
     }
 }

@@ -18,6 +18,9 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.ComponentModel;
+
+using MySolutionExplorer.Core;
 
 using MySolutionExplorer.Core;
 
@@ -46,7 +49,27 @@ namespace MySolutionExplorer
 			}
 		}
 
-		public MainWindow() => InitializeComponent();
+		public MainWindow()
+		{
+			InitializeComponent();
+
+			//var b = new Binding
+			//{
+			//	ElementName = "MainWindow",
+			//	Path = new PropertyPath("RenameFlag")
+			//};
+			//applyButton.SetBinding(IsEnabledProperty, b);
+
+			mainGrid.ColumnDefinitions[2].MinWidth = 0;
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
+			if (App.SolutionFile != null)
+			{
+				dirfile = new FileInfo(App.SolutionFile);
+				s = Solution.Load(dirfile.FullName);
+				ReloadTable();
+				SaveFlag = true;
+			}
+		}
 
 		/// <summary>
 		/// Обновляет таблицу
@@ -56,6 +79,7 @@ namespace MySolutionExplorer
 			SaveFlag = false;
 			mainTable.ItemsSource = null;
 			mainTable.ItemsSource = s;
+			//mainTable.ContextMenu = new ContextMenu();
 		}
 
 		/// <summary>
@@ -170,5 +194,191 @@ namespace MySolutionExplorer
 		/// Действия при добавлении проекта
 		/// </summary>
 		private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
+
+		private void syncButton_Click(object sender, RoutedEventArgs e)
+		{
+			var myDialog = new Microsoft.Win32.OpenFileDialog
+			{
+				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+				CheckFileExists = false,
+			};
+			if (myDialog.ShowDialog() == true)
+			{
+				var dir = new FileInfo(myDialog.FileName).Directory;
+				s.Sync(dir);
+			}
+		}
+
+		private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var selproj = (Project)mainTable.SelectedItem;
+			selproj.Delete();
+			ReloadTable();
+		}
+
+		private void ExludeMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			var selproj = (Project)mainTable.SelectedItem;
+			s.Remove(selproj);
+			ReloadTable();
+		}
+
+		private void Window_Closing(object sender, CancelEventArgs e)
+		{
+			if (SaveFlag == false)
+			{
+				var r = MessageBox.Show(this, "Сохранить?", MyEnum.AppName, MessageBoxButton.YesNoCancel);
+				if (r == MessageBoxResult.Yes)
+				{
+					SaveFlag = true;
+					s.Save();
+				}
+				if (r == MessageBoxResult.Cancel)
+				{
+					e.Cancel = true;
+				}
+			}
+		}
+
+		private GridViewColumnHeader listViewSortCol = null;
+		private SortAdorner listViewSortAdorner = null;
+
+		private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+		{
+			GridViewColumnHeader column = (sender as GridViewColumnHeader);
+			string sortBy = column.Tag.ToString();
+			if (listViewSortCol != null)
+			{
+				AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
+				mainTable.Items.SortDescriptions.Clear();
+			}
+
+			ListSortDirection newDir = ListSortDirection.Ascending;
+			if (listViewSortCol == column && listViewSortAdorner.Direction == newDir)
+				newDir = ListSortDirection.Descending;
+
+			listViewSortCol = column;
+			listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
+			AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
+			mainTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+		}
+
+		public class SortAdorner : Adorner
+		{
+			private static Geometry ascGeometry =
+					Geometry.Parse("M 0 4 L 3.5 0 L 7 4 Z");
+
+			private static Geometry descGeometry =
+					Geometry.Parse("M 0 0 L 3.5 4 L 7 0 Z");
+
+			public ListSortDirection Direction { get; private set; }
+
+			public SortAdorner(UIElement element, ListSortDirection dir) : base(element)
+			{
+				Direction = dir;
+			}
+
+			protected override void OnRender(DrawingContext drawingContext)
+			{
+				base.OnRender(drawingContext);
+
+				if (AdornedElement.RenderSize.Width < 20)
+					return;
+
+				TranslateTransform transform = new TranslateTransform
+						(
+								AdornedElement.RenderSize.Width - 15,
+								(AdornedElement.RenderSize.Height - 5) / 2
+						);
+				drawingContext.PushTransform(transform);
+
+				Geometry geometry = ascGeometry;
+				if (Direction == ListSortDirection.Descending)
+					geometry = descGeometry;
+				drawingContext.DrawGeometry(Brushes.Black, null, geometry);
+
+				drawingContext.Pop();
+			}
+
+		}
+
+		private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+		public bool TextChangeFlag { get; set; }
+
+		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var si = (Project)((ListView)e.Source).SelectedItem;
+			if (si == null) return;
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
+			mainGrid.ColumnDefinitions[2].MinWidth = 135;
+			TextChangeFlag = false;
+			taskNumber.Text = si.Number.ToString();
+			taskName.Text = si.TaskName;
+			taskSite.Text = si.Site;
+			taskLang.Content = "Язык: " + si.Lang;
+			TextChangeFlag = true;
+			applyButton.IsEnabled = false;
+			//if (e.AddedItems.Count == 1)
+			//{
+			//	//infoTree.ItemsSource = e.AddedItems;
+			//}
+		}
+
+		private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			var si = ((ListView)e.Source).SelectedItem;
+			if (si == null) return;
+			((ListView)e.Source).SelectedItem = null;
+			//ReloadTable();
+			mainGrid.ColumnDefinitions[2].MinWidth = 0;
+			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
+		}
+
+		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+
+		private void taskNumberNameSite_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (!TextChangeFlag) return;
+			applyButton.IsEnabled = true;
+		}
+
+		private void applyButton_Click(object sender, RoutedEventArgs e)
+		{
+			var si = (Project)mainTable.SelectedItem;
+			IProjectRenamer r;
+			if (si.Lang == MyEnum.CppNoDot)
+			{
+				r = new ProjectRenamer<CppProject>((CppProject)si);
+			}
+			if (si.Lang == MyEnum.CSharpNoDot)
+			{
+				r = new ProjectRenamer<CSharpProject>((CSharpProject)si);
+			}
+			if (si.Lang == MyEnum.JavaNoDot)
+			{
+				r = new ProjectRenamer<JavaProject>((JavaProject)si);
+			}
+			if (si.Lang == MyEnum.PythonNoDot)
+			{
+				r = new ProjectRenamer<PyProject>((PyProject)si);
+			}
+			else
+			{
+				return;
+			}
+			r.Number = Int32.Parse(taskNumber.Text);
+			r.TaskName = taskName.Text;
+			r.Site = taskSite.Text;
+			r.Rename();
+			ReloadTable();
+		}
 	}
 }

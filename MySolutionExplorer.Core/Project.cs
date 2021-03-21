@@ -100,7 +100,7 @@ namespace MySolutionExplorer.Core
 			set
 			{
 				if (Number != 0 && Site != "" && Lang != "" && TaskName != "") return;
-				var r = new System.Text.RegularExpressions.Regex("([a-z]+) ([0-9a-zA-Z]{4}). ([0-9А-Яа-яЁёA-Za-z- ]+)");
+				var r = new System.Text.RegularExpressions.Regex("([a-z]+) ([0-9a-zA-Z]{4}). ([^`]+) ([[a-z]+])");
 				var m = r.Match(value);
 				Site = m.Groups[1].Value;
 				Number = int.Parse(m.Groups[2].Value);
@@ -119,7 +119,7 @@ namespace MySolutionExplorer.Core
 		/// </summary>
 		public string CodeFileName => $"Task_{Site}{Number:D4}.{Lang}";
 
-		protected Project()
+		public Project()
 		{
 		}
 
@@ -164,11 +164,9 @@ namespace MySolutionExplorer.Core
 			FindFiles();
 			foreach (var i in Dir.GetFiles())
 			{
-				if (!AllowedFiles.Contains(i.FullName))
-				{
-					Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
-					Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
-				}
+				if (AllowedFiles.Contains(i.FullName)) continue;
+				Directory.CreateDirectory(ParentSolution.Dir + MyEnum.Trash + Name);
+				Directory.Move(i.FullName, ParentSolution.Dir + MyEnum.Trash + Name + MyEnum.Slash + i.Name);
 			}
 		}
 
@@ -196,5 +194,25 @@ namespace MySolutionExplorer.Core
 				// ignored
 			}
 		}
-    }
+
+		public void Delete()
+		{
+			try
+			{
+				ParentSolution.Remove(this);
+			}
+			finally
+			{
+			}
+			try
+			{
+				Dir.Delete(true);
+			}
+			finally
+			{
+			}
+		}
+
+		public abstract void ReformAll();
+	}
 }
