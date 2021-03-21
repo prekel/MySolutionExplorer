@@ -11,118 +11,119 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer.Core
 {
-	/// <summary>
-	/// Проект C#
-	/// </summary>
-	[Serializable]
-	public class CSharpProject : VSProject
-	{
-		/// <summary>
-		/// Файл .csproj версии 2017
-		/// </summary>
-		[XmlIgnore]
-		private XmlProjectFile VS2017ProjectFile
-		{
-			get => XmlProjectFiles[0];
-			set => XmlProjectFiles[0] = value;
-		}
-		/// <summary>
-		/// Файл .csproj для SharpDevelop
-		/// </summary>
-		[XmlIgnore]
-		private XmlProjectFile SharpDevelopProjectFile
-		{
-			get => XmlProjectFiles[1];
-			set => XmlProjectFiles[1] = value;
-		}
+    /// <summary>
+    /// Проект C#
+    /// </summary>
+    [Serializable]
+    public class CSharpProject : VSProject
+    {
+        /// <summary>
+        /// Файл .csproj версии 2017
+        /// </summary>
+        [XmlIgnore]
+        private XmlProjectFile VS2017ProjectFile
+        {
+            get => XmlProjectFiles[0];
+            set => XmlProjectFiles[0] = value;
+        }
 
-		/// <summary>
-		/// Инициализация
-		/// </summary>
-		private void Init()
-		{
+        /// <summary>
+        /// Файл .csproj для SharpDevelop
+        /// </summary>
+        [XmlIgnore]
+        private XmlProjectFile SharpDevelopProjectFile
+        {
+            get => XmlProjectFiles[1];
+            set => XmlProjectFiles[1] = value;
+        }
+
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        private void Init()
+        {
             Lang = "cs";
-			VS2017ProjectFile = new XmlProjectFile
-			{
-				Suff = MyEnum.VS2017,
-				Parent = this,
-				Extension = MyEnum.CSProj
-			};
-			SharpDevelopProjectFile = new XmlProjectFile
-			{
-				Suff = MyEnum.SharpDevelop,
-				Parent = this,
-				Extension = MyEnum.CSProj
-			};
-		}
+            VS2017ProjectFile = new XmlProjectFile
+            {
+                Suff = MyEnum.VS2017,
+                Parent = this,
+                Extension = MyEnum.CSProj
+            };
+            SharpDevelopProjectFile = new XmlProjectFile
+            {
+                Suff = MyEnum.SharpDevelop,
+                Parent = this,
+                Extension = MyEnum.CSProj
+            };
+        }
 
-		public CSharpProject() : base(2)
-		{
-			Init();
-		}
+        public CSharpProject() : base(2)
+        {
+            Init();
+        }
 
-		public CSharpProject(string path) : base(path, 2)
-		{
-			Init();
-		}
+        public CSharpProject(string path) : base(path, 2)
+        {
+            Init();
+        }
 
-		/// <summary>
-		/// Создание файлов из шаблона, переименовывание, изменение имён внутри
-		/// </summary>
-		public override void CreateFiles()
-		{
-			CreateFiles(MyEnum.TemplateCSharpProj);
+        /// <summary>
+        /// Создание файлов из шаблона, переименовывание, изменение имён внутри
+        /// </summary>
+        public override void CreateFiles()
+        {
+            CreateFiles(MyEnum.TemplateCSharpProj);
 
-			FindProjectFiles();
+            FindProjectFiles();
 
-			CreateProjects();
+            CreateProjects();
 
-			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharp);
-			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
+            CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplateCSharp);
+            CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 
-			LoadProjects();
-			ReformAll();
+            LoadProjects();
+            ReformAll();
 
-			FindFiles();
-			FindProjectFiles();	
-		}
+            FindFiles();
+            FindProjectFiles();
+        }
 
-		/// <summary>
-		/// Действия при преобразовании шаблонного проекта
-		/// </summary>
-		/// <param name="proj">Xml-проект</param>
-		protected override void ReformVSProjXml(XmlProjectFile proj)
-		{
-			ReformRootNamespace(proj.Xml);
-			ReformAssemblyName(proj.Xml);
-			ReformCodeFileName(proj.Xml);
-			proj.Xml.Save(proj.File.FullName);
-		}
+        /// <summary>
+        /// Действия при преобразовании шаблонного проекта
+        /// </summary>
+        /// <param name="proj">Xml-проект</param>
+        protected override void ReformVSProjXml(XmlProjectFile proj)
+        {
+            ReformRootNamespace(proj.Xml);
+            ReformAssemblyName(proj.Xml);
+            ReformCodeFileName(proj.Xml);
+            proj.Xml.Save(proj.File.FullName);
+        }
 
         /// <summary>
         /// Кандидат на удаление
         /// </summary>
-		public static bool IsExistCodeFile(DirectoryInfo dir)
-		{
-			return dir.GetFiles().Any(i => i.Extension == MyEnum.CSharp);
-		}
+        public static bool IsExistCodeFile(DirectoryInfo dir)
+        {
+            return dir.GetFiles().Any(i => i.Extension == MyEnum.CSharp);
+        }
 
         /// <summary>
         /// Кандидат к удалению
         /// </summary>
         public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
-		{
-			var p = new CSharpProject
-			{
-				ParentSolution = s,
-				TaskName = task,
-				Site = site,
-				Number = int.Parse(number),
-				Lang = "cs"
-			};
-			p.Path = dir + MyEnum.Slash + p.Name;
-			p.CreateFiles();
-			s.Add(p);
-		}
-	}
+        {
+            var p = new CSharpProject
+            {
+                ParentSolution = s,
+                TaskName = task,
+                Site = site,
+                Number = int.Parse(number),
+                Lang = "cs"
+            };
+            p.Path = dir + MyEnum.Slash + p.Name;
+            p.CreateFiles();
+            s.Add(p);
+        }
+    }
 }

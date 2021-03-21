@@ -11,53 +11,53 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer.Core
 {
-	public class PyProject : Project
-	{
-		protected override void FindProjectFiles()
-		{
-			//throw new NotImplementedException();
-		}
+    public class PyProject : Project
+    {
+        protected override void FindProjectFiles()
+        {
+            //throw new NotImplementedException();
+        }
 
-		public override void CreateFiles()
-		{
-			CreateFiles(MyEnum.TemplatePyProj);
+        public override void CreateFiles()
+        {
+            CreateFiles(MyEnum.TemplatePyProj);
 
-			//FindProjectFiles();
+            //FindProjectFiles();
 
-			//CreateProjects();
+            //CreateProjects();
 
-			CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplatePy);
-			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
+            CodeFile = new FileInfo(Dir + MyEnum.Slash + MyEnum.TemplatePy);
+            CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
 
-			//LoadProjects();
-			//ReformVSProjects();
+            //LoadProjects();
+            //ReformVSProjects();
 
-			FindFiles();
-			//FindProjectFiles();
-		}
+            FindFiles();
+            //FindProjectFiles();
+        }
 
         /// <summary>
         /// Кандидат к удалению
         /// </summary>
-		[Obsolete]
-		public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
-		{
-			var p = new PyProject
-			{
-				ParentSolution = s,
-				TaskName = task,
-				Site = site,
-				Number = int.Parse(number),
-				Lang = "py"
-			};
-			p.Path = dir + MyEnum.Slash + p.Name;
-			p.CreateFiles();
-			s.Add(p);
-		}
+        [Obsolete]
+        public static void Create(Solution s, string task, string site, string number, DirectoryInfo dir)
+        {
+            var p = new PyProject
+            {
+                ParentSolution = s,
+                TaskName = task,
+                Site = site,
+                Number = int.Parse(number),
+                Lang = "py"
+            };
+            p.Path = dir + MyEnum.Slash + p.Name;
+            p.CreateFiles();
+            s.Add(p);
+        }
 
-		public override void ReformAll()
-		{
-			CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
-		}
-	}
+        public override void ReformAll()
+        {
+            CodeFile = Solution.RenameFile(CodeFile, CodeFileName);
+        }
+    }
 }

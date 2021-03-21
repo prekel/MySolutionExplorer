@@ -88,6 +88,7 @@ namespace MySolutionExplorer.Core
             {
                 s = sr.ReadToEnd();
             }
+
             s = s.Replace($"{MyEnum.TemplateProj}[{Lang}]", Name);
             s = s.Replace($"{MyEnum.TemplateCode}.{Lang}", CodeFileName);
             using (var sw = new StreamWriter(file.File.OpenWrite()))
@@ -96,19 +97,10 @@ namespace MySolutionExplorer.Core
             }
         }
 
-        protected void ReformIpr()
-        {
-            Replace(IprFile);
-        }
+        protected void ReformIpr() => Replace(IprFile);
 
-        protected void ReformIws()
-        {
-            Replace(IwsFile);
-        }
+        protected void ReformIws() => Replace(IwsFile);
 
-        protected void ReformIml()
-        {
-            Replace(ImlFile);
-        }
+        protected void ReformIml() => Replace(ImlFile);
     }
 }

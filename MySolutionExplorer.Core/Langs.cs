@@ -14,18 +14,18 @@ namespace MySolutionExplorer.Core
         /// <summary>
         /// C++
         /// </summary>
-        Cpp, 
-        
+        Cpp,
+
         /// <summary>
         /// C#
         /// </summary>
         CSharp,
-        
+
         /// <summary>
         /// Python
         /// </summary>
-        Py, 
-        
+        Py,
+
         /// <summary>
         /// Java
         /// </summary>

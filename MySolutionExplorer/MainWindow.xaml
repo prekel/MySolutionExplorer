@@ -1,112 +1,83 @@
-﻿<Window x:Class="MySolutionExplorer.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="MySolutionExplorer.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MySolutionExplorer"
-        mc:Ignorable="d"
-        Title="MySolutionExplorer" 
-		Height="350" MinHeight="350"
-		Width="525" MinWidth="250"
-		Closing="Window_Closing"
-		>
-	<Grid x:Name="mainGrid">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="20"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition MinWidth="100"/>
-			<ColumnDefinition Width="auto"/>
-			<ColumnDefinition Width="135" MinWidth="135"/>
-		</Grid.ColumnDefinitions>
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" Title="MySolutionExplorer" Height="350"
+        MinHeight="350" Width="525" MinWidth="250" Closing="Window_Closing">
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="100"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="135" MinWidth="135"/>
+        </Grid.ColumnDefinitions>
 
-		<Menu Grid.ColumnSpan="3" IsMainMenu="True">
-			<MenuItem Header="Файл">
-				<MenuItem Header="Создать" 
-					Click="CreateMenuItem_Click"></MenuItem>
-				<MenuItem Header="Открыть"
-					Click="openbutton_Click"></MenuItem>
-				<MenuItem Header="Сохранить"
-					Click="saveButton_Click"></MenuItem>
-				<MenuItem Header="Закрыть"
-					Click="closeButton_Click"></MenuItem>
-				<MenuItem Header="Импорт"
-					Click="importButton_Click"></MenuItem>
-				<MenuItem Header="Синхронизация"
-					Click="syncButton_Click"></MenuItem>
-				<Separator></Separator>
-				<MenuItem Header="Выход" 
-					Click="ExitMenuItem_Click"></MenuItem>
-			</MenuItem>
-			<MenuItem Header="Проект">
-				<MenuItem Header="Создать" 
-					Click="CreateProjMenuItem_Click"></MenuItem>
-			</MenuItem>
-		</Menu>
+        <Menu Grid.ColumnSpan="3" IsMainMenu="True">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать" Click="CreateMenuItem_Click"/>
+                <MenuItem Header="Открыть" Click="openbutton_Click"/>
+                <MenuItem Header="Сохранить" Click="saveButton_Click"/>
+                <MenuItem Header="Закрыть" Click="closeButton_Click"/>
+                <MenuItem Header="Импорт" Click="importButton_Click"/>
+                <MenuItem Header="Синхронизация" Click="syncButton_Click"/>
+                <Separator/>
+                <MenuItem Header="Выход" Click="ExitMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Проект">
+                <MenuItem Header="Создать" Click="CreateProjMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
 
-		<ListView 
-			Name="mainTable"
-			Margin="10" Grid.Row="1"
-			SelectionChanged="mainTable_SelectionChanged"
-			SelectionMode="Single"
-			MouseDoubleClick="mainTable_MouseDoubleClick">
-			<ListView.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>
-					<MenuItem Header="Исключить" Click="ExludeMenuItem_Click"/>
-				</ContextMenu>
-			</ListView.ContextMenu>
-			<ListView.View>
-				<GridView>
-					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=Site}"
-						Width="70">
-						<GridViewColumn.Header>
-							<GridViewColumnHeader 
-								Tag="Site" 
-								Click="GridViewColumnHeader_Click">Сайт</GridViewColumnHeader>
-						</GridViewColumn.Header>
-					</GridViewColumn>
-					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=Number}" 
-						Width="50">
-						<GridViewColumn.Header>
-							<GridViewColumnHeader 
-								Tag="Number" 
-								Click="GridViewColumnHeader_Click">Номер</GridViewColumnHeader>
-						</GridViewColumn.Header>
-					</GridViewColumn>
-					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=TaskName}" 
-						Width="150">
-						<GridViewColumn.Header>
-							<GridViewColumnHeader 
-								Tag="TaskName" 
-								Click="GridViewColumnHeader_Click">Название</GridViewColumnHeader>
-						</GridViewColumn.Header>
-					</GridViewColumn>
-					<GridViewColumn 
-						DisplayMemberBinding="{Binding Path=Lang}"  
-						Width="50">
-						<GridViewColumn.Header>
-							<GridViewColumnHeader 
-								Tag="Lang" 
-								Click="GridViewColumnHeader_Click">Язык</GridViewColumnHeader>
-						</GridViewColumn.Header>
-					</GridViewColumn>
-				</GridView>
-			</ListView.View>
-		</ListView>
-		<GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
-		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Номер задачи:"/>
-		<TextBox Name="taskNumber" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,25,5,0" TextChanged="taskNumberNameSite_TextChanged"/>
-		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top"  Content="Сайт:" Margin="0,48,0,0"/>
-		<TextBox x:Name="taskSite" Grid.Row="1" Grid.Column="2" Margin="5,73,5,0" Height="23" VerticalAlignment="Top" TextChanged="taskNumberNameSite_TextChanged"/>
-		<Label Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Название задачи:" Margin="0,96,0,0"/>
-		<TextBox x:Name="taskName" Grid.Row="1" Grid.Column="2"  Height="23" VerticalAlignment="Top" Margin="5,121,5,0" TextChanged="taskNumberNameSite_TextChanged"/>
-		<Label x:Name="taskLang" Grid.Row="1" Grid.Column="2"  Height="25" VerticalAlignment="Top" Content="Язык:" Margin="0,144,0,0"/>
-		<Button Content="Button" Margin="10,50,10,0" VerticalAlignment="Top"/>
-		<Button x:Name="applyButton" Content="Применить" Grid.Column="2" Margin="32,200,32,0" Width="71" Grid.Row="1" Height="25" VerticalAlignment="Top"  IsEnabled="False" Click="applyButton_Click"/>
-	</Grid>
+        <ListView Name="mainTable" Margin="10" Grid.Row="1" SelectionChanged="mainTable_SelectionChanged"
+                  SelectionMode="Single" MouseDoubleClick="mainTable_MouseDoubleClick">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Удалить" Click="DeleteMenuItem_Click"/>
+                    <MenuItem Header="Исключить" Click="ExludeMenuItem_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Site}" Width="70">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Site" Click="GridViewColumnHeader_Click">Сайт</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Width="50">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Number" Click="GridViewColumnHeader_Click">Номер</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=TaskName}" Width="150">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="TaskName" Click="GridViewColumnHeader_Click">Название</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Lang}" Width="50">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Lang" Click="GridViewColumnHeader_Click">Язык</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <GridSplitter Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4"/>
+        <Label Grid.Row="1" Grid.Column="2" Height="25" VerticalAlignment="Top" Content="Номер задачи:"/>
+        <TextBox Name="taskNumber" Grid.Row="1" Grid.Column="2" Height="23" VerticalAlignment="Top" Margin="5,25,5,0"
+                 TextChanged="taskNumberNameSite_TextChanged"/>
+        <Label Grid.Row="1" Grid.Column="2" Height="25" VerticalAlignment="Top" Content="Сайт:" Margin="0,48,0,0"/>
+        <TextBox x:Name="taskSite" Grid.Row="1" Grid.Column="2" Margin="5,73,5,0" Height="23" VerticalAlignment="Top"
+                 TextChanged="taskNumberNameSite_TextChanged"/>
+        <Label Grid.Row="1" Grid.Column="2" Height="25" VerticalAlignment="Top" Content="Название задачи:"
+               Margin="0,96,0,0"/>
+        <TextBox x:Name="taskName" Grid.Row="1" Grid.Column="2" Height="23" VerticalAlignment="Top" Margin="5,121,5,0"
+                 TextChanged="taskNumberNameSite_TextChanged"/>
+        <Label x:Name="taskLang" Grid.Row="1" Grid.Column="2" Height="25" VerticalAlignment="Top" Content="Язык:"
+               Margin="0,144,0,0"/>
+        <Button Content="Button" Margin="10,50,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="applyButton" Content="Применить" Grid.Column="2" Margin="32,200,32,0" Width="71" Grid.Row="1"
+                Height="25" VerticalAlignment="Top" IsEnabled="False" Click="applyButton_Click"/>
+    </Grid>
 </Window>

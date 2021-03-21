@@ -2,11 +2,11 @@
 
 namespace MySolutionExplorer.Core
 {
-	public interface IProjectRenamer 
-	{
-		int Number { get; set; }
-		string Site { get; set; }
-		string TaskName { get; set; }
-		void Rename();
-	}
+    public interface IProjectRenamer
+    {
+        int Number { get; set; }
+        string Site { get; set; }
+        string TaskName { get; set; }
+        void Rename();
+    }
 }

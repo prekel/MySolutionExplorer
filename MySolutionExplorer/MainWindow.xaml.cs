@@ -21,364 +21,385 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 
 using MySolutionExplorer.Core;
-
 using MySolutionExplorer.Core;
 
 namespace MySolutionExplorer
 {
-	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		Solution s;
-		DirectoryInfo dir;
-		FileInfo dirfile;
-		private bool savef;
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private Solution s;
+        private DirectoryInfo dir;
+        private FileInfo dirfile;
+        private bool savef;
 
-		/// <summary>
-		/// Флаг сохранения, при изменении меняет заголовок
-		/// </summary>
-		public bool SaveFlag
-		{
-			get => savef;
-			set
-			{
-				savef = value;
-				Title = (dirfile?.Name ?? "") + (value ? "" : "*") + " - " + MyEnum.AppName;
-			}
-		}
+        /// <summary>
+        /// Флаг сохранения, при изменении меняет заголовок
+        /// </summary>
+        public bool SaveFlag
+        {
+            get => savef;
+            set
+            {
+                savef = value;
+                Title = (dirfile?.Name ?? "") + (value ? "" : "*") + " - " + MyEnum.AppName;
+            }
+        }
 
-		public MainWindow()
-		{
-			InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-			//var b = new Binding
-			//{
-			//	ElementName = "MainWindow",
-			//	Path = new PropertyPath("RenameFlag")
-			//};
-			//applyButton.SetBinding(IsEnabledProperty, b);
+            //var b = new Binding
+            //{
+            //	ElementName = "MainWindow",
+            //	Path = new PropertyPath("RenameFlag")
+            //};
+            //applyButton.SetBinding(IsEnabledProperty, b);
 
-			mainGrid.ColumnDefinitions[2].MinWidth = 0;
-			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
-			if (App.SolutionFile != null)
-			{
-				dirfile = new FileInfo(App.SolutionFile);
-				s = Solution.Load(dirfile.FullName);
-				ReloadTable();
-				SaveFlag = true;
-			}
-		}
+            mainGrid.ColumnDefinitions[2].MinWidth = 0;
+            mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
+            if (App.SolutionFile != null)
+            {
+                dirfile = new FileInfo(App.SolutionFile);
+                s = Solution.Load(dirfile.FullName);
+                ReloadTable();
+                SaveFlag = true;
+            }
+        }
 
-		/// <summary>
-		/// Обновляет таблицу
-		/// </summary>
-		public void ReloadTable()
-		{
-			SaveFlag = false;
-			mainTable.ItemsSource = null;
-			mainTable.ItemsSource = s;
-			//mainTable.ContextMenu = new ContextMenu();
-		}
+        /// <summary>
+        /// Обновляет таблицу
+        /// </summary>
+        public void ReloadTable()
+        {
+            SaveFlag = false;
+            mainTable.ItemsSource = null;
+            mainTable.ItemsSource = s;
+            //mainTable.ContextMenu = new ContextMenu();
+        }
 
-		/// <summary>
-		/// Создание пустого решения
-		/// </summary>
-		public void CreateEmptySolution()
-		{
-			s = new Solution(dirfile.FullName);
-			SaveFlag = true;
-		}
+        /// <summary>
+        /// Создание пустого решения
+        /// </summary>
+        public void CreateEmptySolution()
+        {
+            s = new Solution(dirfile.FullName);
+            SaveFlag = true;
+        }
 
-		/// <summary>
-		/// Нажатие на кнопку загрузки
-		/// </summary>
-		private void loadButton_Click(object sender, RoutedEventArgs e)
-		{
-			s = Solution.Load(dirfile.FullName);
-			mainTable.ItemsSource = s;
-			SaveFlag = true;
-		}
+        /// <summary>
+        /// Нажатие на кнопку загрузки
+        /// </summary>
+        private void loadButton_Click(object sender, RoutedEventArgs e)
+        {
+            s = Solution.Load(dirfile.FullName);
+            mainTable.ItemsSource = s;
+            SaveFlag = true;
+        }
 
-		/// <summary>
-		/// Нажатие на кнопку сохранения решения
-		/// </summary>
-		private void saveButton_Click(object sender, RoutedEventArgs e)
-		{
-			s.Save();
-			SaveFlag = true;
-		}
+        /// <summary>
+        /// Нажатие на кнопку сохранения решения
+        /// </summary>
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            s.Save();
+            SaveFlag = true;
+        }
 
-		/// <summary>
-		/// Закрытие решения
-		/// </summary>
-		private void closeButton_Click(object sender, RoutedEventArgs e)
-		{
-			s = null;
-			SaveFlag = true;
-			Title = MyEnum.AppName;
-			dir = null;
-			dirfile = null;
-			mainTable.ItemsSource = null;
-		}
+        /// <summary>
+        /// Закрытие решения
+        /// </summary>
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            s = null;
+            SaveFlag = true;
+            Title = MyEnum.AppName;
+            dir = null;
+            dirfile = null;
+            mainTable.ItemsSource = null;
+        }
 
-		/// <summary>
-		/// Импорт
-		/// </summary>
-		private void importButton_Click(object sender, RoutedEventArgs e)
-		{
-			if (s.ImportProjects() > 0) ReloadTable();
-		}
+        /// <summary>
+        /// Импорт
+        /// </summary>
+        private void importButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (s.ImportProjects() > 0)
+            {
+                ReloadTable();
+            }
+        }
 
-		/// <summary>
-		/// Открытие
-		/// </summary>
-		private void openbutton_Click(object sender, RoutedEventArgs e)
-		{
-			if (OpenSolutionDialog())
-			{
-				s = Solution.Load(dirfile.FullName);
-				mainTable.ItemsSource = s;
-				SaveFlag = true;
-			}
-		}
+        /// <summary>
+        /// Открытие
+        /// </summary>
+        private void openbutton_Click(object sender, RoutedEventArgs e)
+        {
+            if (OpenSolutionDialog())
+            {
+                s = Solution.Load(dirfile.FullName);
+                mainTable.ItemsSource = s;
+                SaveFlag = true;
+            }
+        }
 
-		/// <summary>
-		/// Обзор
-		/// </summary>
-		/// <returns>Выбрал ли пользователь файл</returns>
-		public bool OpenSolutionDialog()
-		{
-			var myDialog = new Microsoft.Win32.OpenFileDialog
-			{
-				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
-				CheckFileExists = false,
-			};
-			if (myDialog.ShowDialog() == true)
-			{
-				dirfile = new FileInfo(myDialog.FileName);
-				dir = dirfile.Directory;
-				return true;
-			}
-			return false;
-		}
+        /// <summary>
+        /// Обзор
+        /// </summary>
+        /// <returns>Выбрал ли пользователь файл</returns>
+        public bool OpenSolutionDialog()
+        {
+            var myDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+                CheckFileExists = false
+            };
+            if (myDialog.ShowDialog() == true)
+            {
+                dirfile = new FileInfo(myDialog.FileName);
+                dir = dirfile.Directory;
+                return true;
+            }
 
-		/// <summary>
-		/// Выход
-		/// </summary>
-		private void ExitMenuItem_Click(object sender, RoutedEventArgs e) => Close();
+            return false;
+        }
 
-		/// <summary>
-		/// Создание пустого решения (нажатие на кнопку)
-		/// </summary>
-		private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			if (OpenSolutionDialog())
-			{
-				CreateEmptySolution();
-			}
-		}
+        /// <summary>
+        /// Выход
+        /// </summary>
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e) => Close();
 
-		/// <summary>
-		/// Открытие окна создания проекта
-		/// </summary>
-		private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			var w = new CreateProjectWindow(s);
-			w.Show();
-			w.Create += W_Create;
-		}
+        /// <summary>
+        /// Создание пустого решения (нажатие на кнопку)
+        /// </summary>
+        private void CreateMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (OpenSolutionDialog())
+            {
+                CreateEmptySolution();
+            }
+        }
 
-		/// <summary>
-		/// Действия при добавлении проекта
-		/// </summary>
-		private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
+        /// <summary>
+        /// Открытие окна создания проекта
+        /// </summary>
+        private void CreateProjMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var w = new CreateProjectWindow(s);
+            w.Show();
+            w.Create += W_Create;
+        }
 
-		private void syncButton_Click(object sender, RoutedEventArgs e)
-		{
-			var myDialog = new Microsoft.Win32.OpenFileDialog
-			{
-				Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
-				CheckFileExists = false,
-			};
-			if (myDialog.ShowDialog() == true)
-			{
-				var dir = new FileInfo(myDialog.FileName).Directory;
-				s.Sync(dir);
-			}
-		}
+        /// <summary>
+        /// Действия при добавлении проекта
+        /// </summary>
+        private void W_Create(object sender, ProjectEventArgs e) => ReloadTable();
 
-		private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			var selproj = (Project)mainTable.SelectedItem;
-			selproj.Delete();
-			ReloadTable();
-		}
+        private void syncButton_Click(object sender, RoutedEventArgs e)
+        {
+            var myDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "MySLN|*.mysln|XML|*.xml|Все файлы|*.*",
+                CheckFileExists = false
+            };
+            if (myDialog.ShowDialog() == true)
+            {
+                var dir = new FileInfo(myDialog.FileName).Directory;
+                s.Sync(dir);
+            }
+        }
 
-		private void ExludeMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			var selproj = (Project)mainTable.SelectedItem;
-			s.Remove(selproj);
-			ReloadTable();
-		}
+        private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var selproj = (Project) mainTable.SelectedItem;
+            selproj.Delete();
+            ReloadTable();
+        }
 
-		private void Window_Closing(object sender, CancelEventArgs e)
-		{
-			if (SaveFlag == false)
-			{
-				var r = MessageBox.Show(this, "Сохранить?", MyEnum.AppName, MessageBoxButton.YesNoCancel);
-				if (r == MessageBoxResult.Yes)
-				{
-					SaveFlag = true;
-					s.Save();
-				}
-				if (r == MessageBoxResult.Cancel)
-				{
-					e.Cancel = true;
-				}
-			}
-		}
+        private void ExludeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var selproj = (Project) mainTable.SelectedItem;
+            s.Remove(selproj);
+            ReloadTable();
+        }
 
-		private GridViewColumnHeader listViewSortCol = null;
-		private SortAdorner listViewSortAdorner = null;
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (SaveFlag == false)
+            {
+                var r = MessageBox.Show(this, "Сохранить?", MyEnum.AppName, MessageBoxButton.YesNoCancel);
+                if (r == MessageBoxResult.Yes)
+                {
+                    SaveFlag = true;
+                    s.Save();
+                }
 
-		private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
-		{
-			GridViewColumnHeader column = (sender as GridViewColumnHeader);
-			string sortBy = column.Tag.ToString();
-			if (listViewSortCol != null)
-			{
-				AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
-				mainTable.Items.SortDescriptions.Clear();
-			}
+                if (r == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
 
-			ListSortDirection newDir = ListSortDirection.Ascending;
-			if (listViewSortCol == column && listViewSortAdorner.Direction == newDir)
-				newDir = ListSortDirection.Descending;
+        private GridViewColumnHeader listViewSortCol = null;
+        private SortAdorner listViewSortAdorner = null;
 
-			listViewSortCol = column;
-			listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
-			AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
-			mainTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
-		}
+        private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader column = sender as GridViewColumnHeader;
+            string sortBy = column.Tag.ToString();
+            if (listViewSortCol != null)
+            {
+                AdornerLayer.GetAdornerLayer(listViewSortCol).Remove(listViewSortAdorner);
+                mainTable.Items.SortDescriptions.Clear();
+            }
 
-		public class SortAdorner : Adorner
-		{
-			private static Geometry ascGeometry =
-					Geometry.Parse("M 0 4 L 3.5 0 L 7 4 Z");
+            ListSortDirection newDir = ListSortDirection.Ascending;
+            if (listViewSortCol == column && listViewSortAdorner.Direction == newDir)
+            {
+                newDir = ListSortDirection.Descending;
+            }
 
-			private static Geometry descGeometry =
-					Geometry.Parse("M 0 0 L 3.5 4 L 7 0 Z");
+            listViewSortCol = column;
+            listViewSortAdorner = new SortAdorner(listViewSortCol, newDir);
+            AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
+            mainTable.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
+        }
 
-			public ListSortDirection Direction { get; private set; }
+        public class SortAdorner : Adorner
+        {
+            private static Geometry ascGeometry =
+                Geometry.Parse("M 0 4 L 3.5 0 L 7 4 Z");
 
-			public SortAdorner(UIElement element, ListSortDirection dir) : base(element)
-			{
-				Direction = dir;
-			}
+            private static Geometry descGeometry =
+                Geometry.Parse("M 0 0 L 3.5 4 L 7 0 Z");
 
-			protected override void OnRender(DrawingContext drawingContext)
-			{
-				base.OnRender(drawingContext);
+            public ListSortDirection Direction { get; private set; }
 
-				if (AdornedElement.RenderSize.Width < 20)
-					return;
+            public SortAdorner(UIElement element, ListSortDirection dir) : base(element) => Direction = dir;
 
-				TranslateTransform transform = new TranslateTransform
-						(
-								AdornedElement.RenderSize.Width - 15,
-								(AdornedElement.RenderSize.Height - 5) / 2
-						);
-				drawingContext.PushTransform(transform);
+            protected override void OnRender(DrawingContext drawingContext)
+            {
+                base.OnRender(drawingContext);
 
-				Geometry geometry = ascGeometry;
-				if (Direction == ListSortDirection.Descending)
-					geometry = descGeometry;
-				drawingContext.DrawGeometry(Brushes.Black, null, geometry);
+                if (AdornedElement.RenderSize.Width < 20)
+                {
+                    return;
+                }
 
-				drawingContext.Pop();
-			}
+                TranslateTransform transform = new TranslateTransform
+                (
+                    AdornedElement.RenderSize.Width - 15,
+                    (AdornedElement.RenderSize.Height - 5) / 2
+                );
+                drawingContext.PushTransform(transform);
 
-		}
+                Geometry geometry = ascGeometry;
+                if (Direction == ListSortDirection.Descending)
+                {
+                    geometry = descGeometry;
+                }
 
-		private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
+                drawingContext.DrawGeometry(Brushes.Black, null, geometry);
 
-		}
+                drawingContext.Pop();
+            }
+        }
 
-		public bool TextChangeFlag { get; set; }
+        private void mainTable_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+        }
 
-		private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var si = (Project)((ListView)e.Source).SelectedItem;
-			if (si == null) return;
-			mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
-			mainGrid.ColumnDefinitions[2].MinWidth = 135;
-			TextChangeFlag = false;
-			taskNumber.Text = si.Number.ToString();
-			taskName.Text = si.TaskName;
-			taskSite.Text = si.Site;
-			taskLang.Content = "Язык: " + si.Lang;
-			TextChangeFlag = true;
-			applyButton.IsEnabled = false;
-			//if (e.AddedItems.Count == 1)
-			//{
-			//	//infoTree.ItemsSource = e.AddedItems;
-			//}
-		}
+        public bool TextChangeFlag { get; set; }
 
-		private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-			var si = ((ListView)e.Source).SelectedItem;
-			if (si == null) return;
-			((ListView)e.Source).SelectedItem = null;
-			//ReloadTable();
-			mainGrid.ColumnDefinitions[2].MinWidth = 0;
-			mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
-		}
+        private void mainTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var si = (Project) ((ListView) e.Source).SelectedItem;
+            if (si == null)
+            {
+                return;
+            }
 
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
-		{
+            mainGrid.ColumnDefinitions[2].Width = new GridLength(135);
+            mainGrid.ColumnDefinitions[2].MinWidth = 135;
+            TextChangeFlag = false;
+            taskNumber.Text = si.Number.ToString();
+            taskName.Text = si.TaskName;
+            taskSite.Text = si.Site;
+            taskLang.Content = "Язык: " + si.Lang;
+            TextChangeFlag = true;
+            applyButton.IsEnabled = false;
+            //if (e.AddedItems.Count == 1)
+            //{
+            //	//infoTree.ItemsSource = e.AddedItems;
+            //}
+        }
 
-		}
+        private void mainTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var si = ((ListView) e.Source).SelectedItem;
+            if (si == null)
+            {
+                return;
+            }
+
+            ((ListView) e.Source).SelectedItem = null;
+            //ReloadTable();
+            mainGrid.ColumnDefinitions[2].MinWidth = 0;
+            mainGrid.ColumnDefinitions[2].Width = new GridLength(0);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+        }
 
 
-		private void taskNumberNameSite_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (!TextChangeFlag) return;
-			applyButton.IsEnabled = true;
-		}
+        private void taskNumberNameSite_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!TextChangeFlag)
+            {
+                return;
+            }
 
-		private void applyButton_Click(object sender, RoutedEventArgs e)
-		{
-			var si = (Project)mainTable.SelectedItem;
-			IProjectRenamer r;
-			if (si.Lang == MyEnum.CppNoDot)
-			{
-				r = new ProjectRenamer<CppProject>((CppProject)si);
-			}
-			if (si.Lang == MyEnum.CSharpNoDot)
-			{
-				r = new ProjectRenamer<CSharpProject>((CSharpProject)si);
-			}
-			if (si.Lang == MyEnum.JavaNoDot)
-			{
-				r = new ProjectRenamer<JavaProject>((JavaProject)si);
-			}
-			if (si.Lang == MyEnum.PythonNoDot)
-			{
-				r = new ProjectRenamer<PyProject>((PyProject)si);
-			}
-			else
-			{
-				return;
-			}
-			r.Number = Int32.Parse(taskNumber.Text);
-			r.TaskName = taskName.Text;
-			r.Site = taskSite.Text;
-			r.Rename();
-			ReloadTable();
-		}
-	}
+            applyButton.IsEnabled = true;
+        }
+
+        private void applyButton_Click(object sender, RoutedEventArgs e)
+        {
+            var si = (Project) mainTable.SelectedItem;
+            IProjectRenamer r;
+            if (si.Lang == MyEnum.CppNoDot)
+            {
+                r = new ProjectRenamer<CppProject>((CppProject) si);
+            }
+
+            if (si.Lang == MyEnum.CSharpNoDot)
+            {
+                r = new ProjectRenamer<CSharpProject>((CSharpProject) si);
+            }
+
+            if (si.Lang == MyEnum.JavaNoDot)
+            {
+                r = new ProjectRenamer<JavaProject>((JavaProject) si);
+            }
+
+            if (si.Lang == MyEnum.PythonNoDot)
+            {
+                r = new ProjectRenamer<PyProject>((PyProject) si);
+            }
+            else
+            {
+                return;
+            }
+
+            r.Number = Int32.Parse(taskNumber.Text);
+            r.TaskName = taskName.Text;
+            r.Site = taskSite.Text;
+            r.Rename();
+            ReloadTable();
+        }
+    }
 }

@@ -10,18 +10,19 @@ using System.Windows;
 
 namespace MySolutionExplorer
 {
-	/// <summary>
-	/// Логика взаимодействия для App.xaml
-	/// </summary>
-	public partial class App : Application
-	{
-		public static string SolutionFile;
-		private void Application_Startup(object sender, StartupEventArgs e)
-		{
-			if (e.Args.Length > 0)
-			{
-				SolutionFile = e.Args[0];
-			}
-		}
-	}
+    /// <summary>
+    /// Логика взаимодействия для App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        public static string SolutionFile;
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length > 0)
+            {
+                SolutionFile = e.Args[0];
+            }
+        }
+    }
 }

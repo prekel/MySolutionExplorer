@@ -11,15 +11,15 @@ using System.Xml.Serialization;
 
 namespace MySolutionExplorer.Core
 {
-	/// <summary>
-	/// Xml-файл проекта
-	/// </summary>
-	public class XmlProjectFile
-	{
-		public FileInfo File { get; set; }
-		public XmlDocument Xml { get; set; }
-		public Project Parent { get; set; }
-		public string Suff { get; set; }
-		public string Extension { get; set; }
-	}
+    /// <summary>
+    /// Xml-файл проекта
+    /// </summary>
+    public class XmlProjectFile
+    {
+        public FileInfo File { get; set; }
+        public XmlDocument Xml { get; set; }
+        public Project Parent { get; set; }
+        public string Suff { get; set; }
+        public string Extension { get; set; }
+    }
 }

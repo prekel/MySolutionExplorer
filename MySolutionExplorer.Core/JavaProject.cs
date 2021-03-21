@@ -50,9 +50,7 @@ namespace MySolutionExplorer.Core
         /// <summary>
         /// Кандидат к удалению
         /// </summary>
-        public static void Create(Solution s, string text1, string text2, string text3, DirectoryInfo dir)
-        {
+        public static void Create(Solution s, string text1, string text2, string text3, DirectoryInfo dir) =>
             throw new NotImplementedException();
-        }
     }
 }

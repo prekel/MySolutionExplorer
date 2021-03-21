@@ -40,7 +40,7 @@ namespace MySolutionExplorer.Core
         {
             Init(n);
         }
-        
+
         protected XmlProject(string path, int n) : base(path)
         {
             Init(n);
